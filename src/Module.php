@@ -8,10 +8,11 @@ use Zend\ModuleManager\Feature\BootstrapListenerInterface;
 use Zend\ModuleManager\Feature\ConfigProviderInterface;
 
 class Module implements
-        AutoloaderProviderInterface,
-        ConfigProviderInterface,
-        BootstrapListenerInterface
+    AutoloaderProviderInterface,
+    ConfigProviderInterface,
+    BootstrapListenerInterface
 {
+
     /**
      * Listen to the bootstrap event
      *
@@ -37,7 +38,7 @@ class Module implements
      */
     public function getConfig()
     {
-        return require __DIR__ . '/configs/module.config.php';
+        return require __DIR__ . '/../configs/module.config.php';
     }
 
     /**
@@ -55,4 +56,5 @@ class Module implements
             ],
         ];
     }
+
 }
