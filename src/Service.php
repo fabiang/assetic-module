@@ -5,10 +5,10 @@ namespace AsseticBundle;
 use Assetic\Asset\AssetCollection;
 use Assetic\AssetManager;
 use Assetic\FilterManager as AsseticFilterManager;
-use Assetic\Factory;
-use Assetic\Factory\Worker\WorkerInterface;
+use Assetic\Contracts\Factory\Worker\WorkerInterface;
+use Assetic\Factory\AssetFactory;
 use Assetic\AssetWriter;
-use Assetic\Asset\AssetInterface;
+use Assetic\Contracts\Asset\AssetInterface;
 use Assetic\Asset\AssetCache;
 use Assetic\Cache\FilesystemCache;
 use Zend\View\Renderer\RendererInterface as Renderer;
@@ -16,6 +16,7 @@ use AsseticBundle\View\StrategyInterface;
 
 class Service
 {
+
     const DEFAULT_ROUTE_NAME = 'default';
 
     /**
@@ -171,7 +172,7 @@ class Service
     {
         $moduleConfiguration = $this->configuration->getModules();
         foreach ($moduleConfiguration as $configuration) {
-            $factory = $this->createAssetFactory($configuration);
+            $factory     = $this->createAssetFactory($configuration);
             $collections = (array) $configuration['collections'];
             foreach ($collections as $name => $options) {
                 $this->prepareCollection($options, $name, $factory);
@@ -181,9 +182,7 @@ class Service
 
     private function cacheAsset(AssetInterface $asset)
     {
-        return $this->configuration->getCacheEnabled()
-            ? new AssetCache($asset, new FilesystemCache($this->configuration->getCachePath()))
-            : $asset;
+        return $this->configuration->getCacheEnabled() ? new AssetCache($asset, new FilesystemCache($this->configuration->getCachePath())) : $asset;
     }
 
     private function initFilters(array $filters)
@@ -201,7 +200,7 @@ class Service
                     );
                 }
 
-                $name = $options['name'];
+                $name   = $options['name'];
                 $option = isset($options['option']) ? $options['option'] : null;
             } elseif (is_string($options)) {
                 $name = $options;
@@ -217,7 +216,7 @@ class Service
 
             if (!$fm->has($filterId)) {
                 if (is_array($option) && !empty($option)) {
-                    $r = new \ReflectionClass($name);
+                    $r      = new \ReflectionClass($name);
                     $filter = $r->newInstanceArgs($option);
                 } elseif ($option) {
                     $filter = new $name($option);
@@ -237,8 +236,8 @@ class Service
     public function setupRenderer(Renderer $renderer)
     {
         $controllerConfig = $this->getControllerConfig();
-        $actionConfig = $this->getActionConfig();
-        $config = array_merge($controllerConfig, $actionConfig);
+        $actionConfig     = $this->getActionConfig();
+        $config           = array_merge($controllerConfig, $actionConfig);
 
         if (count($config) == 0) {
             $config = $this->getRouterConfig();
@@ -291,9 +290,8 @@ class Service
     public function getActionConfig()
     {
         $assetOptions = $this->configuration->getController($this->getControllerName());
-        $actionName = $this->getActionName();
-        if ($assetOptions && array_key_exists('actions', $assetOptions)
-            && array_key_exists($actionName, $assetOptions['actions'])
+        $actionName   = $this->getActionName();
+        if ($assetOptions && array_key_exists('actions', $assetOptions) && array_key_exists($actionName, $assetOptions['actions'])
         ) {
             $actionAssets = $assetOptions['actions'][$actionName];
         } else {
@@ -307,13 +305,13 @@ class Service
     {
         if (!$this->hasStrategyForRenderer($renderer)) {
             throw new Exception\InvalidArgumentException(sprintf(
-                'no strategy defined for renderer "%s"',
-                $this->getRendererName($renderer)
+                    'no strategy defined for renderer "%s"',
+                    $this->getRendererName($renderer)
             ));
         }
 
         /** @var $strategy \AsseticBundle\View\StrategyInterface */
-        $strategy = $this->getStrategyForRenderer($renderer);
+        $strategy   = $this->getStrategyForRenderer($renderer);
         while ($assetAlias = array_shift($options)) {
             $assetAlias = ltrim($assetAlias, '@');
 
@@ -357,8 +355,8 @@ class Service
             $strategyClass = $this->configuration->getStrategyNameForRenderer($rendererName);
             if (!class_exists($strategyClass, true)) {
                 throw new Exception\InvalidArgumentException(sprintf(
-                    'strategy class "%s" dosen\'t exists',
-                    $strategyClass
+                        'strategy class "%s" dosen\'t exists',
+                        $strategyClass
                 ));
             }
 
@@ -366,8 +364,8 @@ class Service
 
             if (!($instance instanceof StrategyInterface)) {
                 throw new Exception\DomainException(sprintf(
-                    'strategy class "%s" is not instanceof "AsseticBundle\View\StrategyInterface"',
-                    $strategyClass
+                        'strategy class "%s" is not instanceof "AsseticBundle\View\StrategyInterface"',
+                        $strategyClass
                 ));
             }
 
@@ -410,14 +408,14 @@ class Service
     /**
      * @param array $configuration
      *
-     * @return Factory\AssetFactory
+     * @return AssetFactory
      */
     public function createAssetFactory(array $configuration)
     {
-        $factory = new Factory\AssetFactory($configuration['root_path']);
+        $factory = new AssetFactory($configuration['root_path']);
         $factory->setAssetManager($this->getAssetManager());
         $factory->setFilterManager($this->getFilterManager());
-        $worker = $this->getCacheBusterStrategy();
+        $worker  = $this->getCacheBusterStrategy();
         if ($worker instanceof WorkerInterface) {
             $factory->addWorker($worker);
         }
@@ -429,19 +427,20 @@ class Service
     /**
      * @param AssetCollection       $asset
      * @param string|null           $targetPath
-     * @param Factory\AssetFactory  $factory
+     * @param AssetFactory  $factory
      * @param bool                  $disableSourcePath
      */
     public function moveRaw(
         AssetCollection $asset,
         $targetPath,
-        Factory\AssetFactory $factory,
+        AssetFactory $factory,
         $disableSourcePath = false
-    ) {
+    )
+    {
         foreach ($asset as $value) {
             /** @var $value AssetInterface */
             if ($disableSourcePath) {
-                $value->setTargetPath(( $targetPath ? $targetPath : '' ) . basename( $value->getSourcePath() ) );
+                $value->setTargetPath(( $targetPath ? $targetPath : '' ) . basename($value->getSourcePath()));
             } else {
                 $value->setTargetPath(( $targetPath ? $targetPath : '' ) . $value->getSourcePath());
             }
@@ -454,32 +453,32 @@ class Service
     /**
      * @param array $options
      * @param string $name
-     * @param Factory\AssetFactory $factory
+     * @param AssetFactory $factory
      *
      * @return void
      */
-    public function prepareCollection($options, $name, Factory\AssetFactory $factory)
+    public function prepareCollection($options, $name, AssetFactory $factory)
     {
-        $assets = isset($options['assets']) ? $options['assets'] : [];
-        $filters = isset($options['filters']) ? $options['filters'] : [];
-        $options = isset($options['options']) ? $options['options'] : [];
+        $assets            = isset($options['assets']) ? $options['assets'] : [];
+        $filters           = isset($options['filters']) ? $options['filters'] : [];
+        $options           = isset($options['options']) ? $options['options'] : [];
         $options['output'] = isset($options['output']) ? $options['output'] : $name;
-        $moveRaw = isset($options['move_raw']) && $options['move_raw'];
-        $targetPath = !empty( $options['targetPath'] ) ? $options['targetPath'] : '';
-        if (substr( $targetPath, -1 ) != DIRECTORY_SEPARATOR) {
+        $moveRaw           = isset($options['move_raw']) && $options['move_raw'];
+        $targetPath        = !empty($options['targetPath']) ? $options['targetPath'] : '';
+        if (substr($targetPath, -1) != DIRECTORY_SEPARATOR) {
             $targetPath .= DIRECTORY_SEPARATOR;
         }
 
         $filters = $this->initFilters($filters);
-        $asset = $factory->createAsset($assets, $filters, $options);
+        $asset   = $factory->createAsset($assets, $filters, $options);
 
         // Allow to move all files 1:1 to new directory
         // its particularly useful when this assets are i.e. images.
         if ($moveRaw) {
-            if ( isset( $options['disable_source_path'] ) ) {
-                $this->moveRaw( $asset, $targetPath, $factory, $options['disable_source_path'] );
+            if (isset($options['disable_source_path'])) {
+                $this->moveRaw($asset, $targetPath, $factory, $options['disable_source_path']);
             } else {
-                $this->moveRaw( $asset, $targetPath, $factory );
+                $this->moveRaw($asset, $targetPath, $factory);
             }
         } else {
             $asset = $this->cacheAsset($asset);
@@ -493,9 +492,9 @@ class Service
      * Write $asset to public directory.
      *
      * @param AssetInterface       $asset     Asset to write
-     * @param Factory\AssetFactory $factory   The factory this asset was generated with
+     * @param AssetFactory $factory   The factory this asset was generated with
      */
-    public function writeAsset(AssetInterface $asset, Factory\AssetFactory $factory)
+    public function writeAsset(AssetInterface $asset, AssetFactory $factory)
     {
         // We're not interested in saving assets on request
         if (!$this->configuration->getBuildOnRequest()) {
@@ -521,17 +520,16 @@ class Service
 
     /**
      * @param AssetInterface       $asset     Asset to write
-     * @param Factory\AssetFactory $factory   The factory this asset was generated with
+     * @param AssetFactory $factory   The factory this asset was generated with
      */
-    protected function write(AssetInterface $asset, Factory\AssetFactory $factory)
+    protected function write(AssetInterface $asset, AssetFactory $factory)
     {
         $umask = $this->configuration->getUmask();
         if (null !== $umask) {
             $umask = umask($umask);
         }
 
-        if ($this->configuration->isDebug() && !$this->configuration->isCombine()
-            && ($asset instanceof AssetCollection)
+        if ($this->configuration->isDebug() && !$this->configuration->isCombine() && ($asset instanceof AssetCollection)
         ) {
             foreach ($asset as $item) {
                 $this->writeAsset($item, $factory);
@@ -544,4 +542,5 @@ class Service
             umask($umask);
         }
     }
+
 }

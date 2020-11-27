@@ -6,6 +6,7 @@ use Zend\Stdlib;
 
 class Configuration
 {
+
     /**
      * Debug option that is passed to Assetic.
      *
@@ -242,14 +243,14 @@ class Configuration
 
     public function getRoute($name, $default = null)
     {
-        $assets = [];
+        $assets       = [];
         $routeMatched = false;
 
         // Merge all assets configuration for which regular expression matches route
         foreach ($this->routes as $spec => $config) {
             if (preg_match('(^' . $spec . '$)i', $name)) {
                 $routeMatched = true;
-                $assets = Stdlib\ArrayUtils::merge($assets, (array) $config);
+                $assets       = Stdlib\ArrayUtils::merge($assets, (array) $config);
             }
         }
 
@@ -269,9 +270,7 @@ class Configuration
 
     public function getController($name, $default = null)
     {
-        return array_key_exists($name, $this->controllers)
-            ? $this->controllers[$name]
-            : $default;
+        return array_key_exists($name, $this->controllers) ? $this->controllers[$name] : $default;
     }
 
     public function setModules(array $modules)
@@ -284,7 +283,7 @@ class Configuration
 
     public function addModule($name, array $options)
     {
-        $name = strtolower($name);
+        $name                 = strtolower($name);
         $this->modules[$name] = $options;
     }
 
@@ -297,9 +296,7 @@ class Configuration
     {
         $name = strtolower($name);
 
-        return array_key_exists($name, $this->modules)
-            ? $this->modules[$name]
-            : $default;
+        return array_key_exists($name, $this->modules) ? $this->modules[$name] : $default;
     }
 
     public function detectBaseUrl()
@@ -350,8 +347,8 @@ class Configuration
 
     protected function assembleSetterNameFromConfigKey($key)
     {
-        $parts = explode('_', $key);
-        $parts = array_map('ucfirst', $parts);
+        $parts  = explode('_', $key);
+        $parts  = array_map('ucfirst', $parts);
         $setter = 'set' . implode('', $parts);
         if (!method_exists($this, $setter)) {
             throw new Exception\BadMethodCallException(
@@ -376,9 +373,7 @@ class Configuration
 
     public function getStrategyNameForRenderer($rendererName, $default = null)
     {
-        return array_key_exists($rendererName, $this->rendererToStrategy)
-            ? $this->rendererToStrategy[$rendererName]
-            : $default;
+        return array_key_exists($rendererName, $this->rendererToStrategy) ? $this->rendererToStrategy[$rendererName] : $default;
     }
 
     public function setAcceptableErrors(array $acceptableErrors)
@@ -441,4 +436,5 @@ class Configuration
     {
         return $this->writeIfChanged;
     }
+
 }

@@ -2,12 +2,12 @@
 
 namespace AsseticBundle\View\Helper;
 
-use Zend\View\Helper\Placeholder\Container,
-    Zend\ServiceManager\ServiceLocatorInterface;
-use AsseticBundle\ServiceFactory,
-    AsseticBundle\Exception,
-    Assetic\Asset\AssetInterface,
-    Assetic\Asset\AssetCollection;
+use Zend\View\Helper\Placeholder\Container;
+use Zend\ServiceManager\ServiceLocatorInterface;
+use AsseticBundle\ServiceFactory;
+use AsseticBundle\Exception;
+use Assetic\Contracts\Asset\AssetInterface;
+use Assetic\Asset\AssetCollection;
 
 /**
  * Class Asset
@@ -16,9 +16,10 @@ use AsseticBundle\ServiceFactory,
  */
 class Asset extends Container\AbstractStandalone
 {
+
     /** @var \AsseticBundle\Service|null */
-    protected $service = null;
-    protected $baseUrl = '';
+    protected $service  = null;
+    protected $baseUrl  = '';
     protected $basePath = '';
 
     /**
@@ -27,10 +28,10 @@ class Asset extends Container\AbstractStandalone
     public function __construct(ServiceLocatorInterface $serviceLocator)
     {
         $serviceFactory = new ServiceFactory();
-        $this->service = $serviceFactory->createService($serviceLocator);
+        $this->service  = $serviceFactory->createService($serviceLocator);
         $this->service->build();
 
-        $this->baseUrl = $this->service->getConfiguration()->getBaseUrl();
+        $this->baseUrl  = $this->service->getConfiguration()->getBaseUrl();
         $this->basePath = $this->service->getConfiguration()->getBasePath();
     }
 
@@ -66,9 +67,7 @@ class Asset extends Container\AbstractStandalone
         $ret = '';
 
         if (
-            $this->service->getConfiguration()->isDebug()
-            && !$this->service->getConfiguration()->isCombine()
-            && $asset instanceof AssetCollection
+            $this->service->getConfiguration()->isDebug() && !$this->service->getConfiguration()->isCombine() && $asset instanceof AssetCollection
         ) {
             // Move assets as single instance not as a collection
             foreach ($asset as $value) {
@@ -90,7 +89,7 @@ class Asset extends Container\AbstractStandalone
      */
     protected function helper(AssetInterface $asset, array $options = [])
     {
-        $path = $this->baseUrl . $this->basePath .  $asset->getTargetPath();
+        $path = $this->baseUrl . $this->basePath . $asset->getTargetPath();
 
         $extension = pathinfo($path, PATHINFO_EXTENSION);
         $extension = strtolower($extension);
@@ -132,12 +131,13 @@ class Asset extends Container\AbstractStandalone
     protected function getStylesheetTag($path, array $options = [])
     {
         $media = (isset($options['media']) && !empty($options['media'])) ? $options['media'] : 'screen';
-        $type = (isset($options['type']) && !empty($options['type'])) ? $options['type'] : 'text/css';
-        $rel = (isset($options['rel']) && !empty($options['rel'])) ? $options['rel'] : 'stylesheet';
+        $type  = (isset($options['type']) && !empty($options['type'])) ? $options['type'] : 'text/css';
+        $rel   = (isset($options['rel']) && !empty($options['rel'])) ? $options['rel'] : 'stylesheet';
 
         return '<link href="' . $this->escape($path)
             . '" media="' . $this->escape($media)
             . '" rel="' . $this->escape($rel)
             . '" type="' . $this->escape($type) . '">';
     }
+
 }

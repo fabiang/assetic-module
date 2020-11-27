@@ -43,10 +43,9 @@
         "leafo/scssphp": "Assetic provides the integration with the scssphp SCSS compiler"
     },
     "autoload": {
-        "psr-0": {
-            "AsseticBundle": "src"
-        },
-        "classmap": ["Module.php"]
+        "psr-4": {
+            "AsseticBundle\\": "src/"
+        }
     },
     "replace": {
         "widmogrod/zf2-assetic-module": "self.version"

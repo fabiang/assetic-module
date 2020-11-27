@@ -8,6 +8,7 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 
 class ServiceFactory implements FactoryInterface
 {
+
     /**
      * @param ContainerInterface $locator
      * @param string $requestedName
@@ -48,4 +49,5 @@ class ServiceFactory implements FactoryInterface
     {
         return $this($locator, 'AsseticService');
     }
+
 }

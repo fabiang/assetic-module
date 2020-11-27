@@ -8,6 +8,7 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 
 class FilterManagerFactory implements FactoryInterface
 {
+
     /**
      * @param ContainerInterface $locator
      * @param string $requestedName
@@ -31,4 +32,5 @@ class FilterManagerFactory implements FactoryInterface
     {
         return $this($locator, 'FilterManager');
     }
+
 }

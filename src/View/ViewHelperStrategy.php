@@ -4,21 +4,22 @@ namespace AsseticBundle\View;
 
 use Assetic\Asset\AssetCollection;
 use Zend\View\Renderer\PhpRenderer;
-use Assetic\Asset\AssetInterface;
+use Assetic\Contracts\Asset\AssetInterface;
 
 class ViewHelperStrategy extends AbstractStrategy
 {
+
     public function setupAsset(AssetInterface $asset)
     {
         if ($this->isDebug() && !$this->isCombine() && $asset instanceof AssetCollection) {
             // Move assets as single instance not as a collection
             foreach ($asset as $value) {
                 /** @var AssetCollection $value */
-                $path = $this->getBaseUrl() . $this->getBasePath() .  $value->getTargetPath();
+                $path = $this->getBaseUrl() . $this->getBasePath() . $value->getTargetPath();
                 $this->helper($path);
             }
         } else {
-            $path = $this->getBaseUrl() . $this->getBasePath() .  $asset->getTargetPath();
+            $path = $this->getBaseUrl() . $this->getBasePath() . $asset->getTargetPath();
             $this->helper($path);
         }
     }
@@ -62,4 +63,5 @@ class ViewHelperStrategy extends AbstractStrategy
                 break;
         }
     }
+
 }

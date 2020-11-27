@@ -2,12 +2,13 @@
 
 namespace AsseticBundle;
 
-use Assetic\Filter\FilterInterface;
+use Assetic\Contracts\Filter\FilterInterface;
 use Assetic\FilterManager as AsseticFilterManager;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 class FilterManager extends AsseticFilterManager
 {
+
     /**
      * @var ServiceLocatorInterface
      */
@@ -52,8 +53,8 @@ class FilterManager extends AsseticFilterManager
         $filter = $service->get($alias);
         if (!($filter instanceof FilterInterface)) {
             $givenType = is_object($filter) ? get_class($filter) : gettype($filter);
-            $message = 'Retrieved filter "%s" is not instanceof "Assetic\Filter\FilterInterface", but type was given %s';
-            $message = sprintf($message, $alias, $givenType);
+            $message   = 'Retrieved filter "%s" is not instanceof "Assetic\Filter\FilterInterface", but type was given %s';
+            $message   = sprintf($message, $alias, $givenType);
             throw new \InvalidArgumentException($message);
         }
 
@@ -61,4 +62,5 @@ class FilterManager extends AsseticFilterManager
 
         return $filter;
     }
+
 }

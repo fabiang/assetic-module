@@ -9,6 +9,7 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 
 class WriterFactory implements FactoryInterface
 {
+
     /**
      * @param ContainerInterface $locator
      * @param string $requestedName
@@ -33,4 +34,5 @@ class WriterFactory implements FactoryInterface
     {
         return $this($locator, 'AssetWriter');
     }
+
 }

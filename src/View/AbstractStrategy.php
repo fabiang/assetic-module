@@ -2,19 +2,16 @@
 
 namespace AsseticBundle\View;
 
-use AsseticBundle\Service,
-    Zend\View\Renderer\RendererInterface as Renderer;
+use AsseticBundle\Service;
+use Zend\View\Renderer\RendererInterface as Renderer;
 
 abstract class AbstractStrategy implements StrategyInterface
 {
+
     protected $renderer;
-
     protected $baseUrl;
-
     protected $basePath;
-
-    protected $debug = false;
-
+    protected $debug   = false;
     protected $combine = true;
 
     public function setRenderer(Renderer $renderer)
@@ -69,4 +66,5 @@ abstract class AbstractStrategy implements StrategyInterface
     {
         return $this->combine;
     }
+
 }

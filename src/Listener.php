@@ -10,6 +10,7 @@ use Zend\Stdlib\CallbackHandler;
 
 class Listener implements ListenerAggregateInterface
 {
+
     /**
      * @var CallbackHandler[]
      */
@@ -80,4 +81,5 @@ class Listener implements ListenerAggregateInterface
         // Init assets for modules
         $asseticService->setupRenderer($sm->get('ViewRenderer'));
     }
+
 }
