@@ -1,9 +1,17 @@
+2020-11-27
+----------
+
+  * Fork of original module
+  * Use PSR-4
+  * Replaced original Assetic library with assetic/framework 2.0
+  * Make module compatible to Laminas Framework
+  * Allow symfony/console 4.0 and 5.0
+
 2016-07-05
 ----------
 
  * Upgrade minimum PHP version to 5.6
  * Add support for ZF3 (Big thanks to [@tylkomat](https://github.com/widmogrod/zf2-assetic-module/pull/147) and [@Saeven](https://github.com/widmogrod/zf2-assetic-module/pull/146)
-
 
 2015-05-02
 ----------

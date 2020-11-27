@@ -21,5 +21,3 @@ Read [the quick start guide](https://github.com/fabiang/assetic-module/blob/mast
   * [How to start?](https://github.com/fabiang/assetic-module/blob/master/docs/howto.md)
   * [Configuration](https://github.com/fabiang/assetic-module/blob/master/docs/config.md)
   * [Tips & Tricks](https://github.com/fabiang/assetic-module/blob/master/docs/tips.md)
-
-[![Build Status](https://travis-ci.org/fabiang/assetic-module.png?branch=devel)](https://travis-ci.org/fabiang/assetic-module)  on branch `devel`
