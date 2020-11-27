@@ -42,5 +42,6 @@ class BuildCommand extends Command
         $config->setBuildOnRequest(true);
         $this->assetic->build();
         $this->assetic->getAssetWriter()->writeManagerAssets($this->assetic->getAssetManager());
+        return 0;
     }
 }
