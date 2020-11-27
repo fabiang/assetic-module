@@ -1,13 +1,13 @@
-# How to use AsseticBundle with ZF3
+# How to use AsseticBundle with Laminas
 ## Introduction
-Step by step introduction, how to use `AsseticBundle` with `ZF3`
+Step by step introduction, how to use `AsseticBundle` with `Laminas`
 
 #### [Install Laminas MVC skeleton application](https://github.com/laminas/laminas-mvc-skeleton)
 ```
 composer create-project laminas/laminas-mvc-skeleton path/to/project
 ```
 
-#### Enter ZF3 directory
+#### Enter Laminas directory
 ```
 cd path/to/project
 ```
