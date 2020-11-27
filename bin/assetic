@@ -1,6 +1,9 @@
 #!/usr/bin/env php
 <?php
 
+use Laminas\Mvc\Application;
+use Laminas\Stdlib\ArrayUtils;
+
 if (file_exists(__DIR__ . '/../vendor/autoload.php')) {
     include_once __DIR__ . '/../vendor/autoload.php';
 } elseif (file_exists(__DIR__ . '/../../../autoload.php')) {
@@ -34,11 +37,11 @@ if (!file_exists('config/application.config.php')) {
 
 $appConfig = include 'config/application.config.php';
 if (file_exists('config/development.config.php')) {
-    $appConfig = Zend\Stdlib\ArrayUtils::merge($appConfig, include 'config/development.config.php');
+    $appConfig = ArrayUtils::merge($appConfig, include 'config/development.config.php');
 }
 
 // init Zend Application
-$application = \Zend\Mvc\Application::init($appConfig);
+$application = Application::init($appConfig);
 
 /* @var $cli \Symfony\Console\Application */
 $cli = $application->getServiceManager()->get('AsseticBundle\Cli');

@@ -1,17 +1,19 @@
 <?php
 
-namespace AsseticBundle\Factory;
+namespace Fabiang\AsseticBundle\Factory;
 
-use AsseticBundle\Configuration;
+use Fabiang\AsseticBundle\Configuration;
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 
 class ConfigurationFactory implements FactoryInterface
 {
+
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
         $configuration = $container->get('Configuration');
 
         return new Configuration($configuration['assetic_configuration']);
     }
+
 }

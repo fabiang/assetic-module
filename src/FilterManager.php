@@ -1,25 +1,26 @@
 <?php
 
-namespace AsseticBundle;
+namespace Fabiang\AsseticBundle;
 
 use Assetic\Contracts\Filter\FilterInterface;
 use Assetic\FilterManager as AsseticFilterManager;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Interop\Container\ContainerInterface;
+use Fabiang\AsseticBundle\Exception\InvalidArgumentException;
 
 class FilterManager extends AsseticFilterManager
 {
 
     /**
-     * @var ServiceLocatorInterface
+     * @var ContainerInterface
      */
-    protected $serviceLocator;
+    protected $container;
 
     /**
-     * @param ServiceLocatorInterface $locator
+     * @param ContainerInterface $container
      */
-    public function __construct(ServiceLocatorInterface $locator)
+    public function __construct(ContainerInterface $container)
     {
-        $this->serviceLocator = $locator;
+        $this->container = $container;
     }
 
     /**
@@ -29,7 +30,7 @@ class FilterManager extends AsseticFilterManager
      */
     public function has($alias)
     {
-        return parent::has($alias) ? true : $this->serviceLocator->has($alias);
+        return parent::has($alias) ? true : $this->container->has($alias);
     }
 
     /**
@@ -45,9 +46,9 @@ class FilterManager extends AsseticFilterManager
             return parent::get($alias);
         }
 
-        $service = $this->serviceLocator;
+        $service = $this->container;
         if (!$service->has($alias)) {
-            throw new \InvalidArgumentException(sprintf('There is no "%s" filter in ZF2 service manager.', $alias));
+            throw new InvalidArgumentException(sprintf('There is no "%s" filter in ZF2 service manager.', $alias));
         }
 
         $filter = $service->get($alias);
@@ -55,7 +56,7 @@ class FilterManager extends AsseticFilterManager
             $givenType = is_object($filter) ? get_class($filter) : gettype($filter);
             $message   = 'Retrieved filter "%s" is not instanceof "Assetic\Filter\FilterInterface", but type was given %s';
             $message   = sprintf($message, $alias, $givenType);
-            throw new \InvalidArgumentException($message);
+            throw new InvalidArgumentException($message);
         }
 
         $this->set($alias, $filter);

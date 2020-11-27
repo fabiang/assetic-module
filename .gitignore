@@ -5,3 +5,4 @@ vendor/
 .idea
 .vagrant
 phpunit.xml
+.phpunit.result.cache

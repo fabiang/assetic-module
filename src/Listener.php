@@ -1,20 +1,14 @@
 <?php
 
-namespace AsseticBundle;
+namespace Fabiang\AsseticBundle;
 
-use Zend\EventManager\EventManagerInterface;
-use Zend\EventManager\ListenerAggregateInterface;
-use Zend\Http\PhpEnvironment\Response;
-use Zend\Mvc\MvcEvent;
-use Zend\Stdlib\CallbackHandler;
+use Laminas\EventManager\EventManagerInterface;
+use Laminas\EventManager\AbstractListenerAggregate;
+use Laminas\Http\PhpEnvironment\Response;
+use Laminas\Mvc\MvcEvent;
 
-class Listener implements ListenerAggregateInterface
+class Listener extends AbstractListenerAggregate
 {
-
-    /**
-     * @var CallbackHandler[]
-     */
-    protected $listeners = [];
 
     /**
      * Attach one or more listeners
@@ -27,22 +21,16 @@ class Listener implements ListenerAggregateInterface
      */
     public function attach(EventManagerInterface $events, $priority = 32)
     {
-        $this->listeners[] = $events->attach(MvcEvent::EVENT_DISPATCH, [$this, 'renderAssets'], $priority);
-        $this->listeners[] = $events->attach(MvcEvent::EVENT_DISPATCH_ERROR, [$this, 'renderAssets'], $priority);
-    }
-
-    /**
-     * Detach all previously attached listeners
-     *
-     * @param EventManagerInterface $events
-     */
-    public function detach(EventManagerInterface $events)
-    {
-        foreach ($this->listeners as $index => $listener) {
-            if ($events->detach($listener)) {
-                unset($this->listeners[$index]);
-            }
-        }
+        $this->listeners[] = $events->attach(
+            MvcEvent::EVENT_DISPATCH,
+            [$this, 'renderAssets'],
+            $priority
+        );
+        $this->listeners[] = $events->attach(
+            MvcEvent::EVENT_DISPATCH_ERROR,
+            [$this, 'renderAssets'],
+            $priority
+        );
     }
 
     public function renderAssets(MvcEvent $e)

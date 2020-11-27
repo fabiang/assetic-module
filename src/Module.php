@@ -1,28 +1,25 @@
 <?php
 
-namespace AsseticBundle;
+namespace Fabiang\AsseticBundle;
 
-use Zend\EventManager\EventInterface;
-use Zend\ModuleManager\Feature\AutoloaderProviderInterface;
-use Zend\ModuleManager\Feature\BootstrapListenerInterface;
-use Zend\ModuleManager\Feature\ConfigProviderInterface;
+use Laminas\EventManager\EventInterface;
+use Laminas\ModuleManager\Feature\AutoloaderProviderInterface;
+use Laminas\ModuleManager\Feature\BootstrapListenerInterface;
+use Laminas\ModuleManager\Feature\ConfigProviderInterface;
 
-class Module implements
-    AutoloaderProviderInterface,
-    ConfigProviderInterface,
-    BootstrapListenerInterface
+class Module implements AutoloaderProviderInterface, ConfigProviderInterface, BootstrapListenerInterface
 {
 
     /**
      * Listen to the bootstrap event
      *
-     * @param \Zend\EventManager\EventInterface $e
+     * @param \Laminas\EventManager\EventInterface $e
      *
      * @return array
      */
     public function onBootstrap(EventInterface $e)
     {
-        /** @var $e \Zend\Mvc\MvcEvent */
+        /** @var $e \Laminas\Mvc\MvcEvent */
         // Only attach the Listener if the request came in through http(s)
         if (PHP_SAPI !== 'cli') {
             $app = $e->getApplication();
@@ -38,18 +35,18 @@ class Module implements
      */
     public function getConfig()
     {
-        return require __DIR__ . '/../configs/module.config.php';
+        return require __DIR__ . '/../config/module.config.php';
     }
 
     /**
-     * Return an array for passing to Zend\Loader\AutoloaderFactory.
+     * Return an array for passing to Laminas\Loader\AutoloaderFactory.
      *
      * @return array
      */
     public function getAutoloaderConfig()
     {
         return [
-            'Zend\Loader\StandardAutoloader' => [
+            'Laminas\Loader\StandardAutoloader' => [
                 'namespaces' => [
                     __NAMESPACE__ => __DIR__ . '/src/' . __NAMESPACE__ . '/'
                 ],

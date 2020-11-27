@@ -1,26 +1,21 @@
 <?php
 
-namespace AsseticBundle;
+namespace Fabiang\AsseticBundle;
 
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 
 class ServiceFactory implements FactoryInterface
 {
 
     /**
-     * @param ContainerInterface $locator
      * @param string $requestedName
-     * @param array $options, optional
-     *
-     * @return \AsseticBundle\Service
      */
-    public function __invoke(ContainerInterface $locator, $requestedName, array $options = null)
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        $asseticConfig = $locator->get('AsseticConfiguration');
+        $asseticConfig = $container->get('AsseticConfiguration');
         if ($asseticConfig->detectBaseUrl()) {
-            /** @var $request \Zend\Http\PhpEnvironment\Request */
+            /** @var $request \Laminas\Http\PhpEnvironment\Request */
             $request = $locator->get('Request');
             if (method_exists($request, 'getBaseUrl')) {
                 $asseticConfig->setBaseUrl($request->getBaseUrl());
@@ -38,16 +33,6 @@ class ServiceFactory implements FactoryInterface
         }
 
         return $asseticService;
-    }
-
-    /**
-     * @param ServiceLocatorInterface $locator
-     *
-     * @return \AsseticBundle\Service
-     */
-    public function createService(ServiceLocatorInterface $locator)
-    {
-        return $this($locator, 'AsseticService');
     }
 
 }

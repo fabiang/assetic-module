@@ -1,6 +1,6 @@
 <?php
 
-namespace AsseticBundle;
+namespace Fabiang\AsseticBundle;
 
 use Assetic\Asset\AssetCollection;
 use Assetic\AssetManager;
@@ -11,8 +11,8 @@ use Assetic\AssetWriter;
 use Assetic\Contracts\Asset\AssetInterface;
 use Assetic\Asset\AssetCache;
 use Assetic\Cache\FilesystemCache;
-use Zend\View\Renderer\RendererInterface as Renderer;
-use AsseticBundle\View\StrategyInterface;
+use Laminas\View\Renderer\RendererInterface as Renderer;
+use Fabiang\AsseticBundle\View\StrategyInterface;
 
 class Service
 {
@@ -310,7 +310,7 @@ class Service
             ));
         }
 
-        /** @var $strategy \AsseticBundle\View\StrategyInterface */
+        /** @var $strategy \Fabiang\AsseticBundle\View\StrategyInterface */
         $strategy   = $this->getStrategyForRenderer($renderer);
         while ($assetAlias = array_shift($options)) {
             $assetAlias = ltrim($assetAlias, '@');
@@ -323,7 +323,7 @@ class Service
     }
 
     /**
-     * @param \Zend\View\Renderer\RendererInterface $renderer
+     * @param \Laminas\View\Renderer\RendererInterface $renderer
      *
      * @return bool
      */
@@ -337,12 +337,12 @@ class Service
     /**
      * Get strategy to setup assets for given $renderer.
      *
-     * @param \Zend\View\Renderer\RendererInterface $renderer
+     * @param \Laminas\View\Renderer\RendererInterface $renderer
      *
      * @throws Exception\DomainException
      * @throws Exception\InvalidArgumentException
      *
-     * @return \AsseticBundle\View\StrategyInterface|null
+     * @return \Fabiang\AsseticBundle\View\StrategyInterface|null
      */
     public function getStrategyForRenderer(Renderer $renderer)
     {
@@ -364,7 +364,7 @@ class Service
 
             if (!($instance instanceof StrategyInterface)) {
                 throw new Exception\DomainException(sprintf(
-                        'strategy class "%s" is not instanceof "AsseticBundle\View\StrategyInterface"',
+                        'strategy class "%s" is not instanceof "Fabiang\AsseticBundle\View\StrategyInterface"',
                         $strategyClass
                 ));
             }
@@ -372,7 +372,7 @@ class Service
             $this->strategy[$rendererName] = $instance;
         }
 
-        /** @var $strategy \AsseticBundle\View\StrategyInterface */
+        /** @var $strategy \Fabiang\AsseticBundle\View\StrategyInterface */
         $strategy = $this->strategy[$rendererName];
         $strategy->setBaseUrl($this->configuration->getBaseUrl());
         $strategy->setBasePath($this->configuration->getBasePath());
@@ -386,7 +386,7 @@ class Service
     /**
      * Get renderer name from $renderer object.
      *
-     * @param \Zend\View\Renderer\RendererInterface $renderer
+     * @param \Laminas\View\Renderer\RendererInterface $renderer
      *
      * @return string
      */

@@ -1,6 +1,15 @@
-# AsseticBundle v2.0 [![Build Status](https://travis-ci.org/fabiang/assetic-module.png?branch=master)](https://travis-ci.org/fabiang/assetic-module)
+# AsseticBundle v3.0 [![Build Status](https://travis-ci.org/fabiang/assetic-module.png?branch=master)](https://travis-ci.org/fabiang/assetic-module)
 
 Currently maintained fork of [widmogrod/zf2-assetic-module](https://github.com/widmogrod/zf2-assetic-module).
+
+Goals for v3.0:
+
+  * [ ] Drop support for PHP <7.4
+  * [ ] Add support for PHP 8.0
+  * [ ] Remove support for Zend Framework
+  * [ ] Use return-types and type-hints everywhere
+  * [ ] Reach 100% unit test coverage
+  * [ ] Add integration test
 
 Assets management per module made easy.
 

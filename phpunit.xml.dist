@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit bootstrap="tests/Bootstrap.php"
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd"
          colors="true"
          verbose="true"
          backupGlobals="false"
@@ -12,9 +13,18 @@
         </testsuite>
     </testsuites>
 
-    <filter>
-        <whitelist>
+    <coverage>
+        <include>
             <directory suffix=".php">./src/</directory>
-        </whitelist>
-    </filter>
+        </include>
+    </coverage>
+
+    <php>
+        <ini name="error_reporting" value="-1"/>
+        <ini name="display_errors" value="on"/>
+        <ini name="log_errors" value="off"/>
+        <const name="TEST_ASSETS_DIR" value="tests/assets"/>
+        <const name="TEST_CACHE_DIR" value="tests/cache"/>
+        <const name="TEST_PUBLIC_DIR" value="tests/public"/>
+    </php>
 </phpunit>

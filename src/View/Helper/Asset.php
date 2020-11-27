@@ -1,34 +1,31 @@
 <?php
 
-namespace AsseticBundle\View\Helper;
+namespace Fabiang\AsseticBundle\View\Helper;
 
-use Zend\View\Helper\Placeholder\Container;
-use Zend\ServiceManager\ServiceLocatorInterface;
-use AsseticBundle\ServiceFactory;
-use AsseticBundle\Exception;
+use Laminas\View\Helper\Placeholder\Container;
+use Interop\Container\ContainerInterface;
+use Fabiang\AsseticBundle\ServiceFactory;
+use Fabiang\AsseticBundle\Exception;
 use Assetic\Contracts\Asset\AssetInterface;
 use Assetic\Asset\AssetCollection;
 
 /**
  * Class Asset
  *
- * @package AsseticBundle\View\Helper
+ * @package Fabiang\AsseticBundle\View\Helper
  */
 class Asset extends Container\AbstractStandalone
 {
 
-    /** @var \AsseticBundle\Service|null */
+    /** @var \Fabiang\AsseticBundle\Service|null */
     protected $service  = null;
     protected $baseUrl  = '';
     protected $basePath = '';
 
-    /**
-     * @param ServiceLocatorInterface $serviceLocator
-     */
-    public function __construct(ServiceLocatorInterface $serviceLocator)
+    public function __construct(ContainerInterface $container)
     {
         $serviceFactory = new ServiceFactory();
-        $this->service  = $serviceFactory->createService($serviceLocator);
+        $this->service  = $serviceFactory->createService($container);
         $this->service->build();
 
         $this->baseUrl  = $this->service->getConfiguration()->getBaseUrl();
@@ -41,7 +38,7 @@ class Asset extends Container\AbstractStandalone
      *
      * @return string
      *
-     * @throws \AsseticBundle\Exception\InvalidArgumentException
+     * @throws \Fabiang\AsseticBundle\Exception\InvalidArgumentException
      */
     public function __invoke($collectionName, array $options = [])
     {

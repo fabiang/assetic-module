@@ -2,13 +2,15 @@
 
 namespace AsseticBundleTest\CacheBuster;
 
-use AsseticBundle\CacheBuster\LastModifiedStrategy,
-    Assetic\Asset\FileAsset,
-    Assetic\Factory\AssetFactory;
+use Fabiang\AsseticBundle\CacheBuster\LastModifiedStrategy;
+use Assetic\Asset\FileAsset;
+use Assetic\Factory\AssetFactory;
+use PHPUnit\Framework\TestCase;
 
-class LastModifiedStrategyTest extends \PHPUnit_Framework_TestCase
+class LastModifiedStrategyTest extends TestCase
 {
-    public function setUp()
+
+    public function setUp(): void
     {
         $this->cacheBuster = new LastModifiedStrategy();
     }
@@ -27,4 +29,5 @@ class LastModifiedStrategyTest extends \PHPUnit_Framework_TestCase
             $asset->getTargetPath()
         );
     }
+
 }

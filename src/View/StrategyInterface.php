@@ -1,9 +1,9 @@
 <?php
 
-namespace AsseticBundle\View;
+namespace Fabiang\AsseticBundle\View;
 
-use AsseticBundle\Service;
-use Zend\View\Renderer\RendererInterface as Renderer;
+use Fabiang\AsseticBundle\Service;
+use Laminas\View\Renderer\RendererInterface as Renderer;
 use Assetic\Asset\AssetInterface;
 
 interface StrategyInterface

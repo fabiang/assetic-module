@@ -1,8 +1,8 @@
 <?php
 
-namespace AsseticBundle;
+namespace Fabiang\AsseticBundle;
 
-use Zend\Stdlib;
+use Laminas\Stdlib;
 
 class Configuration
 {
@@ -52,7 +52,7 @@ class Configuration
     /**
      * The base url.
      *
-     * By default this value is set from "\Zend\Http\PhpEnvironment\Request::getBaseUrl()"
+     * By default this value is set from "\Laminas\Http\PhpEnvironment\Request::getBaseUrl()"
      *
      * Example:
      * <code>
@@ -66,7 +66,7 @@ class Configuration
     /**
      * The base path.
      *
-     * By default this value is set from "\Zend\Http\PhpEnvironment\Request::getBasePath()"
+     * By default this value is set from "\Laminas\Http\PhpEnvironment\Request::getBasePath()"
      *
      * Example:
      * <code>
@@ -117,7 +117,7 @@ class Configuration
 
     /**
      * Map of strategies that will be choose to setup Assetic\AssetInterface
-     * for particular Zend\View\Renderer\RendererInterface
+     * for particular Laminas\View\Renderer\RendererInterface
      *
      * @var array
      */
@@ -147,7 +147,7 @@ class Configuration
                 $this->processArray(Stdlib\ArrayUtils::iteratorToArray($config));
             } else {
                 throw new Exception\InvalidArgumentException(
-                    'Parameter to \\AsseticBundle\\Configuration\'s '
+                    'Parameter to \\Fabiang\AsseticBundle\\Configuration\'s '
                     . 'constructor must be an array or implement the '
                     . '\\Traversable interface'
                 );

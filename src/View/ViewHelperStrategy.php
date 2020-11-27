@@ -1,9 +1,9 @@
 <?php
 
-namespace AsseticBundle\View;
+namespace Fabiang\AsseticBundle\View;
 
 use Assetic\Asset\AssetCollection;
-use Zend\View\Renderer\PhpRenderer;
+use Laminas\View\Renderer\PhpRenderer;
 use Assetic\Contracts\Asset\AssetInterface;
 
 class ViewHelperStrategy extends AbstractStrategy

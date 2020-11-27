@@ -1,36 +1,19 @@
 <?php
 
-namespace AsseticBundle;
+namespace Fabiang\AsseticBundle;
 
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 
 class FilterManagerFactory implements FactoryInterface
 {
 
     /**
-     * @param ContainerInterface $locator
      * @param string $requestedName
-     * @param array $options, optional
-     *
-     * @return \AsseticBundle\FilterManager
      */
-    public function __invoke(ContainerInterface $locator, $requestedName, array $options = null)
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        $filterManager = new FilterManager($locator);
-
-        return $filterManager;
-    }
-
-    /**
-     * @param ServiceLocatorInterface $locator
-     *
-     * @return \AsseticBundle\FilterManager
-     */
-    public function createService(ServiceLocatorInterface $locator)
-    {
-        return $this($locator, 'FilterManager');
+        return new FilterManager($container);
     }
 
 }

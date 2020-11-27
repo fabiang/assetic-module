@@ -1,9 +1,9 @@
 <?php
 
-namespace AsseticBundle\View;
+namespace Fabiang\AsseticBundle\View;
 
-use AsseticBundle\Service;
-use Zend\View\Renderer\RendererInterface as Renderer;
+use Fabiang\AsseticBundle\Service;
+use Laminas\View\Renderer\RendererInterface as Renderer;
 
 abstract class AbstractStrategy implements StrategyInterface
 {
@@ -20,7 +20,7 @@ abstract class AbstractStrategy implements StrategyInterface
     }
 
     /**
-     * @return \Zend\View\Renderer\RendererInterface
+     * @return \Laminas\View\Renderer\RendererInterface
      */
     public function getRenderer()
     {

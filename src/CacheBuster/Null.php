@@ -1,6 +1,6 @@
 <?php
 
-namespace AsseticBundle\CacheBuster;
+namespace Fabiang\AsseticBundle\CacheBuster;
 
 use Assetic\Contracts\Asset\AssetInterface;
 use Assetic\Contracts\Factory\Worker\WorkerInterface;

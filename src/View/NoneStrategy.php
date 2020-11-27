@@ -1,6 +1,6 @@
 <?php
 
-namespace AsseticBundle\View;
+namespace Fabiang\AsseticBundle\View;
 
 use Assetic\Contracts\Asset\AssetInterface;
 

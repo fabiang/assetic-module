@@ -101,7 +101,7 @@ return [
 
 - You could also copy file from `fabiang/assetic-modulee` to `module/Application`
   ```
-  cp vendor/fabiang/assetic-module/configs/assets.config.php.dist module/Application/config/assets.config.php
+  cp vendor/fabiang/assetic-module/config/assets.config.php.dist module/Application/config/assets.config.php
   ```
 - Update `module/Application/src/Module.php`
   ```php
@@ -129,7 +129,7 @@ return [
 ```
 <head>
     <meta charset="utf-8">
-    <?= $this->headTitle('ZF Skeleton Application')->setSeparator(' - ')->setAutoEscape(false) ?>
+    <?= $this->headTitle('Laminas Skeleton Application')->setSeparator(' - ')->setAutoEscape(false) ?>
 
     <?= $this->headMeta() ?>
     <?= $this->headLink() ?>
