@@ -40,7 +40,7 @@ if (file_exists('config/development.config.php')) {
     $appConfig = ArrayUtils::merge($appConfig, include 'config/development.config.php');
 }
 
-// init Zend Application
+// init Laminas Application
 $application = Application::init($appConfig);
 
 /* @var $cli \Symfony\Console\Application */

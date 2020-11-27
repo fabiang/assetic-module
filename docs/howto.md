@@ -22,14 +22,14 @@ composer require fabiang/assetic-module
 return [
     'Zend\Router',
     'Zend\Validator',
-    'AsseticBundle', // <-- put it here
+    'Fabiang\AsseticBundle', // <-- put it here
     'Application',
 ];
 ```
 
 #### Create cache and assets directory with valid permissions.
 ```
-vendor/bin/assetic setup
+./vendor/bin/assetic setup
 ```
 
 #### Move resources from `public/` to `module/Application/assets/`
@@ -43,7 +43,7 @@ mv public/img module/Application/assets
 
 #### Edit the module configuration file `module/Application/config/module.config.php` add following configuration:
 
-``` php
+```php
 return [
     /* ... */
     'assetic_configuration' => [
@@ -99,7 +99,7 @@ return [
 ];
 ```
 
-- You could also copy file from `fabiang/assetic-modulee` to `module/Application`
+- You could also copy file from `fabiang/assetic-module` to `module/Application`
   ```
   cp vendor/fabiang/assetic-module/config/assets.config.php.dist module/Application/config/assets.config.php
   ```
