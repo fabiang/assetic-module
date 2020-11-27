@@ -54,7 +54,7 @@ This is a pure reversal of the "true" option.
 
 This is a pure reversal of the "true" option.
 
-Assets are built manually or by the deploy script, only once. 
+Assets are built manually or by the deploy script, only once.
 Thanks to this, you will relieve your web server and improve application speed.
 
 ```
@@ -64,8 +64,8 @@ vendor/bin/assetic build
 ## Cache Busting
 
 Did you change your CSS files and don't see changes in browser?
-This is a common problem. 
-To prevent the browser from caching any sort of assets `AssetcBundle` provides `LastModifiedStrategy`. 
+This is a common problem.
+To prevent the browser from caching any sort of assets `AssetcBundle` provides `LastModifiedStrategy`.
 This strategy adds last modified time into the filename before the extension.
 Thanks to that, the browser will always receive fresh assets.
 
@@ -81,7 +81,7 @@ return array(
 
 ## Using ZfcRbac module?
 
-Please note anyone using `zf2-assetic-module` with `ZfcRbac` you will experience this same issue on (Access Denied)[https://github.com/widmogrod/zf2-assetic-module/pull/41]. This is due to the white list of acceptable errors in assetic. You will need to allow the firewall errors in your assetic configuration to get css on your access denied pages:
+Please note anyone using `assetic-module` with `ZfcRbac` you will experience this same issue on (Access Denied)[https://github.com/widmogrod/zf2-assetic-module/pull/41]. This is due to the white list of acceptable errors in assetic. You will need to allow the firewall errors in your assetic configuration to get css on your access denied pages:
 
 ```
 use Zend\Mvc\Application;

@@ -2,9 +2,9 @@
 ## Introduction
 Step by step introduction, how to use `AsseticBundle` with `ZF3`
 
-#### [Install ZF3 skeleton application](https://github.com/zendframework/ZendSkeletonApplication)
+#### [Install Laminas MVC skeleton application](https://github.com/laminas/laminas-mvc-skeleton)
 ```
-composer create-project zendframework/skeleton-application path/to/project
+composer create-project laminas/laminas-mvc-skeleton path/to/project
 ```
 
 #### Enter ZF3 directory
@@ -14,7 +14,7 @@ cd path/to/project
 
 #### Install `AsseticBundle`
 ```
-composer require widmogrod/zf2-assetic-module
+composer require fabiang/assetic-module
 ```
 
 #### Declare `AsseticBundle` in the `config/modules.config.php` file:
@@ -99,11 +99,11 @@ return [
 ];
 ```
 
-- You could also copy file from `zf2-asseitc-module` to `module/Application`
+- You could also copy file from `fabiang/assetic-modulee` to `module/Application`
   ```
-  cp vendor/widmogrod/zf2-assetic-module/configs/assets.config.php.dist module/Application/config/assets.config.php
+  cp vendor/fabiang/assetic-module/configs/assets.config.php.dist module/Application/config/assets.config.php
   ```
-- Update `module/Application/src/Module.php` 
+- Update `module/Application/src/Module.php`
   ```php
   public function getConfig()
   {
@@ -125,7 +125,7 @@ return [
 ];
 ```
 
-#### Update "head" tag in layout file `module/Application/view/layout/layout.phtml` 
+#### Update "head" tag in layout file `module/Application/view/layout/layout.phtml`
 ```
 <head>
     <meta charset="utf-8">
@@ -151,6 +151,5 @@ Refresh site and have fun!
 
 
 #### What next?
-- [Configuration](https://github.com/widmogrod/zf2-assetic-module/blob/master/docs/config.md)
-- [Tips & Tricks](https://github.com/widmogrod/zf2-assetic-module/blob/master/docs/tips.md)
-
+- [Configuration](https://github.com/fabiang/assetic-module/blob/master/docs/config.md)
+- [Tips & Tricks](https://github.com/fabiang/assetic-module/blob/master/docs/tips.md)

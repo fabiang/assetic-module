@@ -25,7 +25,7 @@ Below are the description of configuration options in the main `assetic_configur
 ## Specific configuration
 ### Modules section
 
-In this section you should define what assets you have and what filters should be apply on them during build phase. 
+In this section you should define what assets you have and what filters should be apply on them during build phase.
 
 Following table describes module configuration.
 
@@ -81,7 +81,7 @@ return array(
                 '@my_js',
             ),
         ),
-        
+
         /* some code ommited for clarity */
     ),
 );
@@ -109,7 +109,7 @@ return array(
                 ),
             ),
         ),
-        
+
         /* some code ommited for clarity */
     ),
 );
@@ -156,7 +156,7 @@ return array(
                 '@admin_js'
             )
         )
-            
+
         /* some code ommited for clarity */
     ),
 );
@@ -195,14 +195,14 @@ return array(
 
 ### RendererToStrategy
 
-Zend Framework 2 is using different rendering strategy depending on conditions specific to each strategy. To prevent `AsseticBundle` from injecting assets during request that don't utilize layout rendering - renderer strategy was introduced.
+Laminas is using different rendering strategy depending on conditions specific to each strategy. To prevent `AsseticBundle` from injecting assets during request that don't utilize layout rendering - renderer strategy was introduced.
 Also,….
 
 | Renderer | Strategy  |
 |----------|-----------|
-| `Zend\View\Renderer\PhpRenderer`  | `AsseticBundle\View\ViewHelperStrategy`
-| `Zend\View\Renderer\FeedRenderer` | `AsseticBundle\View\NoneStrategy`
-| `Zend\View\Renderer\JsonRenderer` | `AsseticBundle\View\NoneStrategy`
+| `Laminas\View\Renderer\PhpRenderer`  | `AsseticBundle\View\ViewHelperStrategy`
+| `Laminas\View\Renderer\FeedRenderer` | `AsseticBundle\View\NoneStrategy`
+| `Laminas\View\Renderer\JsonRenderer` | `AsseticBundle\View\NoneStrategy`
 
 ### AcceptableErrors
 
@@ -232,7 +232,7 @@ return array(
         'modules' => array(
             'Your_Module_Name' => array(
                 'root_path' => __DIR__ . '/../assets',
-                
+
                 'collections' => array(
                     'my_css' => array(
                         'assets' => array(
