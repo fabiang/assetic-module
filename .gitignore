@@ -1,7 +1,7 @@
 .DS_Store
-configs/.DS_Store 
+configs/.DS_Store
 !.gitignore
-vendor/*
+vendor/
 .idea
 .vagrant
 phpunit.xml
