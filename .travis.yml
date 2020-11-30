@@ -8,5 +8,5 @@ before_install:
  - composer install --prefer-dist
 
 script:
- - ./vendor/bin/phpunit --version
+ - ./vendor/bin/phpunit --verbose
  - ./vendor/bin/psalm --show-info
