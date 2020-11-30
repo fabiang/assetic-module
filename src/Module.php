@@ -17,7 +17,7 @@ class Module implements ConfigProviderInterface, BootstrapListenerInterface
      */
     public function onBootstrap(EventInterface $e): void
     {
-        /** @var \Laminas\Mvc\MvcEvent $e */
+        /** @var MvcEvent $e */
         // Only attach the Listener if the request came in through http(s)
         if (PHP_SAPI !== 'cli') {
             $app = $e->getApplication();
