@@ -18,11 +18,11 @@ php:
  - 7.4
 
 install:
-  - composer update --no-interaction --prefer-stable --prefer-dist --no-suggest --no-scripts --no-plugins $PREFER_LOWEST
+  - composer update --no-interaction --prefer-stable --prefer-dist --no-scripts --no-plugins $PREFER_LOWEST
 
 script:
  - ./vendor/bin/phpunit --verbose
- - ./venodr/bin/psalm --show-info=true
+ - ./vendor/bin/psalm --show-info=true
 
 matrix:
   fast_finish: true
