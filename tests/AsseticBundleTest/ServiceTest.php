@@ -171,7 +171,7 @@ final class ServiceTest extends TestCase
 
     public function testInitLoadedModules(): void
     {
-        $loadModules  = ['test_application' => 'test_application'];
+        $loadModules = ['test_application' => 'test_application'];
         $this->object->build($loadModules);
         $assetManager = $this->object->getAssetManager();
 

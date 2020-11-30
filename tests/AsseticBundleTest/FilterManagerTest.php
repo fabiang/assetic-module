@@ -15,6 +15,10 @@ use Fabiang\AsseticBundle;
  */
 final class FilterManagerTest extends TestCase
 {
+    /**
+     * @var AsseticBundle\FilterManager
+     */
+    protected $object;
 
     use ProphecyTrait;
 
@@ -74,6 +78,7 @@ final class FilterManagerTest extends TestCase
 
     /**
      * @dataProvider getAliasGetExceptionInstanceProvider
+     * @expectedException \InvalidArgumentException
      */
     public function testGetExceptionInstance(string $alias, object $object): void
     {
