@@ -5,7 +5,8 @@ php:
  - 8.0snapshot
 
 before_install:
- - composer install --dev --prefer-dist
+ - composer install --prefer-dist
 
 script:
  - ./vendor/bin/phpunit --version
+ - ./vendor/bin/psalm --show-info

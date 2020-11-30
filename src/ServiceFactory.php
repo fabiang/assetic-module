@@ -16,20 +16,20 @@ class ServiceFactory implements FactoryInterface
         $asseticConfig = $container->get('AsseticConfiguration');
         if ($asseticConfig->detectBaseUrl()) {
             /** @var $request \Laminas\Http\PhpEnvironment\Request */
-            $request = $locator->get('Request');
+            $request = $container->get('Request');
             if (method_exists($request, 'getBaseUrl')) {
                 $asseticConfig->setBaseUrl($request->getBaseUrl());
             }
         }
 
         $asseticService = new Service($asseticConfig);
-        $asseticService->setAssetManager($locator->get('Assetic\AssetManager'));
-        $asseticService->setAssetWriter($locator->get('Assetic\AssetWriter'));
-        $asseticService->setFilterManager($locator->get('Assetic\FilterManager'));
+        $asseticService->setAssetManager($container->get('Assetic\AssetManager'));
+        $asseticService->setAssetWriter($container->get('Assetic\AssetWriter'));
+        $asseticService->setFilterManager($container->get('Assetic\FilterManager'));
 
         // Cache buster is not mandatory
-        if ($locator->has('AsseticCacheBuster')) {
-            $asseticService->setCacheBusterStrategy($locator->get('AsseticCacheBuster'));
+        if ($container->has('AsseticCacheBuster')) {
+            $asseticService->setCacheBusterStrategy($container->get('AsseticCacheBuster'));
         }
 
         return $asseticService;

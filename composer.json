@@ -37,7 +37,8 @@
     },
     "require-dev": {
         "phpspec/prophecy-phpunit": "^2.0",
-        "phpunit/phpunit": "^9.4"
+        "phpunit/phpunit": "^9.4",
+        "vimeo/psalm": "^4.2"
     },
     "suggest": {
         "leafo/lessphp": "Assetic provides the integration with the lessphp LESS compiler",

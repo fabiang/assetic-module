@@ -1,7 +1,11 @@
 <?php
+
 /**
  * This configuration should be put in your module `configs` directory.
  */
+
+use Assetic\Filter;
+
 return [
     'assetic_configuration' => [
         'debug' => true,
@@ -28,7 +32,7 @@ return [
                         ],
                         'filters' => [
                             'CssRewriteFilter' => [
-                                'name' => 'Assetic\Filter\CssRewriteFilter'
+                                'name' => Filter\CssRewriteFilter::class,
                             ]
                         ],
                     ],
