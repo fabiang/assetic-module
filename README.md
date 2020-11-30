@@ -21,3 +21,12 @@ Read [the quick start guide](https://github.com/fabiang/assetic-module/blob/mast
   * [How to start?](https://github.com/fabiang/assetic-module/blob/master/docs/howto.md)
   * [Configuration](https://github.com/fabiang/assetic-module/blob/master/docs/config.md)
   * [Tips & Tricks](https://github.com/fabiang/assetic-module/blob/master/docs/tips.md)
+
+## Developing
+
+We've two main branches here:
+
+- 2.x: version compatible with Zend Framework 2/3 and Laminas
+- 3.x: future version with dropped Zend Framework support and added features
+
+Currently the master branch is for version 2.x
