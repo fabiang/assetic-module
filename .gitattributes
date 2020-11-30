@@ -6,3 +6,4 @@ composer.lock export-ignore
 .gitignore export-ignore
 .gitattributes export-ignore
 CHANGELOG.md
+psalm.xml
