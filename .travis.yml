@@ -9,3 +9,4 @@ before_install:
 script:
  - ./vendor/bin/phpunit --verbose
  - ./vendor/bin/psalm --show-info
+
