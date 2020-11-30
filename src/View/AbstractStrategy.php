@@ -10,37 +10,37 @@ abstract class AbstractStrategy implements StrategyInterface
 {
 
     protected ?Renderer $renderer = null;
-    protected string $baseUrl  = '';
-    protected string $basePath = '';
+    protected ?string $baseUrl  = null;
+    protected ?string $basePath = null;
     protected bool $debug    = false;
     protected bool $combine  = true;
 
-    public function setRenderer(Renderer $renderer): void
+    public function setRenderer(?Renderer $renderer): void
     {
         $this->renderer = $renderer;
     }
 
-    public function getRenderer(): Renderer
+    public function getRenderer(): ?Renderer
     {
         return $this->renderer;
     }
 
-    public function setBaseUrl(string $baseUrl): void
+    public function setBaseUrl(?string $baseUrl): void
     {
         $this->baseUrl = $baseUrl;
     }
 
-    public function getBaseUrl(): string
+    public function getBaseUrl(): ?string
     {
         return $this->baseUrl;
     }
 
-    public function setBasePath(string $basePath): void
+    public function setBasePath(?string $basePath): void
     {
         $this->basePath = $basePath;
     }
 
-    public function getBasePath(): string
+    public function getBasePath(): ?string
     {
         return $this->basePath;
     }

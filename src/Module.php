@@ -7,6 +7,7 @@ namespace Fabiang\AsseticBundle;
 use Laminas\EventManager\EventInterface;
 use Laminas\ModuleManager\Feature\BootstrapListenerInterface;
 use Laminas\ModuleManager\Feature\ConfigProviderInterface;
+use Laminas\Mvc\MvcEvent;
 
 class Module implements ConfigProviderInterface, BootstrapListenerInterface
 {
@@ -16,7 +17,7 @@ class Module implements ConfigProviderInterface, BootstrapListenerInterface
      */
     public function onBootstrap(EventInterface $e): void
     {
-        /** @var $e \Laminas\Mvc\MvcEvent */
+        /** @var \Laminas\Mvc\MvcEvent $e */
         // Only attach the Listener if the request came in through http(s)
         if (PHP_SAPI !== 'cli') {
             $app = $e->getApplication();

@@ -14,7 +14,11 @@ class LastModifiedStrategy implements WorkerInterface
     public function process(AssetInterface $asset, AssetFactory $factory): ?AssetInterface
     {
         $path = $asset->getTargetPath();
-        $ext  = pathinfo($path, PATHINFO_EXTENSION);
+        if (null === $path) {
+            return null;
+        }
+
+        $ext = pathinfo($path, PATHINFO_EXTENSION);
 
         $lastModified = $factory->getLastModified($asset);
         if (null !== $lastModified) {

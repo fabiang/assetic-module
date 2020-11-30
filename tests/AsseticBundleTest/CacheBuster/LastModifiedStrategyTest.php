@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AsseticBundleTest\CacheBuster;
 
 use Fabiang\AsseticBundle\CacheBuster\LastModifiedStrategy;
@@ -7,15 +9,17 @@ use Assetic\Asset\FileAsset;
 use Assetic\Factory\AssetFactory;
 use PHPUnit\Framework\TestCase;
 
-class LastModifiedStrategyTest extends TestCase
+final class LastModifiedStrategyTest extends TestCase
 {
+
+    private LastModifiedStrategy $cacheBuster;
 
     public function setUp(): void
     {
         $this->cacheBuster = new LastModifiedStrategy();
     }
 
-    public function testAssetLastModifiedTimestampIsPrependBeforeFileExtension()
+    public function testAssetLastModifiedTimestampIsPrependBeforeFileExtension(): void
     {
         $asset = new FileAsset(TEST_ASSETS_DIR . '/css/global.css');
         $asset->setTargetPath(TEST_PUBLIC_DIR . '/css/global.css');

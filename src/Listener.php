@@ -45,13 +45,14 @@ class Listener extends AbstractListenerAggregate
             }
         }
 
+        /** @var \Laminas\Stdlib\ResponseInterface|null $response */
         $response = $e->getResponse();
         if (!$response) {
             $response = new Response();
             $e->setResponse($response);
         }
 
-        /** @var $asseticService \AsseticBundle\Service */
+        /** @var Service $asseticService */
         $asseticService = $sm->get('AsseticService');
 
         // setup service if a matched route exist

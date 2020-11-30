@@ -10,17 +10,17 @@ use Assetic\Asset\AssetInterface;
 interface StrategyInterface
 {
 
-    public function setRenderer(Renderer $renderer): void;
+    public function setRenderer(?Renderer $renderer): void;
 
-    public function getRenderer(): Renderer;
+    public function getRenderer(): ?Renderer;
 
-    public function setBaseUrl(string $baseUrl): void;
+    public function setBaseUrl(?string $baseUrl): void;
 
-    public function getBaseUrl(): string;
+    public function getBaseUrl(): ?string;
 
-    public function setBasePath(string $basePath): void;
+    public function setBasePath(?string $basePath): void;
 
-    public function getBasePath(): string;
+    public function getBasePath(): ?string;
 
     public function setDebug(bool $flag): void;
 

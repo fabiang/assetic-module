@@ -19,7 +19,7 @@ class ServiceFactory implements FactoryInterface
     {
         $asseticConfig = $container->get('AsseticConfiguration');
         if ($asseticConfig->detectBaseUrl()) {
-            /** @var $request \Laminas\Http\PhpEnvironment\Request */
+            /** @var \Laminas\Http\PhpEnvironment\Request $request */
             $request = $container->get('Request');
             if (method_exists($request, 'getBaseUrl')) {
                 $asseticConfig->setBaseUrl($request->getBaseUrl());

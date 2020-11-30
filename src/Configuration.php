@@ -61,7 +61,7 @@ class Configuration
      * <baseUrl>/~jdo/
      * </code>
      */
-    protected ?string $basePath;
+    protected ?string $basePath = null;
 
     /**
      * Asset will be save on disk, only when it's modification time was changed
@@ -111,10 +111,10 @@ class Configuration
     public function __construct(?iterable $config = null)
     {
         if (null !== $config) {
-            if (is_array($config)) {
-                $this->processArray($config);
-            } elseif ($config instanceof \Traversable) {
+            if ($config instanceof \Traversable) {
                 $this->processArray(Stdlib\ArrayUtils::iteratorToArray($config));
+            } else {
+                $this->processArray($config);
             }
         }
     }
@@ -208,7 +208,7 @@ class Configuration
         return $this->routes;
     }
 
-    public function getRoute(string $name, string $default = null): ?string
+    public function getRoute(string $name, array $default = null): ?array
     {
         $assets       = [];
         $routeMatched = false;
@@ -235,7 +235,7 @@ class Configuration
         return $this->controllers;
     }
 
-    public function getController(string $name, string $default = null): ?string
+    public function getController(string $name, array $default = null): ?array
     {
         return array_key_exists($name, $this->controllers) ? $this->controllers[$name] : $default;
     }
@@ -259,7 +259,7 @@ class Configuration
         return $this->modules;
     }
 
-    public function getModule(string $name, string $default = null): ?string
+    public function getModule(string $name, array $default = null): ?array
     {
         $lowername = strtolower($name);
         return array_key_exists($lowername, $this->modules) ? $this->modules[$lowername] : $default;
@@ -283,7 +283,7 @@ class Configuration
         return $this->baseUrl;
     }
 
-    public function setBasePath(?string $basePath)
+    public function setBasePath(?string $basePath): void
     {
         if (null !== $basePath) {
             $basePath = trim($basePath, '/');

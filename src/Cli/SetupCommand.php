@@ -35,10 +35,10 @@ class SetupCommand extends Command
         $config = $this->assetic->getConfiguration();
         $mode   = (null !== ($mode   = $config->getUmask())) ? $mode : 0775;
 
-        if (!$this->createPath($output, 'Cache', $config->getCachePath(), $mode)) {
+        if (!$this->createPath($output, 'Cache', $config->getCachePath() ?? '', $mode)) {
             return 1;
         }
-        if (!$this->createPath($output, 'Web', $config->getWebPath(), $mode)) {
+        if (!$this->createPath($output, 'Web', $config->getWebPath() ?? '', $mode)) {
             return 1;
         }
 
@@ -85,7 +85,7 @@ class SetupCommand extends Command
             $output->writeln(
                 '<error>Creation of ' . $which . ' path "' . $path . '" failed - path exists but is not readable</error>'
             );
-        } elseif (!$writable) {
+        } else {
             $output->writeln(
                 '<error>Creation of ' . $which . ' path "' . $path . '" failed - path exists but is not writable</error>'
             );

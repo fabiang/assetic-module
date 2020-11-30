@@ -16,18 +16,19 @@ use Assetic\Asset\AssetCollection;
  * Class Asset
  *
  * @package Fabiang\AsseticBundle\View\Helper
+ * @psalm-suppress PropertyNotSetInConstructor Upstream issue with contructor
  */
 class Asset extends Container\AbstractStandalone
 {
 
-    protected Service $service  = null;
-    protected string $baseUrl  = '';
-    protected string $basePath = '';
+    protected Service $service;
+    protected ?string $baseUrl  = null;
+    protected ?string $basePath = null;
 
     public function __construct(ContainerInterface $container)
     {
         $serviceFactory = new ServiceFactory();
-        $this->service  = $serviceFactory->createService($container);
+        $this->service  = $serviceFactory($container, Service::class, []);
         $this->service->build();
 
         $this->baseUrl  = $this->service->getConfiguration()->getBaseUrl();
@@ -76,13 +77,13 @@ class Asset extends Container\AbstractStandalone
 
     protected function helper(AssetInterface $asset, array $options = []): string
     {
-        $path = $this->baseUrl . $this->basePath . $asset->getTargetPath();
+        $path = $this->str($this->baseUrl) . $this->str($this->basePath) . $this->str($asset->getTargetPath());
 
         $extension = pathinfo($path, PATHINFO_EXTENSION);
         $extension = strtolower($extension);
 
         if (isset($options['addFileMTime']) && $options['addFileMTime']) {
-            $path .= '?' . $asset->getLastModified();
+            $path .= '?' . (string) $asset->getLastModified();
         }
 
         switch ($extension) {
@@ -94,6 +95,11 @@ class Asset extends Container\AbstractStandalone
         }
 
         return '';
+    }
+
+    private function str(?string $s): string
+    {
+        return $s ?? '';
     }
 
     protected function getScriptTag(string $path, array $options = []): string
