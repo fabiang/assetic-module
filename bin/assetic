@@ -44,5 +44,5 @@ if (file_exists('config/development.config.php')) {
 $application = Application::init($appConfig);
 
 /* @var $cli \Symfony\Console\Application */
-$cli = $application->getServiceManager()->get('AsseticBundle\Cli');
+$cli = $application->getServiceManager()->get('Fabiang\AsseticBundle\Cli');
 exit($cli->run());
