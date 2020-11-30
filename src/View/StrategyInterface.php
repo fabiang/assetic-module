@@ -2,7 +2,6 @@
 
 namespace Fabiang\AsseticBundle\View;
 
-use Fabiang\AsseticBundle\Service;
 use Laminas\View\Renderer\RendererInterface as Renderer;
 use Assetic\Asset\AssetInterface;
 

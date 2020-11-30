@@ -3,11 +3,10 @@
 namespace Fabiang\AsseticBundle;
 
 use Laminas\EventManager\EventInterface;
-use Laminas\ModuleManager\Feature\AutoloaderProviderInterface;
 use Laminas\ModuleManager\Feature\BootstrapListenerInterface;
 use Laminas\ModuleManager\Feature\ConfigProviderInterface;
 
-class Module implements AutoloaderProviderInterface, ConfigProviderInterface, BootstrapListenerInterface
+class Module implements ConfigProviderInterface, BootstrapListenerInterface
 {
 
     /**
@@ -24,7 +23,7 @@ class Module implements AutoloaderProviderInterface, ConfigProviderInterface, Bo
         if (PHP_SAPI !== 'cli') {
             $app = $e->getApplication();
 
-            $app->getServiceManager()->get('AsseticBundle\Listener')->attach($app->getEventManager());
+            $app->getServiceManager()->get(Listener::class)->attach($app->getEventManager());
         }
     }
 
@@ -36,22 +35,6 @@ class Module implements AutoloaderProviderInterface, ConfigProviderInterface, Bo
     public function getConfig()
     {
         return require __DIR__ . '/../config/module.config.php';
-    }
-
-    /**
-     * Return an array for passing to Laminas\Loader\AutoloaderFactory.
-     *
-     * @return array
-     */
-    public function getAutoloaderConfig()
-    {
-        return [
-            'Laminas\Loader\StandardAutoloader' => [
-                'namespaces' => [
-                    __NAMESPACE__ => __DIR__ . '/src/' . __NAMESPACE__ . '/'
-                ],
-            ],
-        ];
     }
 
 }

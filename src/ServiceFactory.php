@@ -4,6 +4,7 @@ namespace Fabiang\AsseticBundle;
 
 use Interop\Container\ContainerInterface;
 use Laminas\ServiceManager\Factory\FactoryInterface;
+use Assetic;
 
 class ServiceFactory implements FactoryInterface
 {
@@ -23,9 +24,9 @@ class ServiceFactory implements FactoryInterface
         }
 
         $asseticService = new Service($asseticConfig);
-        $asseticService->setAssetManager($container->get('Assetic\AssetManager'));
-        $asseticService->setAssetWriter($container->get('Assetic\AssetWriter'));
-        $asseticService->setFilterManager($container->get('Assetic\FilterManager'));
+        $asseticService->setAssetManager($container->get(Assetic\AssetManager::class));
+        $asseticService->setAssetWriter($container->get(Assetic\AssetWriter::class));
+        $asseticService->setFilterManager($container->get(Assetic\FilterManager::class));
 
         // Cache buster is not mandatory
         if ($container->has('AsseticCacheBuster')) {
