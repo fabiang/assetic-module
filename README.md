@@ -4,12 +4,13 @@ Currently maintained fork of [widmogrod/zf2-assetic-module](https://github.com/w
 
 Goals for v3.0:
 
-  * [ ] Drop support for PHP <7.4
+  * [x] Drop support for PHP <7.4
   * [ ] Add support for PHP 8.0
-  * [ ] Remove support for Zend Framework
-  * [ ] Use return-types and type-hints everywhere
+  * [x] Remove support for Zend Framework
+  * [x] Use return-types and type-hints everywhere
   * [ ] Reach 100% unit test coverage
   * [ ] Add integration test
+  * [ ] Support for Mezzio (no Expressive)
 
 Assets management per module made easy.
 
@@ -30,6 +31,7 @@ Read [the quick start guide](https://github.com/fabiang/assetic-module/blob/mast
   * [How to start?](https://github.com/fabiang/assetic-module/blob/master/docs/howto.md)
   * [Configuration](https://github.com/fabiang/assetic-module/blob/master/docs/config.md)
   * [Tips & Tricks](https://github.com/fabiang/assetic-module/blob/master/docs/tips.md)
+  * [Migration guide](https://github.com/fabiang/assetic-module/blob/master/docs/migration.md)
 
 ## Developing
 

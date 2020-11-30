@@ -1,4 +1,4 @@
-Migrating to 3.0
+# Migrating to 3.0
 
 Zend Framework support was dropped. You must migrate your application to Laminas first.
 
@@ -19,7 +19,7 @@ Zend Framework support was dropped. You must migrate your application to Laminas
     -        ],
    ```
 
-Migrating to 2.5.0
+# Migrating to 2.5.0
 
 This is just a drop-in-replacement for the old module,
 so it should work out of the box with ZF2/3 and Laminas.
