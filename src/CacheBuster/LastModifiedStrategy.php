@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Fabiang\AsseticBundle\CacheBuster;
 
 use Assetic\Contracts\Asset\AssetInterface;
@@ -9,7 +11,7 @@ use Assetic\Factory\AssetFactory;
 class LastModifiedStrategy implements WorkerInterface
 {
 
-    public function process(AssetInterface $asset, AssetFactory $factory)
+    public function process(AssetInterface $asset, AssetFactory $factory): ?AssetInterface
     {
         $path = $asset->getTargetPath();
         $ext  = pathinfo($path, PATHINFO_EXTENSION);
@@ -23,6 +25,7 @@ class LastModifiedStrategy implements WorkerInterface
             );
             $asset->setTargetPath($path);
         }
+        return null;
     }
 
 }

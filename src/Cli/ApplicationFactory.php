@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Fabiang\AsseticBundle\Cli;
 
 use Interop\Container\ContainerInterface;

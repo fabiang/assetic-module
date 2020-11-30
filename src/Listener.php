@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Fabiang\AsseticBundle;
 
 use Laminas\EventManager\EventManagerInterface;
@@ -15,11 +17,8 @@ class Listener extends AbstractListenerAggregate
      *
      * Implementors may add an optional $priority argument; the EventManager
      * implementation will pass this to the aggregate.
-     *
-     * @param EventManagerInterface $events
-     * @param int $priority The priority with which the events are attached
      */
-    public function attach(EventManagerInterface $events, $priority = 32)
+    public function attach(EventManagerInterface $events, $priority = 32): void
     {
         $this->listeners[] = $events->attach(
             MvcEvent::EVENT_DISPATCH,
@@ -33,7 +32,7 @@ class Listener extends AbstractListenerAggregate
         );
     }
 
-    public function renderAssets(MvcEvent $e)
+    public function renderAssets(MvcEvent $e): void
     {
         $sm     = $e->getApplication()->getServiceManager();
         /** @var Configuration $config */

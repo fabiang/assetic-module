@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Fabiang\AsseticBundle;
 
 use Assetic\AssetWriter;
@@ -11,6 +13,7 @@ class WriterFactory implements FactoryInterface
 
     /**
      * @param string $requestedName
+     * @return AssetWriter
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {

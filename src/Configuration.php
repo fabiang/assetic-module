@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Fabiang\AsseticBundle;
 
 use Laminas\Stdlib;
@@ -9,45 +11,33 @@ class Configuration
 
     /**
      * Debug option that is passed to Assetic.
-     *
-     * @var bool
      */
-    protected $debug = false;
+    protected bool $debug = false;
 
     /**
      * Combine option giving the opportunity not to combine the assets in debug mode.
-     *
-     * @var bool
      */
-    protected $combine = true;
+    protected bool $combine = true;
 
     /**
      * Should build assets on request.
-     *
-     * @var bool
      */
-    protected $buildOnRequest = true;
+    protected bool $buildOnRequest = true;
 
     /**
      * Full path to public directory where assets will be generated.
-     *
-     * @var string
      */
-    protected $webPath;
+    protected ?string $webPath = null;
 
     /**
      * Full path to cache directory.
-     *
-     * @var string
      */
-    protected $cachePath;
+    protected ?string $cachePath = null;
 
     /**
      * Is cache enabled.
-     *
-     * @var bool
      */
-    protected $cacheEnabled = false;
+    protected bool $cacheEnabled = false;
 
     /**
      * The base url.
@@ -58,10 +48,8 @@ class Configuration
      * <code>
      * http://example.com/
      * </code>
-     *
-     * @var string|null
      */
-    protected $baseUrl;
+    protected ?string $baseUrl = null;
 
     /**
      * The base path.
@@ -72,115 +60,94 @@ class Configuration
      * <code>
      * <baseUrl>/~jdo/
      * </code>
-     *
-     * @var string|null
      */
-    protected $basePath;
+    protected ?string $basePath;
 
     /**
      * Asset will be save on disk, only when it's modification time was changed
-     *
-     * @var bool
      */
-    protected $writeIfChanged = true;
+    protected bool $writeIfChanged = true;
 
     /**
      * Default options.
-     *
-     * @var array
      */
-    protected $default = [
+    protected array $default = [
         'assets'  => [],
         'options' => [],
     ];
 
     /**
      * Map of routes names and assets configuration.
-     *
-     * @var array
      */
-    protected $routes = [];
+    protected array $routes = [];
 
     /**
      * Map of modules names and assets configuration.
-     *
-     * @var array
      */
-    protected $modules = [];
+    protected array $modules = [];
 
     /**
      * Map of controllers names and assets configuration.
-     *
-     * @var array
      */
-    protected $controllers = [];
+    protected array $controllers = [];
 
     /**
      * Map of strategies that will be choose to setup Assetic\AssetInterface
      * for particular Laminas\View\Renderer\RendererInterface
-     *
-     * @var array
      */
-    protected $rendererToStrategy = [];
+    protected array $rendererToStrategy = [];
 
     /**
      * List of error types occurring in EVENT_DISPATCH_ERROR that will use
      * this module to render assets.
-     *
-     * @var array
      */
-    protected $acceptableErrors = [];
+    protected array $acceptableErrors = [];
 
     /**
      * Umask
-     *
-     * @var null|int
      */
-    protected $umask = null;
+    protected ?int $umask = null;
 
-    public function __construct($config = null)
+    public function __construct(?iterable $config = null)
     {
         if (null !== $config) {
             if (is_array($config)) {
                 $this->processArray($config);
             } elseif ($config instanceof \Traversable) {
                 $this->processArray(Stdlib\ArrayUtils::iteratorToArray($config));
-            } else {
-                throw new Exception\InvalidArgumentException(
-                    'Parameter to \\Fabiang\AsseticBundle\\Configuration\'s '
-                    . 'constructor must be an array or implement the '
-                    . '\\Traversable interface'
-                );
             }
         }
     }
 
-    public function isDebug()
+    public function isDebug(): bool
     {
         return $this->debug;
     }
 
-    public function setDebug($flag)
+    public function setDebug(bool $flag): void
     {
-        $this->debug = (bool) $flag;
+        $this->debug = $flag;
     }
 
-    public function isCombine()
+    public function isCombine(): bool
     {
         return $this->combine;
     }
 
-    public function setCombine($flag)
+    public function setCombine(bool $flag): void
     {
-        $this->combine = (bool) $flag;
+        $this->combine = $flag;
     }
 
-    public function setWebPath($path)
+    public function setWebPath(?string $path): void
     {
         $this->webPath = $path;
     }
 
-    public function getWebPath($file = null)
+    /**
+     * @throws Exception\RuntimeException
+     */
+    public function getWebPath(string $file = null): ?string
     {
         if (null === $this->webPath) {
             throw new Exception\RuntimeException('Web path is not set');
@@ -193,27 +160,27 @@ class Configuration
         return $this->webPath;
     }
 
-    public function setCachePath($path)
+    public function setCachePath(?string $path): void
     {
         $this->cachePath = $path;
     }
 
-    public function getCachePath()
+    public function getCachePath(): ?string
     {
         return $this->cachePath;
     }
 
-    public function setCacheEnabled($cacheEnabled)
+    public function setCacheEnabled(bool $cacheEnabled): void
     {
-        $this->cacheEnabled = (bool) $cacheEnabled;
+        $this->cacheEnabled = $cacheEnabled;
     }
 
-    public function getCacheEnabled()
+    public function getCacheEnabled(): bool
     {
         return $this->cacheEnabled;
     }
 
-    public function setDefault(array $default)
+    public function setDefault(array $default): void
     {
         if (!isset($default['assets'])) {
             $default['assets'] = [];
@@ -226,22 +193,22 @@ class Configuration
         $this->default = $default;
     }
 
-    public function getDefault()
+    public function getDefault(): array
     {
         return $this->default;
     }
 
-    public function setRoutes(array $routes)
+    public function setRoutes(array $routes): void
     {
         $this->routes = $routes;
     }
 
-    public function getRoutes()
+    public function getRoutes(): array
     {
         return $this->routes;
     }
 
-    public function getRoute($name, $default = null)
+    public function getRoute(string $name, string $default = null): ?string
     {
         $assets       = [];
         $routeMatched = false;
@@ -258,22 +225,22 @@ class Configuration
         return $routeMatched ? $assets : $default;
     }
 
-    public function setControllers(array $controllers)
+    public function setControllers(array $controllers): void
     {
         $this->controllers = $controllers;
     }
 
-    public function getControllers()
+    public function getControllers(): array
     {
         return $this->controllers;
     }
 
-    public function getController($name, $default = null)
+    public function getController(string $name, string $default = null): ?string
     {
         return array_key_exists($name, $this->controllers) ? $this->controllers[$name] : $default;
     }
 
-    public function setModules(array $modules)
+    public function setModules(array $modules): void
     {
         $this->modules = [];
         foreach ($modules as $name => $options) {
@@ -281,30 +248,29 @@ class Configuration
         }
     }
 
-    public function addModule($name, array $options)
+    public function addModule(string $name, array $options): void
     {
-        $name                 = strtolower($name);
-        $this->modules[$name] = $options;
+        $lowername                 = strtolower($name);
+        $this->modules[$lowername] = $options;
     }
 
-    public function getModules()
+    public function getModules(): array
     {
         return $this->modules;
     }
 
-    public function getModule($name, $default = null)
+    public function getModule(string $name, string $default = null): ?string
     {
-        $name = strtolower($name);
-
-        return array_key_exists($name, $this->modules) ? $this->modules[$name] : $default;
+        $lowername = strtolower($name);
+        return array_key_exists($lowername, $this->modules) ? $this->modules[$lowername] : $default;
     }
 
-    public function detectBaseUrl()
+    public function detectBaseUrl(): bool
     {
         return (null === $this->baseUrl || 'auto' === $this->baseUrl);
     }
 
-    public function setBaseUrl($baseUrl)
+    public function setBaseUrl(?string $baseUrl): void
     {
         if (null !== $baseUrl && 'auto' !== $baseUrl) {
             $baseUrl = rtrim($baseUrl, '/') . '/';
@@ -312,15 +278,12 @@ class Configuration
         $this->baseUrl = $baseUrl;
     }
 
-    public function getBaseUrl()
+    public function getBaseUrl(): ?string
     {
         return $this->baseUrl;
     }
 
-    /**
-     * @param null|string $basePath
-     */
-    public function setBasePath($basePath)
+    public function setBasePath(?string $basePath)
     {
         if (null !== $basePath) {
             $basePath = trim($basePath, '/');
@@ -329,15 +292,12 @@ class Configuration
         $this->basePath = $basePath;
     }
 
-    /**
-     * @return null|string
-     */
-    public function getBasePath()
+    public function getBasePath(): ?string
     {
         return $this->basePath;
     }
 
-    protected function processArray($config)
+    protected function processArray(iterable $config): void
     {
         foreach ($config as $key => $value) {
             $setter = $this->assembleSetterNameFromConfigKey($key);
@@ -345,7 +305,7 @@ class Configuration
         }
     }
 
-    protected function assembleSetterNameFromConfigKey($key)
+    protected function assembleSetterNameFromConfigKey(string $key): string
     {
         $parts  = explode('_', $key);
         $parts  = array_map('ucfirst', $parts);
@@ -361,43 +321,37 @@ class Configuration
         return $setter;
     }
 
-    public function setRendererToStrategy(array $strategyForRenderer)
+    public function setRendererToStrategy(array $strategyForRenderer): void
     {
         $this->rendererToStrategy = $strategyForRenderer;
     }
 
-    public function addRendererToStrategy($rendererClass, $strategyClass)
+    public function addRendererToStrategy(string $rendererClass, string $strategyClass): void
     {
         $this->rendererToStrategy[$rendererClass] = $strategyClass;
     }
 
-    public function getStrategyNameForRenderer($rendererName, $default = null)
+    public function getStrategyNameForRenderer(string $rendererName, string $default = null): ?string
     {
         return array_key_exists($rendererName, $this->rendererToStrategy) ? $this->rendererToStrategy[$rendererName] : $default;
     }
 
-    public function setAcceptableErrors(array $acceptableErrors)
+    public function setAcceptableErrors(array $acceptableErrors): void
     {
         $this->acceptableErrors = $acceptableErrors;
     }
 
-    public function getAcceptableErrors()
+    public function getAcceptableErrors(): array
     {
         return $this->acceptableErrors;
     }
 
-    /**
-     * @return int|null
-     */
-    public function getUmask()
+    public function getUmask(): ?int
     {
         return $this->umask;
     }
 
-    /**
-     * @param null|int $umask
-     */
-    public function setUmask($umask)
+    public function setUmask(?int $umask): void
     {
         $this->umask = null;
         if (is_int($umask)) {
@@ -405,34 +359,22 @@ class Configuration
         }
     }
 
-    /**
-     * @param bool $flag
-     */
-    public function setBuildOnRequest($flag)
+    public function setBuildOnRequest(bool $flag): void
     {
         $this->buildOnRequest = (bool) $flag;
     }
 
-    /**
-     * @return bool
-     */
-    public function getBuildOnRequest()
+    public function getBuildOnRequest(): bool
     {
         return $this->buildOnRequest;
     }
 
-    /**
-     * @param bool $flag
-     */
-    public function setWriteIfChanged($flag)
+    public function setWriteIfChanged(bool $flag): void
     {
-        $this->writeIfChanged = (bool) $flag;
+        $this->writeIfChanged = $flag;
     }
 
-    /**
-     * @return bool
-     */
-    public function getWriteIfChanged()
+    public function getWriteIfChanged(): bool
     {
         return $this->writeIfChanged;
     }

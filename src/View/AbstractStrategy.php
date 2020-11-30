@@ -1,68 +1,66 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Fabiang\AsseticBundle\View;
 
-use Fabiang\AsseticBundle\Service;
 use Laminas\View\Renderer\RendererInterface as Renderer;
 
 abstract class AbstractStrategy implements StrategyInterface
 {
 
-    protected $renderer;
-    protected $baseUrl;
-    protected $basePath;
-    protected $debug   = false;
-    protected $combine = true;
+    protected ?Renderer $renderer = null;
+    protected string $baseUrl  = '';
+    protected string $basePath = '';
+    protected bool $debug    = false;
+    protected bool $combine  = true;
 
-    public function setRenderer(Renderer $renderer)
+    public function setRenderer(Renderer $renderer): void
     {
         $this->renderer = $renderer;
     }
 
-    /**
-     * @return \Laminas\View\Renderer\RendererInterface
-     */
-    public function getRenderer()
+    public function getRenderer(): Renderer
     {
         return $this->renderer;
     }
 
-    public function setBaseUrl($baseUrl)
+    public function setBaseUrl(string $baseUrl): void
     {
         $this->baseUrl = $baseUrl;
     }
 
-    public function getBaseUrl()
+    public function getBaseUrl(): string
     {
         return $this->baseUrl;
     }
 
-    public function setBasePath($basePath)
+    public function setBasePath(string $basePath): void
     {
         $this->basePath = $basePath;
     }
 
-    public function getBasePath()
+    public function getBasePath(): string
     {
         return $this->basePath;
     }
 
-    public function setDebug($flag)
+    public function setDebug(bool $flag): void
     {
-        $this->debug = (bool) $flag;
+        $this->debug = $flag;
     }
 
-    public function isDebug()
+    public function isDebug(): bool
     {
         return $this->debug;
     }
 
-    public function setCombine($flag)
+    public function setCombine(bool $flag): void
     {
-        $this->combine = (bool) $flag;
+        $this->combine = $flag;
     }
 
-    public function isCombine()
+    public function isCombine(): bool
     {
         return $this->combine;
     }

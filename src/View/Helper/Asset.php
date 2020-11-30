@@ -1,9 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Fabiang\AsseticBundle\View\Helper;
 
 use Laminas\View\Helper\Placeholder\Container;
 use Interop\Container\ContainerInterface;
+use Fabiang\AsseticBundle\Service;
 use Fabiang\AsseticBundle\ServiceFactory;
 use Fabiang\AsseticBundle\Exception;
 use Assetic\Contracts\Asset\AssetInterface;
@@ -17,10 +20,9 @@ use Assetic\Asset\AssetCollection;
 class Asset extends Container\AbstractStandalone
 {
 
-    /** @var \Fabiang\AsseticBundle\Service|null */
-    protected $service  = null;
-    protected $baseUrl  = '';
-    protected $basePath = '';
+    protected Service $service  = null;
+    protected string $baseUrl  = '';
+    protected string $basePath = '';
 
     public function __construct(ContainerInterface $container)
     {
@@ -33,15 +35,13 @@ class Asset extends Container\AbstractStandalone
     }
 
     /**
-     * @param string $collectionName
-     * @param array $options
-     *
-     * @return string
-     *
      * @throws \Fabiang\AsseticBundle\Exception\InvalidArgumentException
      */
-    public function __invoke($collectionName, array $options = [])
+    public function __invoke(string $collectionName, array $options = []): string
     {
+        /**
+         * @psalm-suppress UndefinedDocblockClass Upstram bug in `@return`
+         */
         if (!$this->service->getAssetManager()->has($collectionName)) {
             throw new Exception\InvalidArgumentException(
                 'Collection "' . $collectionName . '" does not exist.'
@@ -53,18 +53,14 @@ class Asset extends Container\AbstractStandalone
         return $this->setupAsset($asset, $options);
     }
 
-    /**
-     * @param AssetInterface $asset
-     * @param array $options
-     *
-     * @return string
-     */
-    protected function setupAsset(AssetInterface $asset, array $options = [])
+    protected function setupAsset(AssetInterface $asset, array $options = []): string
     {
         $ret = '';
 
         if (
-            $this->service->getConfiguration()->isDebug() && !$this->service->getConfiguration()->isCombine() && $asset instanceof AssetCollection
+            $this->service->getConfiguration()->isDebug()
+            && !$this->service->getConfiguration()->isCombine()
+            && $asset instanceof AssetCollection
         ) {
             // Move assets as single instance not as a collection
             foreach ($asset as $value) {
@@ -78,13 +74,7 @@ class Asset extends Container\AbstractStandalone
         return $ret;
     }
 
-    /**
-     * @param AssetInterface $asset
-     * @param array $options
-     *
-     * @return string
-     */
-    protected function helper(AssetInterface $asset, array $options = [])
+    protected function helper(AssetInterface $asset, array $options = []): string
     {
         $path = $this->baseUrl . $this->basePath . $asset->getTargetPath();
 
@@ -106,26 +96,14 @@ class Asset extends Container\AbstractStandalone
         return '';
     }
 
-    /**
-     * @param $path
-     * @param array $options
-     *
-     * @return string
-     */
-    protected function getScriptTag($path, array $options = [])
+    protected function getScriptTag(string $path, array $options = []): string
     {
         $type = (isset($options['type']) && !empty($options['type'])) ? $options['type'] : 'text/javascript';
 
         return '<script type="' . $this->escape($type) . '" src="' . $this->escape($path) . '"></script>';
     }
 
-    /**
-     * @param $path
-     * @param array $options
-     *
-     * @return string
-     */
-    protected function getStylesheetTag($path, array $options = [])
+    protected function getStylesheetTag(string $path, array $options = []): string
     {
         $media = (isset($options['media']) && !empty($options['media'])) ? $options['media'] : 'screen';
         $type  = (isset($options['type']) && !empty($options['type'])) ? $options['type'] : 'text/css';

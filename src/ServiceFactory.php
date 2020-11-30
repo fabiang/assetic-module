@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Fabiang\AsseticBundle;
 
 use Interop\Container\ContainerInterface;
@@ -11,6 +13,7 @@ class ServiceFactory implements FactoryInterface
 
     /**
      * @param string $requestedName
+     * @return Service
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {

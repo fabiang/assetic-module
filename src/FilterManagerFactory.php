@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Fabiang\AsseticBundle;
 
 use Interop\Container\ContainerInterface;
@@ -10,6 +12,7 @@ class FilterManagerFactory implements FactoryInterface
 
     /**
      * @param string $requestedName
+     * @return FilterManager
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {

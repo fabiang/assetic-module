@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Fabiang\AsseticBundle\View;
 
 use Laminas\View\Renderer\RendererInterface as Renderer;
@@ -8,25 +10,25 @@ use Assetic\Asset\AssetInterface;
 interface StrategyInterface
 {
 
-    public function setRenderer(Renderer $renderer);
+    public function setRenderer(Renderer $renderer): void;
 
-    public function getRenderer();
+    public function getRenderer(): Renderer;
 
-    public function setBaseUrl($baseUrl);
+    public function setBaseUrl(string $baseUrl): void;
 
-    public function getBaseUrl();
+    public function getBaseUrl(): string;
 
-    public function setBasePath($basePath);
+    public function setBasePath(string $basePath): void;
 
-    public function getBasePath();
+    public function getBasePath(): string;
 
-    public function setDebug($flag);
+    public function setDebug(bool $flag): void;
 
-    public function isDebug();
+    public function isDebug(): bool;
 
-    public function setCombine($flag);
+    public function setCombine(bool $flag): void;
 
-    public function isCombine();
+    public function isCombine(): bool;
 
-    public function setupAsset(AssetInterface $asset);
+    public function setupAsset(AssetInterface $asset): void;
 }

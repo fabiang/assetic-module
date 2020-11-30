@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Fabiang\AsseticBundle;
 
 use Assetic\Contracts\Filter\FilterInterface;
@@ -10,35 +12,25 @@ use Fabiang\AsseticBundle\Exception\InvalidArgumentException;
 class FilterManager extends AsseticFilterManager
 {
 
-    /**
-     * @var ContainerInterface
-     */
-    protected $container;
+    protected ContainerInterface $container;
 
-    /**
-     * @param ContainerInterface $container
-     */
     public function __construct(ContainerInterface $container)
     {
         $this->container = $container;
     }
 
     /**
-     * @param $alias
-     *
-     * @return bool
+     * @param mixed $alias
      */
-    public function has($alias)
+    public function has($alias): bool
     {
         return parent::has($alias) ? true : $this->container->has($alias);
     }
 
     /**
-     * @param $alias
-     *
-     * @throws \InvalidArgumentException    When cant retrieve filter from service manager.
-     *
+     * @param mixed $alias
      * @return mixed
+     * @throws InvalidArgumentException    When cant retrieve filter from service manager.
      */
     public function get($alias)
     {

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Fabiang\AsseticBundle\View;
 
 use Assetic\Asset\AssetCollection;
@@ -9,7 +11,7 @@ use Assetic\Contracts\Asset\AssetInterface;
 class ViewHelperStrategy extends AbstractStrategy
 {
 
-    public function setupAsset(AssetInterface $asset)
+    public function setupAsset(AssetInterface $asset): void
     {
         if ($this->isDebug() && !$this->isCombine() && $asset instanceof AssetCollection) {
             // Move assets as single instance not as a collection
@@ -24,10 +26,9 @@ class ViewHelperStrategy extends AbstractStrategy
         }
     }
 
-    protected function helper($path)
+    protected function helper(string $path): void
     {
-        $extension = pathinfo($path, PATHINFO_EXTENSION);
-        $extension = strtolower($extension);
+        $extension = strtolower(pathinfo($path, PATHINFO_EXTENSION));
 
         switch ($extension) {
             case 'js':
@@ -40,7 +41,7 @@ class ViewHelperStrategy extends AbstractStrategy
         }
     }
 
-    protected function appendScript($path)
+    protected function appendScript(string $path): void
     {
         $renderer = $this->getRenderer();
         switch (true) {
@@ -54,7 +55,7 @@ class ViewHelperStrategy extends AbstractStrategy
         }
     }
 
-    protected function appendStylesheet($path)
+    protected function appendStylesheet(string $path): void
     {
         $renderer = $this->getRenderer();
         switch (true) {
