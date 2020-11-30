@@ -1,4 +1,4 @@
-# AsseticBundle v2.0 [![Build Status](https://travis-ci.org/fabiang/assetic-module.png?branch=master)](https://travis-ci.org/fabiang/assetic-module)
+# AsseticBundle v2.0 [![Build Status](https://travis-ci.com/fabiang/assetic-module.svg?branch=master)](https://travis-ci.com/fabiang/assetic-module)
 
 Currently maintained fork of [widmogrod/zf2-assetic-module](https://github.com/widmogrod/zf2-assetic-module).
 
