@@ -20,8 +20,8 @@ composer require fabiang/assetic-module
 #### Declare `AsseticBundle` in the `config/modules.config.php` file:
 ```php
 return [
-    'Zend\Router',
-    'Zend\Validator',
+    'Laminas\Router',
+    'Laminas\Validator',
     'Fabiang\AsseticBundle', // <-- put it here
     'Application',
 ];
