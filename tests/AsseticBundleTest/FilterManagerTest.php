@@ -15,10 +15,6 @@ use Fabiang\AsseticBundle;
  */
 final class FilterManagerTest extends TestCase
 {
-    /**
-     * @var AsseticBundle\FilterManager
-     */
-    protected $object;
 
     use ProphecyTrait;
 
