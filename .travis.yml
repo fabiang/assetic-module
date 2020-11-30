@@ -17,8 +17,12 @@ env:
 php:
  - 7.4
 
-before_install:
- - composer install --dev --prefer-dist
+install:
+  - composer update --no-interaction --prefer-stable --prefer-dist --no-suggest --no-scripts --no-plugins $PREFER_LOWEST
 
 script:
  - ./vendor/bin/phpunit --verbose
+ - ./venodr/bin/psalm --show-info=true
+
+matrix:
+  fast_finish: true
