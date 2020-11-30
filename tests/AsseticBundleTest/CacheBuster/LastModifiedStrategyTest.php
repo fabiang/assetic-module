@@ -2,11 +2,12 @@
 
 namespace AsseticBundleTest\CacheBuster;
 
+use PHPUnit\Framework\TestCase;
 use AsseticBundle\CacheBuster\LastModifiedStrategy,
     Assetic\Asset\FileAsset,
     Assetic\Factory\AssetFactory;
 
-class LastModifiedStrategyTest extends \PHPUnit_Framework_TestCase
+class LastModifiedStrategyTest extends TestCase
 {
     public function setUp()
     {
