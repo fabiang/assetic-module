@@ -18,13 +18,12 @@ php:
  - 7.2
  - 7.3
  - 7.4
- 
+
 install:
   - composer update --no-interaction --prefer-stable --prefer-dist --no-suggest --no-scripts --no-plugins $PREFER_LOWEST
 
 script:
  - ./vendor/bin/phpunit --verbose
- - ./vendor/bin/psalm --show-info
 
 matrix:
   fast_finish: true
