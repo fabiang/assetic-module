@@ -10,10 +10,7 @@ class ApplicationFactory implements FactoryInterface
 {
 
     /**
-     * @param ContainerInterface $container
      * @param string $requestedName
-     * @param array $options, optional
-     *
      * @return Application
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
