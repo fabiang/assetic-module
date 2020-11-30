@@ -1,12 +1,30 @@
 language: php
 
+sudo: false
+
+git:
+  depth: 2
+
+cache:
+  directories:
+    - $HOME/.composer/cache
+
+env:
+  matrix:
+    - PREFER_LOWEST=""
+    - PREFER_LOWEST="--prefer-lowest"
+
 php:
  - 7.2
  - 7.3
  - 7.4
-
-before_install:
- - composer install --dev --prefer-dist
+ 
+install:
+  - composer update --no-interaction --prefer-stable --prefer-dist --no-suggest --no-scripts --no-plugins $PREFER_LOWEST
 
 script:
  - ./vendor/bin/phpunit --verbose
+ - ./vendor/bin/psalm --show-info
+
+matrix:
+  fast_finish: true
