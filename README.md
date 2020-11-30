@@ -1,4 +1,6 @@
-# AsseticBundle v3.0 [![Build Status](https://travis-ci.org/fabiang/assetic-module.png?branch=master)](https://travis-ci.org/fabiang/assetic-module)
+# AsseticBundle v3.0
+
+[![Build Status](https://travis-ci.org/fabiang/assetic-module.png?branch=master)](https://travis-ci.org/fabiang/assetic-module)
 
 Currently maintained fork of [widmogrod/zf2-assetic-module](https://github.com/widmogrod/zf2-assetic-module).
 
@@ -12,18 +14,26 @@ Goals for v3.0:
   * [ ] Add integration test
   * [ ] Support for Mezzio (no Expressive)
 
+## What is this?
+
 Assets management per module made easy.
+Every module can come with their own assets (JS, CSS, Images etc.) and this
+module make sure the assets are moved into your public folder and are directly
+available in your views.
+
+This also helps you to load all assets for your Laminas application which you've
+installed with npm, yarn etc.
 
   * **Optimize your assets**. Minify your css, js; Compile scss, and more...
-  * **Adapts To Your Needs**. Using custom template engine and want to use power of this module, just implement `AsseticBundle\View\StrategyInterface`
+  * **Adapts To Your Needs**. Using custom template engine and want to use power of this module, just implement `Fabiang\AsseticBundle\View\StrategyInterface`
   * **Well tested**. Besides unit test this solution is also ready for the production use.
-  * **Great fundations**. Based on [Assetic](https://github.com/kriswallsmith/assetic) and [ZF2](https://github.com/zendframework/zf2), [ZF3](https://github.com/zendframework/zendframework/tree/release-3.0.0) and Laminas
+  * **Great fundations**. Based on [Assetic](https://github.com/assetic/framework) and [Laminas](https://getlaminas.org)
   * **Excellent community**. Everything is thanks to great support from GitHub & PHP community!
   * **Every change is tracked**. Want to know whats new? Take a look at [CHANGELOG.md](https://github.com/fabiang/assetic-module/blob/master/CHANGELOG.md)
   * **Listen to your ideas**. Have a great idea? Bring your tested pull request or open a new issue.
 
-
 ## Installation
+
 Read [the quick start guide](https://github.com/fabiang/assetic-module/blob/master/docs/howto.md).
 
 ## Documentation
