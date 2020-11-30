@@ -9,4 +9,4 @@ before_install:
  - composer install --dev --prefer-dist
 
 script:
- - ./vendor/bin/phpunit --version
+ - ./vendor/bin/phpunit --verbose
