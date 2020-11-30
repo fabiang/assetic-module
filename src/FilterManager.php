@@ -40,7 +40,12 @@ class FilterManager extends AsseticFilterManager
 
         $service = $this->container;
         if (!$service->has($alias)) {
-            throw new InvalidArgumentException(sprintf('There is no "%s" filter in ZF2 service manager.', $alias));
+            throw new InvalidArgumentException(
+                sprintf(
+                    'There is no "%s" filter in Laminas service manager.',
+                    $alias
+                )
+            );
         }
 
         $filter = $service->get($alias);

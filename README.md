@@ -10,7 +10,7 @@ Goals for v3.0:
   * [ ] Add support for PHP 8.0
   * [x] Remove support for Zend Framework
   * [x] Use return-types and type-hints everywhere
-  * [ ] Reach 100% unit test coverage
+  * [ ] Reach at least 70% unit test coverage
   * [ ] Add integration test
   * [ ] Support for Mezzio (no Expressive)
 
