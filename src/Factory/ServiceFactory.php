@@ -2,11 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Fabiang\AsseticBundle;
+namespace Fabiang\AsseticBundle\Factory;
 
 use Interop\Container\ContainerInterface;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 use Assetic;
+use Mezzio\Helper\UrlHelper;
+use Mezzio\Application as MezzioApp;
+use Fabiang\AsseticBundle\Service;
 
 class ServiceFactory implements FactoryInterface
 {
@@ -20,9 +23,15 @@ class ServiceFactory implements FactoryInterface
         $asseticConfig = $container->get('AsseticConfiguration');
         if ($asseticConfig->detectBaseUrl()) {
             /** @var \Laminas\Http\PhpEnvironment\Request $request */
-            $request = $container->get('Request');
-            if (method_exists($request, 'getBaseUrl')) {
-                $asseticConfig->setBaseUrl($request->getBaseUrl());
+            if (class_exists(MezzioApp::class)) { // is expressive app
+                $urlHelper = $container->get(UrlHelper::class);
+                $asseticConfig->setBaseUrl($urlHelper->getBasePath());
+            } else {
+                /** @var \Laminas\Http\Request $request */
+                $request = $container->get('Request');
+                if (method_exists($request, 'getBaseUrl')) {
+                    $asseticConfig->setBaseUrl($request->getBaseUrl());
+                }
             }
         }
 

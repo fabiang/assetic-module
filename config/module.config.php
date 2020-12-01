@@ -15,12 +15,13 @@ return [
         ],
         'factories' => [
             'Assetic\AssetManager'      => InvokableFactory::class,
-            'Assetic\AssetWriter'       => WriterFactory::class,
-            Service::class              => ServiceFactory::class,
-            FilterManager::class        => FilterManagerFactory::class,
+            'Assetic\AssetWriter'       => Factory\WriterFactory::class,
+            Service::class              => Factory\ServiceFactory::class,
+            FilterManager::class        => Factory\FilterManagerFactory::class,
             Listener::class             => InvokableFactory::class,
             'Fabiang\AsseticBundle\Cli' => Cli\ApplicationFactory::class,
             Configuration::class        => Factory\ConfigurationFactory::class,
+            AsseticMiddleware::class    => Factory\AsseticMiddlewareFactory::class,
         ],
     ],
     'assetic_configuration' => [

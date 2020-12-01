@@ -7,7 +7,7 @@ namespace Fabiang\AsseticBundle\View\Helper;
 use Laminas\View\Helper\Placeholder\Container;
 use Interop\Container\ContainerInterface;
 use Fabiang\AsseticBundle\Service;
-use Fabiang\AsseticBundle\ServiceFactory;
+use Fabiang\AsseticBundle\Factory\ServiceFactory;
 use Fabiang\AsseticBundle\Exception;
 use Assetic\Contracts\Asset\AssetInterface;
 use Assetic\Asset\AssetCollection;

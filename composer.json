@@ -31,16 +31,26 @@
     "require": {
         "php": "^7.4 || ^8.0",
         "assetic/framework": "^2.0",
-        "laminas/laminas-mvc": "^3.1",
         "laminas/laminas-view": "^2.11",
         "symfony/console": "^4.0 || ^5.0"
     },
     "require-dev": {
+        "http-interop/http-server-middleware": "^1.1",
+        "laminas/laminas-diactoros": "^2.5",
+        "laminas/laminas-mvc": "^3.1",
+        "mezzio/mezzio": "^3.2",
+        "mezzio/mezzio-helpers": "^5.4",
+        "mezzio/mezzio-router": "^3.2",
         "phpspec/prophecy-phpunit": "^2.0",
         "phpunit/phpunit": "^9.4",
         "vimeo/psalm": "^4.2"
     },
     "suggest": {
+        "laminas/laminas-mvc": "When using this module together with Laminas MVC",
+        "mezzio/mezzio": "When using this module together with Mezzio",
+        "mezzio/mezzio-helpers": "When using this module together with Mezzio",
+        "mezzio/mezzio-router": "When using this module together with Mezzio",
+        "http-interop/http-server-middleware": "When using this module together with Mezzio",
         "leafo/lessphp": "Assetic provides the integration with the lessphp LESS compiler",
         "leafo/scssphp": "Assetic provides the integration with the scssphp SCSS compiler"
     },

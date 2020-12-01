@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Fabiang\AsseticBundle;
+namespace Fabiang\AsseticBundle\Factory;
 
 use Assetic\AssetWriter;
 use Interop\Container\ContainerInterface;
