@@ -23,6 +23,8 @@ return (function () {
                     'Fabiang\AsseticBundle\Cli' => Cli\ApplicationFactory::class,
                     Configuration::class        => Factory\ConfigurationFactory::class,
                     AsseticMiddleware::class    => Factory\AsseticMiddlewareFactory::class,
+                    // needed for Mezzio
+                    Renderer\PhpRenderer::class => InvokableFactory::class,
                 ],
             ],
             'assetic_configuration' => [

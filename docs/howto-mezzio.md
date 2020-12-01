@@ -66,7 +66,7 @@ public function __invoke()
             'debug' => true,
             'buildOnRequest' => true,
 
-            'webPath' => __DIR__ . '/../../../public/assets',
+            'webPath' => __DIR__ . '/../../public/assets',
             'basePath' => 'assets',
 
             'routes' => [
