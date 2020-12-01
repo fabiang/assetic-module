@@ -36,9 +36,9 @@ return (function () {
 
         if (class_exists(MvcApplication::class)) {
             $config['assetic_configuration']['acceptableErrors'] = [
-                Application::ERROR_CONTROLLER_NOT_FOUND,
-                Application::ERROR_CONTROLLER_INVALID,
-                Application::ERROR_ROUTER_NO_MATCH
+                MvcApplication::ERROR_CONTROLLER_NOT_FOUND,
+                MvcApplication::ERROR_CONTROLLER_INVALID,
+                MvcApplication::ERROR_ROUTER_NO_MATCH
             ];
         }
 

@@ -12,7 +12,7 @@ Goals for v3.0:
   * [x] Use return-types and type-hints everywhere
   * [ ] Reach at least 70% unit test coverage
   * [ ] Add integration test
-  * [ ] Support for Mezzio (no Expressive)
+  * [x] Support for Mezzio (no Expressive)
 
 ## What is this?
 
