@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "445be27bef925f779d54af19018f1f91",
+    "content-hash": "c2d407e0f1fcc32ffda393459ab147a0",
     "packages": [
         {
             "name": "assetic/framework",
@@ -1958,65 +1958,6 @@
                 "response"
             ],
             "time": "2020-11-24T22:02:12+00:00"
-        },
-        {
-            "name": "http-interop/http-server-middleware",
-            "version": "1.1.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/http-interop/http-server-middleware.git",
-                "reference": "1ed99649e5f0d785c16d53cc021d7187ec350f28"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/http-interop/http-server-middleware/zipball/1ed99649e5f0d785c16d53cc021d7187ec350f28",
-                "reference": "1ed99649e5f0d785c16d53cc021d7187ec350f28",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.0",
-                "psr/http-message": "^1.0",
-                "psr/http-server-middleware": "^1.0"
-            },
-            "replace": {
-                "http-interop/http-middleware": ">=0.5"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.0.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Interop\\Http\\Server\\": "src/"
-                },
-                "files": [
-                    "src/alias.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "PHP-FIG",
-                    "homepage": "http://www.php-fig.org/"
-                }
-            ],
-            "description": "Common interface for HTTP server-side middleware",
-            "keywords": [
-                "http",
-                "middleware",
-                "psr",
-                "psr-15",
-                "psr-7",
-                "request",
-                "response"
-            ],
-            "abandoned": "psr/http-server-middleware",
-            "time": "2018-01-23T14:34:55+00:00"
         },
         {
             "name": "laminas/laminas-config",
@@ -3996,16 +3937,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "9.4.3",
+            "version": "9.4.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "9fa359ff5ddaa5eb2be2bedb08a6a5787a5807ab"
+                "reference": "6535e637961f0829832621dc1b7308c2d24a799e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/9fa359ff5ddaa5eb2be2bedb08a6a5787a5807ab",
-                "reference": "9fa359ff5ddaa5eb2be2bedb08a6a5787a5807ab",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/6535e637961f0829832621dc1b7308c2d24a799e",
+                "reference": "6535e637961f0829832621dc1b7308c2d24a799e",
                 "shasum": ""
             },
             "require": {
@@ -4091,7 +4032,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2020-11-10T12:53:30+00:00"
+            "time": "2020-12-01T04:58:47+00:00"
         },
         {
             "name": "psr/http-factory",

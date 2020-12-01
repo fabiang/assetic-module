@@ -23,6 +23,8 @@ install:
 script:
  - ./vendor/bin/phpunit --verbose
  - ./vendor/bin/psalm --show-info=true
+ - ./bin/assetic --version #MVC
+ - rm -rf venodr/laminas/laminas-mvc && ./bin/assetic --version #Mezzio
 
 matrix:
   fast_finish: true

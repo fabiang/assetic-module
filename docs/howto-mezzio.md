@@ -116,22 +116,22 @@ public function __invoke()
 }
 ```
 
-- You could also copy file from `assetic-module` to `module/App`
+- You could also copy file from `fabiang/assetic-module` to `module/App`
   ```
-  cp vendor/mezzio/mezzio-skeleton/config/assets.config.php.dist module/App/config/assets.config.php
+  cp vendor/fabiang/assetic-module/config/assets.config.php.dist module/App/config/assets.config.php
   ```
 - Update `module/App/src/ConfigProvicer.php`
   ```php
-class ConfigProvider
-{
-    public function __invoke()
-    {
-        return array_merge(
-            include __DIR__ . '/config/module.config.php',
-            include __DIR__ . '/config/assets.config.php'
-        );
-    }
-}
+  class ConfigProvider
+  {
+      public function __invoke()
+      {
+          return array_merge(
+              include __DIR__ . '/config/module.config.php',
+              include __DIR__ . '/config/assets.config.php'
+          );
+      }
+  }
   ```
 
 #### Enable development mode

@@ -35,7 +35,6 @@
         "symfony/console": "^4.0 || ^5.0"
     },
     "require-dev": {
-        "http-interop/http-server-middleware": "^1.1",
         "laminas/laminas-diactoros": "^2.5",
         "laminas/laminas-mvc": "^3.1",
         "mezzio/mezzio": "^3.2",
@@ -43,6 +42,7 @@
         "mezzio/mezzio-router": "^3.2",
         "phpspec/prophecy-phpunit": "^2.0",
         "phpunit/phpunit": "^9.4",
+        "psr/http-server-middleware": "^1.0",
         "vimeo/psalm": "^4.2"
     },
     "suggest": {
@@ -50,7 +50,7 @@
         "mezzio/mezzio": "When using this module together with Mezzio",
         "mezzio/mezzio-helpers": "When using this module together with Mezzio",
         "mezzio/mezzio-router": "When using this module together with Mezzio",
-        "http-interop/http-server-middleware": "When using this module together with Mezzio",
+        "psr/http-server-middleware": "When using this module together with Mezzio",
         "leafo/lessphp": "Assetic provides the integration with the lessphp LESS compiler",
         "leafo/scssphp": "Assetic provides the integration with the scssphp SCSS compiler"
     },

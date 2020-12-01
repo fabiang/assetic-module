@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Fabiang\AsseticBundle;
 
 use Laminas\View\Renderer\RendererInterface as Renderer;
-use Interop\Http\Server\MiddlewareInterface;
+use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Psr\Http\Message\ResponseInterface;
