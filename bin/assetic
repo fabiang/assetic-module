@@ -1,8 +1,48 @@
 #!/usr/bin/env php
 <?php
 
-use Laminas\Mvc\Application;
+use Laminas\Mvc\Application as MvcApplication;
 use Laminas\Stdlib\ArrayUtils;
+
+/**
+ * @return array|Interop\Container\ContainerInterface
+ * @throws RuntimeException
+ */
+function __findAppConfig(string $path)
+{
+    if (!file_exists($path)) {
+        chdir(__DIR__);
+
+        $previousDir = '.';
+
+        // Search for the config
+        while (!file_exists($path)) {
+            $dir = dirname(getcwd());
+
+            if ($previousDir === $dir) {
+                throw new RuntimeException(
+                    sprintf(
+                        'Unable to locate "%s": is Fabiang\AsseticBundle in a subdir of your application skeleton?',
+                        $path
+                    )
+                );
+            }
+
+            $previousDir = $dir;
+            chdir($dir);
+        }
+    }
+
+    return include $path;
+}
+
+function __mergeDevelopmentConfig(array $appConfig): array
+{
+    if (file_exists('config/development.config.php')) {
+        $appConfig = ArrayUtils::merge($appConfig, include 'config/development.config.php');
+    }
+    return $appConfig;
+}
 
 if (file_exists(__DIR__ . '/../vendor/autoload.php')) {
     include_once __DIR__ . '/../vendor/autoload.php';
@@ -14,35 +54,28 @@ if (file_exists(__DIR__ . '/../vendor/autoload.php')) {
     );
 }
 
-if (!file_exists('config/application.config.php')) {
-    chdir(__DIR__);
+// MVC application
+if (class_exists(MvcApplication::class)) {
+    $appConfig = __findAppConfig('config/application.config.php');
+    $appConfig = __mergeDevelopmentConfig($appConfig);
 
-    $previousDir = '.';
+    // init Laminas Application
+    $application = MvcApplication::init($appConfig);
 
-    // Search for the config/application.config.php
-    while (!file_exists('config/application.config.php')) {
-        $dir = dirname(getcwd());
+    $container = $application->getServiceManager();
+} else {
+    $container = __findAppConfig('config/container.php');
 
-        if ($previousDir === $dir) {
-            throw new RuntimeException(
-                'Unable to locate "config/application.config.php": ' .
-                'is AsseticBundle in a subdir of your application skeleton?'
-            );
-        }
+    /** @var \Mezzio\Application $app */
+    $application = $container->get(\Mezzio\Application::class);
+    $factory     = $container->get(\Mezzio\MiddlewareFactory::class);
 
-        $previousDir = $dir;
-        chdir($dir);
-    }
+    // Execute programmatic/declarative middleware pipeline and routing
+    // configuration statements
+    (require 'config/pipeline.php')($application, $factory, $container);
+    (require 'config/routes.php')($application, $factory, $container);
 }
-
-$appConfig = include 'config/application.config.php';
-if (file_exists('config/development.config.php')) {
-    $appConfig = ArrayUtils::merge($appConfig, include 'config/development.config.php');
-}
-
-// init Laminas Application
-$application = Application::init($appConfig);
 
 /* @var $cli \Symfony\Console\Application */
-$cli = $application->getServiceManager()->get('Fabiang\AsseticBundle\Cli');
+$cli = $container->get('Fabiang\AsseticBundle\Cli');
 exit($cli->run());

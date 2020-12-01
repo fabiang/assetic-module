@@ -1,4 +1,4 @@
-# How to use AsseticBundle with Mezzio
+# How to use Fabiang\AsseticBundle with Mezzio
 
 ## Introduction
 
@@ -23,7 +23,7 @@ cd path/to/project
 composer require fabiang/assetic-module
 ```
 
-#### Register module in your `config/config.php` with `AsseticBundle\ConfigProvider::class`
+#### Register module in your `config/config.php` with `Fabiang\AsseticBundle\ConfigProvider::class`
 
 ```php
 $aggregator = new ConfigAggregator([
