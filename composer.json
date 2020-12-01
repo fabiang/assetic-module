@@ -37,7 +37,6 @@
     "require-dev": {
         "laminas/laminas-diactoros": "^2.5",
         "laminas/laminas-mvc": "^3.1",
-        "laminas/laminas-servicemanager": "<3.5",
         "mezzio/mezzio": "^3.2",
         "mezzio/mezzio-helpers": "^5.4",
         "mezzio/mezzio-router": "^3.2",

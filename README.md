@@ -11,7 +11,6 @@ Goals for v3.0:
   * [x] Remove support for Zend Framework
   * [x] Use return-types and type-hints everywhere
   * [ ] Reach at least 70% unit test coverage
-  * [ ] Add integration test
   * [x] Support for Mezzio (no Expressive)
 
 ## What is this?

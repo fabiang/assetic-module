@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "90dc0458a2f2501c12c955746502cb98",
+    "content-hash": "c2d407e0f1fcc32ffda393459ab147a0",
     "packages": [
         {
             "name": "assetic/framework",
@@ -2501,7 +2501,7 @@
         },
         {
             "name": "laminas/laminas-servicemanager",
-            "version": "3.4.1",
+            "version": "3.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-servicemanager.git",
