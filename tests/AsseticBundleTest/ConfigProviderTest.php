@@ -6,8 +6,6 @@ namespace AsseticBundleTest;
 
 use PHPUnit\Framework\TestCase;
 use Fabiang\AsseticBundle\ConfigProvider;
-use Prophecy\PhpUnit\ProphecyTrait;
-use Interop\Container\ContainerInterface;
 
 /**
  * @coversDefaultClass Fabiang\AsseticBundle\ConfigProvider
