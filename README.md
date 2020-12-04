@@ -7,7 +7,7 @@ Currently maintained fork of [widmogrod/zf2-assetic-module](https://github.com/w
 Goals for v3.0:
 
   * [x] Drop support for PHP <7.4
-  * [ ] Add support for PHP 8.0
+  * [x] Add support for PHP 8.0
   * [x] Remove support for Zend Framework
   * [x] Use return-types and type-hints everywhere
   * [ ] Reach at least 70% unit test coverage
