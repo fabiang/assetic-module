@@ -1,6 +1,10 @@
 # AsseticBundle v3.0
 
-[![Build Status](https://travis-ci.org/fabiang/assetic-module.png?branch=master)](https://travis-ci.org/fabiang/assetic-module)
+[![Latest Stable Version](https://poser.pugx.org/fabiang/assetic-module/version)](https://packagist.org/packages/fabiang/assetic-module)
+[![License](https://poser.pugx.org/fabiang/assetic-module/license)](https://packagist.org/packages/fabiang/assetic-module)
+[![Build Status](https://travis-ci.com/fabiang/assetic-module.png?branch=master)](https://travis-ci.com/fabiang/assetic-module)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/fabiang/assetic-module/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/fabiang/assetic-module/?branch=master)
+[![Code Coverage](https://scrutinizer-ci.com/g/fabiang/assetic-module/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/fabiang/assetic-module/?branch=master)
 
 Currently maintained fork of [widmogrod/zf2-assetic-module](https://github.com/widmogrod/zf2-assetic-module).
 
