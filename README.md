@@ -4,14 +4,13 @@
 
 Currently maintained fork of [widmogrod/zf2-assetic-module](https://github.com/widmogrod/zf2-assetic-module).
 
-Goals for v3.0:
+## Features
 
-  * [x] Drop support for PHP <7.4
   * [x] Add support for PHP 8.0
+  * [x] Drop support for PHP <7.4
   * [x] Remove support for Zend Framework
   * [x] Use return-types and type-hints everywhere
-  * [ ] Reach at least 70% unit test coverage
-  * [x] Support for Mezzio (no Expressive)
+  * [x] Support for Mezzio (sorry no Expressive)
 
 ## What is this?
 
@@ -48,7 +47,7 @@ or [the quick start guide for Mezzio?](https://github.com/fabiang/assetic-module
 
 We've two main branches here:
 
+- 3.x: current version with dropped Zend Framework support and added features
 - 2.x: version compatible with Zend Framework 2/3 and Laminas
-- 3.x: future version with dropped Zend Framework support and added features
 
-Currently the master branch is for version 2.x
+Currently the master branch is for version 3.x

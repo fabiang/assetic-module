@@ -34,7 +34,8 @@ class Listener extends AbstractListenerAggregate
 
     public function renderAssets(MvcEvent $e): void
     {
-        $sm     = $e->getApplication()->getServiceManager();
+        $sm = $e->getApplication()->getServiceManager();
+
         /** @var Configuration $config */
         $config = $sm->get('AsseticConfiguration');
         if ($e->getName() === MvcEvent::EVENT_DISPATCH_ERROR) {
