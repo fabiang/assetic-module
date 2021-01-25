@@ -312,9 +312,9 @@ class Configuration
         $setter = 'set' . implode('', $parts);
         if (!method_exists($this, $setter)) {
             throw new Exception\BadMethodCallException(
-                'The configuration key "' . $key . '" does not '
-                . 'have a matching ' . $setter . ' setter method '
-                . 'which must be defined'
+                    'The configuration key "' . $key . '" does not '
+                    . 'have a matching ' . $setter . ' setter method '
+                    . 'which must be defined'
             );
         }
 
@@ -353,15 +353,12 @@ class Configuration
 
     public function setUmask(?int $umask): void
     {
-        $this->umask = null;
-        if (is_int($umask)) {
-            $this->umask = (int) $umask;
-        }
+        $this->umask = $umask;
     }
 
     public function setBuildOnRequest(bool $flag): void
     {
-        $this->buildOnRequest = (bool) $flag;
+        $this->buildOnRequest = $flag;
     }
 
     public function getBuildOnRequest(): bool
