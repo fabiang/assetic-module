@@ -3,6 +3,7 @@
 namespace Fabiang\AsseticBundle;
 
 use Laminas\Mvc\Application as MvcApplication;
+use Mezzio\Application as MezzioApplication;
 use Laminas\View\Renderer;
 use Laminas\ServiceManager\Factory\InvokableFactory;
 
@@ -23,8 +24,6 @@ return (function () {
                     'Fabiang\AsseticBundle\Cli' => Cli\ApplicationFactory::class,
                     Configuration::class        => Factory\ConfigurationFactory::class,
                     AsseticMiddleware::class    => Factory\AsseticMiddlewareFactory::class,
-                    // needed for Mezzio
-                    Renderer\PhpRenderer::class => InvokableFactory::class,
                 ],
             ],
             'assetic_configuration' => [
@@ -42,6 +41,11 @@ return (function () {
                 MvcApplication::ERROR_CONTROLLER_INVALID,
                 MvcApplication::ERROR_ROUTER_NO_MATCH
             ];
+        }
+
+        if (class_exists(MezzioApplication::class)) {
+            // needed for Mezzio
+            $config['service_manager']['factories'][Renderer\PhpRenderer::class] = InvokableFactory::class;
         }
 
         return $config;
