@@ -1,25 +1,24 @@
 <?php
 
-namespace AsseticBundle\Cli;
+declare(strict_types=1);
 
-use AsseticBundle\Service;
+namespace Fabiang\AsseticBundle\Cli;
+
+use Fabiang\AsseticBundle\Service;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class SetupCommand extends Command
 {
+
     /**
      * The assetic service
-     *
-     * @var Service
      */
-    private $assetic;
+    private Service $assetic;
 
     /**
      * Constructor.
-     *
-     * @param Service $assetic
      */
     public function __construct(Service $assetic)
     {
@@ -30,21 +29,16 @@ class SetupCommand extends Command
 
     /**
      * Executes the current command.
-     *
-     * @param InputInterface  $input  An InputInterface instance
-     * @param OutputInterface $output An OutputInterface instance
-     *
-     * @return null|int null or 0 if everything went fine, or an error code
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $config = $this->assetic->getConfiguration();
-        $mode   = (null !== ($mode = $config->getUmask())) ? $mode : 0775;
+        $mode   = (null !== ($mode   = $config->getUmask())) ? $mode : 0775;
 
-        if (!$this->createPath($output, 'Cache', $config->getCachePath(), $mode)) {
+        if (!$this->createPath($output, 'Cache', $config->getCachePath() ?? '', $mode)) {
             return 1;
         }
-        if (!$this->createPath($output, 'Web', $config->getWebPath(), $mode)) {
+        if (!$this->createPath($output, 'Web', $config->getWebPath() ?? '', $mode)) {
             return 1;
         }
 
@@ -53,15 +47,8 @@ class SetupCommand extends Command
 
     /**
      * Creates a path with the needed permissions
-     *
-     * @param OutputInterface $output The output object
-     * @param string          $which  Which path?
-     * @param string          $path   The path
-     * @param int             $mode   The permissions
-     *
-     * @return bool                   Success
      */
-    private function createPath(OutputInterface $output, $which, $path, $mode)
+    private function createPath(OutputInterface $output, string $which, string $path, int $mode): bool
     {
         $displayMode = decoct($mode);
         $pathExists  = is_dir($path);
@@ -98,7 +85,7 @@ class SetupCommand extends Command
             $output->writeln(
                 '<error>Creation of ' . $which . ' path "' . $path . '" failed - path exists but is not readable</error>'
             );
-        } elseif (!$writable) {
+        } else {
             $output->writeln(
                 '<error>Creation of ' . $which . ' path "' . $path . '" failed - path exists but is not writable</error>'
             );
@@ -106,4 +93,5 @@ class SetupCommand extends Command
 
         return false;
     }
+
 }

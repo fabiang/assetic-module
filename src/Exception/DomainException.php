@@ -1,7 +1,10 @@
 <?php
 
-namespace AsseticBundle\Exception;
+declare(strict_types=1);
 
-class DomainException extends \DomainException
+namespace Fabiang\AsseticBundle\Exception;
+
+class DomainException extends \DomainException implements ExceptionInterface
 {
+
 }

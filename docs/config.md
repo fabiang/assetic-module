@@ -15,7 +15,7 @@ Below are the description of configuration options in the main `assetic_configur
 | cachePath          | string     | `data/cache`     | Here, cache metadata will be saved
 | cacheEnabled       | boolean    | `true`           | If, true cache will be used on assets using filters. This is very useful if we use filters like scss, closure,...
 | umask              | integer    | `null`           | Yes, is regular `umask` apply on generated assets
-| baseUrl            | string     | `null`           | Define base URL which will prepend your resources. If `null`, then this value will be detected by ZF2
+| baseUrl            | string     | `null`           | Define base URL which will prepend your resources. If `null`, then this value will be detected by Laminas/Mezzio
 | basePath           | string     | `assets`         | Indicate where assets are and from where will be loaded. In example where `$baseUrl = 'http://example.com/'` `$basePath = 'assets'` `$assetPath = '/main.css'` view strategy will build such resource address `<link href="$baseUrl . $basePath . $assetPath"/>`
 | controllers        | array      | -                | Described in separate section
 | routes             | array      | -                | Described in separate section
@@ -73,18 +73,18 @@ If you want to use assets for specifc route then go to next section.
 Consider following configuration:
 
 ```php
-return array(
-    'assetic_configuration' => array(
-        'controllers' => array(
-            'Your_Module_Name\Controller\ControllerName' => array(
+return [
+    'assetic_configuration' => [
+        'controllers' => [
+            'Your_Module_Name\Controller\ControllerName' => [
                 '@my_css',
                 '@my_js',
-            ),
-        ),
+            ],
+        ],
 
         /* some code ommited for clarity */
-    ),
-);
+    ],
+];
 ```
 
 When you make request to `Your_Module_Name\Controller\ControllerName` asset collections `my_css` and `my_js` will be injected into the layout.
@@ -93,26 +93,26 @@ When you make request to `Your_Module_Name\Controller\ControllerName` asset coll
 
 You can also be more specific about what assets to use in which action of the controller. Consider following configuration:
 ```php
-return array(
-    'assetic_configuration' => array(
-        'controllers' => array(
-            'Your_Module_Name\Controller\ControllerName' => array(
-                'actions' => array(
-                    'index' => array(
+return [
+    'assetic_configuration' => [
+        'controllers' => [
+            'Your_Module_Name\Controller\ControllerName' => [
+                'actions' => [
+                    'index' => [
                         '@my_css',
                         '@my_js',
-                    ),
-                    'other-action' => array(
+                    ],
+                    'other-action' => [
                         '@my_other_css',
                         '@my_other_js',
-                    ),
-                ),
-            ),
-        ),
+                    ],
+                ],
+            ],
+        ],
 
         /* some code ommited for clarity */
-    ),
-);
+    ],
+];
 ```
 
 When you make request to the controller `Your_Module_Name\Controller\ControllerName` and action `index` asset collections `my_css` and `my_js` will be injected into the layout.
@@ -121,21 +121,21 @@ But when you make request to the controller `Your_Module_Name\Controller\Control
 Note that you can combine the two approaches described above - you can specify some assset collections to be shared between all actions of the controller and then have others being used only in selected actions. Just write the shared collections in the controller array and action-specific ones inside actions array, like in the following example:
 
 ```php
-return array(
-    'assetic_configuration' => array(
-        'controllers' => array(
-            'Your_Module_Name\Controller\ControllerName' => array(
+return [
+    'assetic_configuration' => [
+        'controllers' => [
+            'Your_Module_Name\Controller\ControllerName' => [
                 '@shared_asset_collection',
-                'actions' => array(
-                    'index' => array(
+                'actions' => [
+                    'index' => [
                         '@action_specific_asset_collection',
-                    ),
-                ),
-            ),
-        ),
+                    ],
+                ],
+            ],
+        ],
         /* some code ommited for clarity */
-    ),
-);
+    ],
+];
 ```
 
 ### Routes section
@@ -145,21 +145,21 @@ You can tell `AsseticBundle` what assets should be used for what route.
 Consider following configuration:
 
 ```php
-return array(
-    'assetic_configuration' => array(
-        'routes' => array(
-            'admin(.*)' => array(
+return [
+    'assetic_configuration' => [
+        'routes' => [
+            'admin(.*]' => [
                 '@specific_admin_js',
-            ),
-            'admin(/dashboard|/reports|/etc)' => array(
+            ],
+            'admin(/dashboard|/reports|/etc]' => [
                 '@admin_css',
                 '@admin_js'
-            )
-        )
+            ]
+        ]
 
         /* some code ommited for clarity */
-    ),
-);
+    ],
+];
 ```
 
 1. When you make request to **route name** `admin` only asset collection `specific_admin_js` will be injected into the layout. Its because route name `admin` is matched against regular expresion `admin(.*)` and `admin(/dashboard|/reports|/etc)` and only first is matched.
@@ -174,20 +174,20 @@ This option can be useful when you are building application without sophisticate
 Consider following configuration:
 
 ```php
-return array(
-    'assetic_configuration' => array(
-        'default' => array(
-            'assets' => array(
+return [
+    'assetic_configuration' => [
+        'default' => [
+            'assets' => [
                 '@base_css',
-            ),
-            'options' => array(
+            ],
+            'options' => [
                 'mixin' => true
-            ),
-        ),
+            ],
+        ],
 
         /* some code ommited for clarity */
-    ),
-);
+    ],
+];
 ```
 
 1. If we can't find matching controller or router configuration for a given request then asset collection `base_css` will be injected into layout.
@@ -227,44 +227,44 @@ To make your module aware of assets you should create file similar to this:
 ```php
 <?php
 // configs/assets.config.php
-return array(
-    'assetic_configuration' => array(
-        'modules' => array(
-            'Your_Module_Name' => array(
+return [
+    'assetic_configuration' => [
+        'modules' => [
+            'Your_Module_Name' => [
                 'root_path' => __DIR__ . '/../assets',
 
-                'collections' => array(
-                    'my_css' => array(
-                        'assets' => array(
+                'collections' => [
+                    'my_css' => [
+                        'assets' => [
                             // Relative to 'root_path'
                             'css/global.css',
-                        ),
-                        'filters' => array(
-                            '?CssRewriteFilter' => array(
+                        ],
+                        'filters' => [
+                            '?CssRewriteFilter' => [
                                 'name' => 'Assetic\Filter\CssRewriteFilter'
-                            ),
-                            '?CssMinFilter' => array(
+                            ],
+                            '?CssMinFilter' => [
                                 'name' => 'Assetic\Filter\CssMinFilter'
-                            ),
-                        ),
-                    ),
-                    'my_js' => array(
-                        'assets' => array(
+                            ],
+                        ],
+                    ],
+                    'my_js' => [
+                        'assets' => [
                              // Relative to 'root_path'
                             'js/jquery.js',
                             'js/test.js',
-                        ),
-                        'filters' => array(
-                            '?JSMinFilter' => array(
+                        ],
+                        'filters' => [
+                            '?JSMinFilter' => [
                                 'name' => 'Assetic\Filter\JSMinFilter'
-                            ),
-                        ),
-                    ),
-                ),
-            ),
-        ),
-    ),
-);
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ],
+    ],
+];
 
 ```
 

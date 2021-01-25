@@ -7,12 +7,13 @@
 The development environment is characterized by rapid code and functionality changes, which can often lead to bugs if wrongly configured.
 The following settings are meant to help you minimize these errors.
 
-```
-return array(
-    'assetic_configuration' => array(
+```php
+return [
+    'assetic_configuration' => [
         'debug'          => true,
         'buildOnRequest' => true,
-)
+    ]
+]
 ```
 
 **Setting `debug` option to `true` will enable:**
@@ -34,11 +35,13 @@ No one edits/builds code on production, right? ;)
 
 The following settings help you achieve this task.
 
-```
-return array(
-    'assetic_configuration' => array(
+```php
+return [
+    'assetic_configuration' => [
         'debug'          => false,
         'buildOnRequest' => false,
+    ]
+]
 ```
 
 Please also consider configuring the cache busting strategy, described in the config section.
@@ -71,31 +74,41 @@ Thanks to that, the browser will always receive fresh assets.
 
 By default, cache busting is disabled.
 To enable it you only need to specify which cache buster strategy you want to use by setting `AsseticCacheBuster` key in service manager configuration:
-```
-return array(
-    'service_manager' => array(
-        'invokables' => array(
-            'AsseticCacheBuster' => 'AsseticBundle\CacheBuster\LastModifiedStrategy',
-)));
+
+```php
+use Fabiang\AsseticBundle\CacheBuster\LastModifiedStrategy;
+use Laminas\ServiceManager\Factory\InvokableFactory;
+
+return [
+    'service_manager' => [
+        'factories' => [
+            LastModifiedStrategy::class => InvokableFactory::class,
+        ],
+        'aliases => [
+            'AsseticCacheBuster' => LastModifiedStrategy::class,
+        ],
+    ]
+];
 ```
 
 ## Using ZfcRbac module?
 
 Please note anyone using `assetic-module` with `ZfcRbac` you will experience this same issue on (Access Denied)[https://github.com/widmogrod/zf2-assetic-module/pull/41]. This is due to the white list of acceptable errors in assetic. You will need to allow the firewall errors in your assetic configuration to get css on your access denied pages:
 
-```
-use Zend\Mvc\Application;
+```php
+use Laminas\Mvc\Application;
 use ZfcRbac\Guard\GuardInterface;
 
-return array(
-    'assetic_configuration' => array(
-        'acceptableErrors' => array(
+return [
+    'assetic_configuration' => [
+        'acceptableErrors' => [
             Application::ERROR_CONTROLLER_NOT_FOUND,
             Application::ERROR_CONTROLLER_INVALID,
             Application::ERROR_ROUTER_NO_MATCH,
             GuardInterface::GUARD_UNAUTHORIZED,
-        ),
-);
+        ],
+    ]
+];
 ```
 
 ## Minimalistic layout template

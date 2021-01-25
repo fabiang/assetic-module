@@ -6,3 +6,4 @@ vendor/
 .vagrant
 phpunit.xml
 .phpunit.result.cache
+tests/log/

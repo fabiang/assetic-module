@@ -1,25 +1,25 @@
 <?php
 
-namespace AsseticBundle\Cli;
+declare(strict_types=1);
 
-use AsseticBundle\Service;
+namespace Fabiang\AsseticBundle\Cli;
+
+use Fabiang\AsseticBundle\Service;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class BuildCommand extends Command
 {
+
     /**
      * The assetic service
-     *
-     * @var Service
+
      */
-    private $assetic;
+    private Service $assetic;
 
     /**
      * Constructor.
-     *
-     * @param Service $assetic
      */
     public function __construct(Service $assetic)
     {
@@ -30,13 +30,8 @@ class BuildCommand extends Command
 
     /**
      * Executes the current command.
-     *
-     * @param InputInterface  $input  An InputInterface instance
-     * @param OutputInterface $output An OutputInterface instance
-     *
-     * @return null|int null or 0 if everything went fine, or an error code
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $config = $this->assetic->getConfiguration();
         $config->setBuildOnRequest(true);
@@ -44,4 +39,5 @@ class BuildCommand extends Command
         $this->assetic->getAssetWriter()->writeManagerAssets($this->assetic->getAssetManager());
         return 0;
     }
+
 }

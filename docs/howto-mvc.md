@@ -20,16 +20,16 @@ composer require fabiang/assetic-module
 #### Declare `AsseticBundle` in the `config/modules.config.php` file:
 ```php
 return [
-    'Zend\Router',
-    'Zend\Validator',
-    'AsseticBundle', // <-- put it here
+    'Laminas\Router',
+    'Laminas\Validator',
+    'Fabiang\AsseticBundle', // <-- put it here
     'Application',
 ];
 ```
 
 #### Create cache and assets directory with valid permissions.
 ```
-vendor/bin/assetic setup
+./vendor/bin/assetic setup
 ```
 
 #### Move resources from `public/` to `module/Application/assets/`
@@ -43,7 +43,7 @@ mv public/img module/Application/assets
 
 #### Edit the module configuration file `module/Application/config/module.config.php` add following configuration:
 
-``` php
+```php
 return [
     /* ... */
     'assetic_configuration' => [
@@ -99,9 +99,9 @@ return [
 ];
 ```
 
-- You could also copy file from `fabiang/assetic-modulee` to `module/Application`
+- You could also copy file from `fabiang/assetic-module` to `module/Application`
   ```
-  cp vendor/fabiang/assetic-module/configs/assets.config.php.dist module/Application/config/assets.config.php
+  cp vendor/fabiang/assetic-module/config/assets.config.php.dist module/Application/config/assets.config.php
   ```
 - Update `module/Application/src/Module.php`
   ```php
@@ -129,7 +129,7 @@ return [
 ```
 <head>
     <meta charset="utf-8">
-    <?= $this->headTitle('ZF Skeleton Application')->setSeparator(' - ')->setAutoEscape(false) ?>
+    <?= $this->headTitle('Laminas Skeleton Application')->setSeparator(' - ')->setAutoEscape(false) ?>
 
     <?= $this->headMeta() ?>
     <?= $this->headLink() ?>
@@ -153,3 +153,4 @@ Refresh site and have fun!
 #### What next?
 - [Configuration](https://github.com/fabiang/assetic-module/blob/master/docs/config.md)
 - [Tips & Tricks](https://github.com/fabiang/assetic-module/blob/master/docs/tips.md)
+- [Migration guide](https://github.com/fabiang/assetic-module/blob/master/docs/migration.md)

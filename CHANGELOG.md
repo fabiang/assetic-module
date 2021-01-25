@@ -1,4 +1,13 @@
-2020-11-27
+2020-xx-xx
+----------
+
+  * Renamed namespace from `AsseticBundle` to `Fabiang\AsseticBundle`
+  * Drop support for Zend Framework, all classes now use the Laminas namespace
+  * Drop support for PHP <7.4
+  * Added support for Mezzio as a middleware
+  * All classes are using proper type-hints, return-types and are type strict
+
+2020-11-30
 ----------
 
   * Fork of original module

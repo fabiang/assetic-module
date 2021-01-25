@@ -1,43 +1,36 @@
 <?php
 
-namespace AsseticBundle;
+declare(strict_types=1);
+
+namespace Fabiang\AsseticBundle;
 
 use Assetic\Contracts\Filter\FilterInterface;
 use Assetic\FilterManager as AsseticFilterManager;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Interop\Container\ContainerInterface;
+use Fabiang\AsseticBundle\Exception\InvalidArgumentException;
 
 class FilterManager extends AsseticFilterManager
 {
 
-    /**
-     * @var ServiceLocatorInterface
-     */
-    protected $serviceLocator;
+    protected ContainerInterface $container;
 
-    /**
-     * @param ServiceLocatorInterface $locator
-     */
-    public function __construct(ServiceLocatorInterface $locator)
+    public function __construct(ContainerInterface $container)
     {
-        $this->serviceLocator = $locator;
+        $this->container = $container;
     }
 
     /**
-     * @param $alias
-     *
-     * @return bool
+     * @param mixed $alias
      */
-    public function has($alias)
+    public function has($alias): bool
     {
-        return parent::has($alias) ? true : $this->serviceLocator->has($alias);
+        return parent::has($alias) ? true : $this->container->has($alias);
     }
 
     /**
-     * @param $alias
-     *
-     * @throws \InvalidArgumentException    When cant retrieve filter from service manager.
-     *
+     * @param mixed $alias
      * @return mixed
+     * @throws InvalidArgumentException    When cant retrieve filter from service manager.
      */
     public function get($alias)
     {
@@ -45,9 +38,14 @@ class FilterManager extends AsseticFilterManager
             return parent::get($alias);
         }
 
-        $service = $this->serviceLocator;
+        $service = $this->container;
         if (!$service->has($alias)) {
-            throw new \InvalidArgumentException(sprintf('There is no "%s" filter in ZF2 service manager.', $alias));
+            throw new InvalidArgumentException(
+                sprintf(
+                    'There is no "%s" filter in Laminas service manager.',
+                    $alias
+                )
+            );
         }
 
         $filter = $service->get($alias);
@@ -55,7 +53,7 @@ class FilterManager extends AsseticFilterManager
             $givenType = is_object($filter) ? get_class($filter) : gettype($filter);
             $message   = 'Retrieved filter "%s" is not instanceof "Assetic\Filter\FilterInterface", but type was given %s';
             $message   = sprintf($message, $alias, $givenType);
-            throw new \InvalidArgumentException($message);
+            throw new InvalidArgumentException($message);
         }
 
         $this->set($alias, $filter);

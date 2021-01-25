@@ -4,21 +4,21 @@ declare(strict_types=1);
 
 namespace Fabiang\AsseticBundle\Factory;
 
-use Fabiang\AsseticBundle\Configuration;
+use Assetic\AssetWriter;
 use Interop\Container\ContainerInterface;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 
-class ConfigurationFactory implements FactoryInterface
+class WriterFactory implements FactoryInterface
 {
 
     /**
      * @param string $requestedName
-     * @return Configuration
+     * @return AssetWriter
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        $configuration = $container->get('config');
-        return new Configuration($configuration['assetic_configuration']);
+        $asseticConfig = $container->get('AsseticConfiguration');
+        return new AssetWriter($asseticConfig->getWebPath());
     }
 
 }

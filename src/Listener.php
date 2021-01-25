@@ -1,53 +1,41 @@
 <?php
 
-namespace AsseticBundle;
+declare(strict_types=1);
 
-use Zend\EventManager\EventManagerInterface;
-use Zend\EventManager\ListenerAggregateInterface;
-use Zend\Http\PhpEnvironment\Response;
-use Zend\Mvc\MvcEvent;
-use Zend\Stdlib\CallbackHandler;
+namespace Fabiang\AsseticBundle;
 
-class Listener implements ListenerAggregateInterface
+use Laminas\EventManager\EventManagerInterface;
+use Laminas\EventManager\AbstractListenerAggregate;
+use Laminas\Http\PhpEnvironment\Response;
+use Laminas\Mvc\MvcEvent;
+
+class Listener extends AbstractListenerAggregate
 {
-
-    /**
-     * @var CallbackHandler[]
-     */
-    protected $listeners = [];
 
     /**
      * Attach one or more listeners
      *
      * Implementors may add an optional $priority argument; the EventManager
      * implementation will pass this to the aggregate.
-     *
-     * @param EventManagerInterface $events
-     * @param int $priority The priority with which the events are attached
      */
-    public function attach(EventManagerInterface $events, $priority = 32)
+    public function attach(EventManagerInterface $events, $priority = 32): void
     {
-        $this->listeners[] = $events->attach(MvcEvent::EVENT_DISPATCH, [$this, 'renderAssets'], $priority);
-        $this->listeners[] = $events->attach(MvcEvent::EVENT_DISPATCH_ERROR, [$this, 'renderAssets'], $priority);
+        $this->listeners[] = $events->attach(
+            MvcEvent::EVENT_DISPATCH,
+            [$this, 'renderAssets'],
+            $priority
+        );
+        $this->listeners[] = $events->attach(
+            MvcEvent::EVENT_DISPATCH_ERROR,
+            [$this, 'renderAssets'],
+            $priority
+        );
     }
 
-    /**
-     * Detach all previously attached listeners
-     *
-     * @param EventManagerInterface $events
-     */
-    public function detach(EventManagerInterface $events)
+    public function renderAssets(MvcEvent $e): void
     {
-        foreach ($this->listeners as $index => $listener) {
-            if ($events->detach($listener)) {
-                unset($this->listeners[$index]);
-            }
-        }
-    }
+        $sm = $e->getApplication()->getServiceManager();
 
-    public function renderAssets(MvcEvent $e)
-    {
-        $sm     = $e->getApplication()->getServiceManager();
         /** @var Configuration $config */
         $config = $sm->get('AsseticConfiguration');
         if ($e->getName() === MvcEvent::EVENT_DISPATCH_ERROR) {
@@ -58,13 +46,14 @@ class Listener implements ListenerAggregateInterface
             }
         }
 
+        /** @var \Laminas\Stdlib\ResponseInterface|null $response */
         $response = $e->getResponse();
         if (!$response) {
             $response = new Response();
             $e->setResponse($response);
         }
 
-        /** @var $asseticService \AsseticBundle\Service */
+        /** @var Service $asseticService */
         $asseticService = $sm->get('AsseticService');
 
         // setup service if a matched route exist

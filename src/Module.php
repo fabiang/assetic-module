@@ -1,60 +1,37 @@
 <?php
 
-namespace AsseticBundle;
+declare(strict_types=1);
 
-use Zend\EventManager\EventInterface;
-use Zend\ModuleManager\Feature\AutoloaderProviderInterface;
-use Zend\ModuleManager\Feature\BootstrapListenerInterface;
-use Zend\ModuleManager\Feature\ConfigProviderInterface;
+namespace Fabiang\AsseticBundle;
 
-class Module implements
-    AutoloaderProviderInterface,
-    ConfigProviderInterface,
-    BootstrapListenerInterface
+use Laminas\EventManager\EventInterface;
+use Laminas\ModuleManager\Feature\BootstrapListenerInterface;
+use Laminas\ModuleManager\Feature\ConfigProviderInterface;
+use Laminas\Mvc\MvcEvent;
+
+class Module implements ConfigProviderInterface, BootstrapListenerInterface
 {
 
     /**
      * Listen to the bootstrap event
-     *
-     * @param \Zend\EventManager\EventInterface $e
-     *
-     * @return array
      */
-    public function onBootstrap(EventInterface $e)
+    public function onBootstrap(EventInterface $e): void
     {
-        /** @var $e \Zend\Mvc\MvcEvent */
+        /** @var MvcEvent $e */
         // Only attach the Listener if the request came in through http(s)
         if (PHP_SAPI !== 'cli') {
             $app = $e->getApplication();
 
-            $app->getServiceManager()->get('AsseticBundle\Listener')->attach($app->getEventManager());
+            $app->getServiceManager()->get(Listener::class)->attach($app->getEventManager());
         }
     }
 
     /**
      * Returns configuration to merge with application configuration
-     *
-     * @return array|\Traversable
      */
-    public function getConfig()
+    public function getConfig(): iterable
     {
-        return require __DIR__ . '/../configs/module.config.php';
-    }
-
-    /**
-     * Return an array for passing to Zend\Loader\AutoloaderFactory.
-     *
-     * @return array
-     */
-    public function getAutoloaderConfig()
-    {
-        return [
-            'Zend\Loader\StandardAutoloader' => [
-                'namespaces' => [
-                    __NAMESPACE__ => __DIR__ . '/src/' . __NAMESPACE__ . '/'
-                ],
-            ],
-        ];
+        return require __DIR__ . '/../config/module.config.php';
     }
 
 }

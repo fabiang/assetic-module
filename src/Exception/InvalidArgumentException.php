@@ -1,7 +1,10 @@
 <?php
 
-namespace AsseticBundle\Exception;
+declare(strict_types=1);
 
-class InvalidArgumentException extends \InvalidArgumentException
+namespace Fabiang\AsseticBundle\Exception;
+
+class InvalidArgumentException extends \InvalidArgumentException implements ExceptionInterface
 {
+
 }

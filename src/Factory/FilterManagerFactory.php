@@ -4,21 +4,20 @@ declare(strict_types=1);
 
 namespace Fabiang\AsseticBundle\Factory;
 
-use Fabiang\AsseticBundle\Configuration;
 use Interop\Container\ContainerInterface;
 use Laminas\ServiceManager\Factory\FactoryInterface;
+use Fabiang\AsseticBundle\FilterManager;
 
-class ConfigurationFactory implements FactoryInterface
+class FilterManagerFactory implements FactoryInterface
 {
 
     /**
      * @param string $requestedName
-     * @return Configuration
+     * @return FilterManager
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        $configuration = $container->get('config');
-        return new Configuration($configuration['assetic_configuration']);
+        return new FilterManager($container);
     }
 
 }

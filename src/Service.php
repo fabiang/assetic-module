@@ -1,6 +1,8 @@
 <?php
 
-namespace AsseticBundle;
+declare(strict_types=1);
+
+namespace Fabiang\AsseticBundle;
 
 use Assetic\Asset\AssetCollection;
 use Assetic\AssetManager;
@@ -11,80 +13,50 @@ use Assetic\AssetWriter;
 use Assetic\Contracts\Asset\AssetInterface;
 use Assetic\Asset\AssetCache;
 use Assetic\Cache\FilesystemCache;
-use Zend\View\Renderer\RendererInterface as Renderer;
-use AsseticBundle\View\StrategyInterface;
+use Laminas\View\Renderer\RendererInterface as Renderer;
+use Fabiang\AsseticBundle\View\StrategyInterface;
+use Fabiang\AsseticBundle\Exception\InvalidArgumentException;
 
 class Service
 {
 
-    const DEFAULT_ROUTE_NAME = 'default';
+    public const DEFAULT_ROUTE_NAME = 'default';
+
+    protected string $routeName      = self::DEFAULT_ROUTE_NAME;
+    protected ?string $controllerName = null;
+    protected ?string $actionName     = null;
+    protected Configuration $configuration;
 
     /**
-     * @var string
+     * @var array<string, StrategyInterface>
      */
-    protected $routeName;
-
-    /**
-     * @var string
-     */
-    protected $controllerName;
-
-    /**
-     * @var string
-     */
-    protected $actionName;
-
-    /**
-     * @var Configuration
-     */
-    protected $configuration;
-
-    /**
-     * @var StrategyInterface[]
-     */
-    protected $strategy = [];
-
-    /**
-     * @var AssetManager
-     */
-    protected $assetManager;
-
-    /**
-     * @var AssetWriter
-     */
-    protected $assetWriter;
-
-    /**
-     * @var WorkerInterface
-     */
-    protected $cacheBusterStrategy;
-
-    /**
-     * @var AsseticFilterManager
-     */
-    protected $filterManager;
+    protected array $strategy            = [];
+    protected ?AssetManager $assetManager        = null;
+    protected ?AssetWriter $assetWriter         = null;
+    protected ?WorkerInterface $cacheBusterStrategy = null;
+    protected ?AsseticFilterManager $filterManager       = null;
 
     public function __construct(Configuration $configuration)
     {
         $this->configuration = $configuration;
     }
 
-    public function setRouteName($routeName)
+    public function setRouteName(string $routeName): void
     {
         $this->routeName = $routeName;
     }
 
-    public function getRouteName()
+    public function getRouteName(): string
     {
-        return (null === $this->routeName) ? self::DEFAULT_ROUTE_NAME : $this->routeName;
+        return $this->routeName;
     }
 
-    public function setAssetManager(AssetManager $assetManager)
+    public function setAssetManager(AssetManager $assetManager): void
     {
         $this->assetManager = $assetManager;
     }
 
-    public function getAssetManager()
+    public function getAssetManager(): AssetManager
     {
         if (null === $this->assetManager) {
             $this->assetManager = new AssetManager();
@@ -93,38 +65,37 @@ class Service
         return $this->assetManager;
     }
 
-    public function getAssetWriter()
+    public function getAssetWriter(): AssetWriter
     {
         if (null === $this->assetWriter) {
-            $this->assetWriter = new AssetWriter($this->configuration->getWebPath());
+            $webPath = $this->configuration->getWebPath();
+            $this->assetWriter = new AssetWriter($webPath ?? '');
         }
 
         return $this->assetWriter;
     }
 
-    public function setAssetWriter($assetWriter)
+    public function setAssetWriter(AssetWriter $assetWriter): void
     {
         $this->assetWriter = $assetWriter;
     }
 
-    public function getCacheBusterStrategy()
+    public function getCacheBusterStrategy(): ?WorkerInterface
     {
         return $this->cacheBusterStrategy;
     }
 
-    public function setCacheBusterStrategy(WorkerInterface $cacheBusterStrategy)
+    public function setCacheBusterStrategy(?WorkerInterface $cacheBusterStrategy): void
     {
         $this->cacheBusterStrategy = $cacheBusterStrategy;
-
-        return $this;
     }
 
-    public function setFilterManager(AsseticFilterManager $filterManager)
+    public function setFilterManager(AsseticFilterManager $filterManager): void
     {
         $this->filterManager = $filterManager;
     }
 
-    public function getFilterManager()
+    public function getFilterManager(): AsseticFilterManager
     {
         if (null === $this->filterManager) {
             $this->filterManager = new AsseticFilterManager();
@@ -133,34 +104,22 @@ class Service
         return $this->filterManager;
     }
 
-    /**
-     * @param string $controllerName
-     */
-    public function setControllerName($controllerName)
+    public function setControllerName(?string $controllerName): void
     {
         $this->controllerName = $controllerName;
     }
 
-    /**
-     * @return string
-     */
-    public function getControllerName()
+    public function getControllerName(): ?string
     {
         return $this->controllerName;
     }
 
-    /**
-     * @param string $actionName
-     */
-    public function setActionName($actionName)
+    public function setActionName(?string $actionName): void
     {
         $this->actionName = $actionName;
     }
 
-    /**
-     * @return string
-     */
-    public function getActionName()
+    public function getActionName(): ?string
     {
         return $this->actionName;
     }
@@ -168,7 +127,7 @@ class Service
     /**
      * Build collection of assets.
      */
-    public function build()
+    public function build(): void
     {
         $moduleConfiguration = $this->configuration->getModules();
         foreach ($moduleConfiguration as $configuration) {
@@ -180,12 +139,18 @@ class Service
         }
     }
 
-    private function cacheAsset(AssetInterface $asset)
+    private function cacheAsset(AssetInterface $asset): AssetInterface
     {
-        return $this->configuration->getCacheEnabled() ? new AssetCache($asset, new FilesystemCache($this->configuration->getCachePath())) : $asset;
+        if ($this->configuration->getCacheEnabled()) {
+            return new AssetCache(
+                $asset,
+                new FilesystemCache($this->configuration->getCachePath())
+            );
+        }
+        return $asset;
     }
 
-    private function initFilters(array $filters)
+    private function initFilters(array $filters): array
     {
         $result = [];
 
@@ -193,6 +158,7 @@ class Service
 
         foreach ($filters as $alias => $options) {
             $option = null;
+            $name   = null;
             if (is_array($options)) {
                 if (!isset($options['name'])) {
                     throw new Exception\InvalidArgumentException(
@@ -207,6 +173,13 @@ class Service
                 unset($options);
             }
 
+            if (!is_string($name)) {
+                throw new InvalidArgumentException(
+                    'Name of filter could not be found. '
+                    . 'Did you provide the `name` option to the filter config?'
+                );
+            }
+
             if (is_numeric($alias)) {
                 $alias = $name;
             }
@@ -216,11 +189,15 @@ class Service
 
             if (!$fm->has($filterId)) {
                 if (is_array($option) && !empty($option)) {
+                    /** @var class-string $name */
                     $r      = new \ReflectionClass($name);
+                    /** @var \Assetic\Contracts\Filter\FilterInterface $filter */
                     $filter = $r->newInstanceArgs($option);
                 } elseif ($option) {
+                    /** @var \Assetic\Contracts\Filter\FilterInterface $filter */
                     $filter = new $name($option);
                 } else {
+                    /** @var \Assetic\Contracts\Filter\FilterInterface $filter */
                     $filter = new $name();
                 }
 
@@ -233,7 +210,7 @@ class Service
         return $result;
     }
 
-    public function setupRenderer(Renderer $renderer)
+    public function setupRenderer(Renderer $renderer): bool
     {
         $controllerConfig = $this->getControllerConfig();
         $actionConfig     = $this->getActionConfig();
@@ -259,13 +236,16 @@ class Service
         return false;
     }
 
-    public function getDefaultConfig()
+    public function getDefaultConfig(): array
     {
         $defaultDefinition = $this->configuration->getDefault();
 
         return $defaultDefinition ? $defaultDefinition : [];
     }
 
+    /**
+     * @return array|mixed
+     */
     public function getRouterConfig()
     {
         $assetOptions = $this->configuration->getRoute($this->getRouteName());
@@ -273,35 +253,42 @@ class Service
         return $assetOptions ? $assetOptions : [];
     }
 
-    public function getControllerConfig()
+    public function getControllerConfig(): array
     {
-        $assetOptions = $this->configuration->getController($this->getControllerName());
-        if ($assetOptions) {
-            if (array_key_exists('actions', $assetOptions)) {
-                unset($assetOptions['actions']);
+        $assetOptions = [];
+
+        $controllerName = $this->getControllerName();
+        if (null !== $controllerName) {
+            $assetOptions = $this->configuration->getController($controllerName);
+            if ($assetOptions) {
+                if (array_key_exists('actions', $assetOptions)) {
+                    unset($assetOptions['actions']);
+                }
+            } else {
+                $assetOptions = [];
             }
-        } else {
-            $assetOptions = [];
         }
 
         return $assetOptions;
     }
 
-    public function getActionConfig()
+    public function getActionConfig(): array
     {
-        $assetOptions = $this->configuration->getController($this->getControllerName());
-        $actionName   = $this->getActionName();
-        if ($assetOptions && array_key_exists('actions', $assetOptions) && array_key_exists($actionName, $assetOptions['actions'])
-        ) {
-            $actionAssets = $assetOptions['actions'][$actionName];
-        } else {
-            $actionAssets = [];
+        $actionAssets   = [];
+        $controllerName = $this->getControllerName();
+        if (null !== $controllerName) {
+            $assetOptions = $this->configuration->getController($controllerName);
+            $actionName   = $this->getActionName();
+            if (null !== $actionName && $assetOptions && array_key_exists('actions', $assetOptions) && array_key_exists($actionName, $assetOptions['actions'])
+            ) {
+                $actionAssets = $assetOptions['actions'][$actionName];
+            }
         }
 
         return $actionAssets;
     }
 
-    public function setupRendererFromOptions(Renderer $renderer, array $options)
+    public function setupRendererFromOptions(Renderer $renderer, array $options): void
     {
         if (!$this->hasStrategyForRenderer($renderer)) {
             throw new Exception\InvalidArgumentException(sprintf(
@@ -310,24 +297,20 @@ class Service
             ));
         }
 
-        /** @var $strategy \AsseticBundle\View\StrategyInterface */
-        $strategy   = $this->getStrategyForRenderer($renderer);
-        while ($assetAlias = array_shift($options)) {
-            $assetAlias = ltrim($assetAlias, '@');
+        $strategy = $this->getStrategyForRenderer($renderer);
+        if (null !== $strategy) {
+            while ($assetAlias = array_shift($options)) {
+                $assetAlias = ltrim($assetAlias, '@');
 
-            /** @var $asset \Assetic\Asset\AssetInterface */
-            $asset = $this->assetManager->get($assetAlias);
-            // Prepare view strategy
-            $strategy->setupAsset($asset);
+                /** @var AssetInterface $asset */
+                $asset = $this->getAssetManager()->get($assetAlias);
+                // Prepare view strategy
+                $strategy->setupAsset($asset);
+            }
         }
     }
 
-    /**
-     * @param \Zend\View\Renderer\RendererInterface $renderer
-     *
-     * @return bool
-     */
-    public function hasStrategyForRenderer(Renderer $renderer)
+    public function hasStrategyForRenderer(Renderer $renderer): bool
     {
         $rendererName = $this->getRendererName($renderer);
 
@@ -337,14 +320,10 @@ class Service
     /**
      * Get strategy to setup assets for given $renderer.
      *
-     * @param \Zend\View\Renderer\RendererInterface $renderer
-     *
      * @throws Exception\DomainException
      * @throws Exception\InvalidArgumentException
-     *
-     * @return \AsseticBundle\View\StrategyInterface|null
      */
-    public function getStrategyForRenderer(Renderer $renderer)
+    public function getStrategyForRenderer(Renderer $renderer): ?StrategyInterface
     {
         if (!$this->hasStrategyForRenderer($renderer)) {
             return null;
@@ -353,26 +332,40 @@ class Service
         $rendererName = $this->getRendererName($renderer);
         if (!isset($this->strategy[$rendererName])) {
             $strategyClass = $this->configuration->getStrategyNameForRenderer($rendererName);
+
+            if (null === $strategyClass) {
+                throw new Exception\InvalidArgumentException(
+                    sprintf(
+                        'No strategy defined for renderer "%s"',
+                        get_class($renderer)
+                    )
+                );
+            }
+
             if (!class_exists($strategyClass, true)) {
-                throw new Exception\InvalidArgumentException(sprintf(
+                throw new Exception\InvalidArgumentException(
+                    sprintf(
                         'strategy class "%s" dosen\'t exists',
                         $strategyClass
-                ));
+                    )
+                );
             }
 
             $instance = new $strategyClass();
 
             if (!($instance instanceof StrategyInterface)) {
-                throw new Exception\DomainException(sprintf(
-                        'strategy class "%s" is not instanceof "AsseticBundle\View\StrategyInterface"',
+                throw new Exception\DomainException(
+                    sprintf(
+                        'strategy class "%s" is not instanceof "Fabiang\AsseticBundle\View\StrategyInterface"',
                         $strategyClass
-                ));
+                    )
+                );
             }
 
             $this->strategy[$rendererName] = $instance;
         }
 
-        /** @var $strategy \AsseticBundle\View\StrategyInterface */
+        /** @var \Fabiang\AsseticBundle\View\StrategyInterface $strategy */
         $strategy = $this->strategy[$rendererName];
         $strategy->setBaseUrl($this->configuration->getBaseUrl());
         $strategy->setBasePath($this->configuration->getBasePath());
@@ -385,32 +378,21 @@ class Service
 
     /**
      * Get renderer name from $renderer object.
-     *
-     * @param \Zend\View\Renderer\RendererInterface $renderer
-     *
-     * @return string
      */
-    public function getRendererName(Renderer $renderer)
+    public function getRendererName(Renderer $renderer): string
     {
         return get_class($renderer);
     }
 
     /**
      * Gets the service configuration.
-     *
-     * @return Configuration
      */
-    public function getConfiguration()
+    public function getConfiguration(): Configuration
     {
         return $this->configuration;
     }
 
-    /**
-     * @param array $configuration
-     *
-     * @return AssetFactory
-     */
-    public function createAssetFactory(array $configuration)
+    public function createAssetFactory(array $configuration): AssetFactory
     {
         $factory = new AssetFactory($configuration['root_path']);
         $factory->setAssetManager($this->getAssetManager());
@@ -419,30 +401,29 @@ class Service
         if ($worker instanceof WorkerInterface) {
             $factory->addWorker($worker);
         }
+        /**
+         * @psalm-suppress InvalidArgument Upstream type-hint error
+         */
         $factory->setDebug($this->configuration->isDebug());
 
         return $factory;
     }
 
-    /**
-     * @param AssetCollection       $asset
-     * @param string|null           $targetPath
-     * @param AssetFactory  $factory
-     * @param bool                  $disableSourcePath
-     */
     public function moveRaw(
         AssetCollection $asset,
-        $targetPath,
+        ?string $targetPath,
         AssetFactory $factory,
-        $disableSourcePath = false
-    )
+        bool $disableSourcePath = false
+    ): void
     {
         foreach ($asset as $value) {
-            /** @var $value AssetInterface */
+            $sourcePath = $value->getSourcePath() ?? '';
+
+            /** @var AssetInterface $value */
             if ($disableSourcePath) {
-                $value->setTargetPath(( $targetPath ? $targetPath : '' ) . basename($value->getSourcePath()));
+                $value->setTargetPath(( $targetPath ?? '' ) . basename($sourcePath));
             } else {
-                $value->setTargetPath(( $targetPath ? $targetPath : '' ) . $value->getSourcePath());
+                $value->setTargetPath(( $targetPath ?? '' ) . $sourcePath);
             }
 
             $value = $this->cacheAsset($value);
@@ -450,14 +431,7 @@ class Service
         }
     }
 
-    /**
-     * @param array $options
-     * @param string $name
-     * @param AssetFactory $factory
-     *
-     * @return void
-     */
-    public function prepareCollection($options, $name, AssetFactory $factory)
+    public function prepareCollection(array $options, string $name, AssetFactory $factory): void
     {
         $assets            = isset($options['assets']) ? $options['assets'] : [];
         $filters           = isset($options['filters']) ? $options['filters'] : [];
@@ -482,7 +456,7 @@ class Service
             }
         } else {
             $asset = $this->cacheAsset($asset);
-            $this->assetManager->set($name, $asset);
+            $this->getAssetManager()->set($name, $asset);
             // Save asset on disk
             $this->writeAsset($asset, $factory);
         }
@@ -494,7 +468,7 @@ class Service
      * @param AssetInterface       $asset     Asset to write
      * @param AssetFactory $factory   The factory this asset was generated with
      */
-    public function writeAsset(AssetInterface $asset, AssetFactory $factory)
+    public function writeAsset(AssetInterface $asset, AssetFactory $factory): void
     {
         // We're not interested in saving assets on request
         if (!$this->configuration->getBuildOnRequest()) {
@@ -508,9 +482,18 @@ class Service
             return;
         }
 
-        $target    = $this->configuration->getWebPath($asset->getTargetPath());
-        $created   = is_file($target);
-        $isChanged = $created && filemtime($target) < $factory->getLastModified($asset);
+        $created   = false;
+        $isChanged = false;
+
+        $targetPath = $asset->getTargetPath();
+        if (null !== $targetPath) {
+            $target = $this->configuration->getWebPath($targetPath);
+
+            if (null !== $target) {
+                $created   = is_file($target);
+                $isChanged = $created && filemtime($target) < $factory->getLastModified($asset);
+            }
+        }
 
         // And long requested optimization
         if (!$created || $isChanged) {
@@ -522,7 +505,7 @@ class Service
      * @param AssetInterface       $asset     Asset to write
      * @param AssetFactory $factory   The factory this asset was generated with
      */
-    protected function write(AssetInterface $asset, AssetFactory $factory)
+    protected function write(AssetInterface $asset, AssetFactory $factory): void
     {
         $umask = $this->configuration->getUmask();
         if (null !== $umask) {

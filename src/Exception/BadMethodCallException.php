@@ -1,7 +1,10 @@
 <?php
 
-namespace AsseticBundle\Exception;
+declare(strict_types=1);
 
-class BadMethodCallException extends \BadMethodCallException
+namespace Fabiang\AsseticBundle\Exception;
+
+class BadMethodCallException extends \BadMethodCallException implements ExceptionInterface
 {
+
 }

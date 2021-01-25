@@ -10,20 +10,25 @@ cache:
     - $HOME/.composer/cache
 
 env:
+  global:
+    - XDEBUG_MODE=coverage
   matrix:
     - PREFER_LOWEST=""
     - PREFER_LOWEST="--prefer-lowest"
 
 php:
- - 7.2
- - 7.3
  - 7.4
 
 install:
-  - composer update --no-interaction --prefer-stable --prefer-dist --no-suggest --no-scripts --no-plugins $PREFER_LOWEST
+  - composer update --no-interaction --prefer-stable --prefer-dist --no-scripts --no-plugins $PREFER_LOWEST
 
 script:
- - ./vendor/bin/phpunit --verbose
+ - ./vendor/bin/phpunit --coverage-clover=build/logs/clover.xml
+ - ./vendor/bin/psalm --show-info=true
+
+after_script:
+  - wget https://scrutinizer-ci.com/ocular.phar
+  - php ocular.phar code-coverage:upload --format=php-clover build/logs/clover.xml
 
 matrix:
   fast_finish: true
