@@ -2,7 +2,7 @@
 
 [![Latest Stable Version](https://poser.pugx.org/fabiang/assetic-module/version)](https://packagist.org/packages/fabiang/assetic-module)
 [![License](https://poser.pugx.org/fabiang/assetic-module/license)](https://packagist.org/packages/fabiang/assetic-module)
-[![Build Status](https://travis-ci.com/fabiang/assetic-module.png?branch=master)](https://travis-ci.com/fabiang/assetic-module)
+[![Build Status](https://circleci.com/gh/fabiang/assetic-module.svg?style=svg)](https://app.circleci.com/pipelines/github/fabiang/assetic-module)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/fabiang/assetic-module/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/fabiang/assetic-module/?branch=master)
 [![Code Coverage](https://scrutinizer-ci.com/g/fabiang/assetic-module/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/fabiang/assetic-module/?branch=master)
 
