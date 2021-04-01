@@ -52,8 +52,5 @@ or [the quick start guide for Mezzio?](https://github.com/fabiang/assetic-module
 
 We've two main branches here:
 
-- 3.x: current version with dropped Zend Framework support and added features
+- master: current version with dropped Zend Framework and added Mezzio support
 - 2.x: version compatible with Zend Framework 2/3 and Laminas
-- 3.x: future version with dropped Zend Framework support and added features
-
-Currently the master branch is for version 3.x
