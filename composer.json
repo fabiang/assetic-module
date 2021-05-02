@@ -30,7 +30,7 @@
     ],
     "require": {
         "php": "^7.4 || ^8.0",
-        "assetic/framework": "^2.0 | dev-master",
+        "assetic/framework": "^2.0 || dev-master",
         "laminas/laminas-view": "^2.11",
         "symfony/console": "^4.0 || ^5.0"
     },
