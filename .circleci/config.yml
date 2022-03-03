@@ -50,9 +50,15 @@ workflows:
       - test:
           php_version: "7.4"
           composer_extra_args: ""
- #     - test:
- #         php_version: "8.0"
- #         composer_extra_args: "--prefer-lowest"
-#      - test:
-#          php_version: "8.0"
-#          composer_extra_args: ""
+      - test:
+          php_version: "8.0"
+          composer_extra_args: "--prefer-lowest"
+      - test:
+          php_version: "8.0"
+          composer_extra_args: ""
+      - test:
+          php_version: "8.1"
+          composer_extra_args: "--prefer-lowest"
+      - test:
+          php_version: "8.1"
+          composer_extra_args: ""
