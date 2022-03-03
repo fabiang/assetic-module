@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "80ddf23ba7dc8fcfdb668121d224aaa7",
+    "content-hash": "4e4ccdbfcf49bfa49ea33adb37530d83",
     "packages": [
         {
             "name": "assetic/framework",
