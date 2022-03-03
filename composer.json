@@ -43,7 +43,8 @@
         "phpspec/prophecy-phpunit": "^2.0",
         "phpunit/phpunit": "^9.4",
         "psr/http-server-middleware": "^1.0",
-        "vimeo/psalm": "^4.2"
+        "vimeo/psalm": "^4.2",
+        "scrutinizer/ocular": "dev-master"
     },
     "suggest": {
         "laminas/laminas-mvc": "When using this module together with Laminas MVC",

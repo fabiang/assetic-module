@@ -4,7 +4,7 @@ orbs:
 jobs:
   test:
     environment:
-      XDEBUG_MODE=coverage
+      - XDEBUG_MODE=coverage
     parameters:
       php_version:
         type: string
@@ -38,8 +38,7 @@ jobs:
       - run: ./vendor/bin/phpunit --coverage-clover=build/logs/clover.xml
       - run: ./vendor/bin/psalm --show-info=true
 
-      - run: wget https://scrutinizer-ci.com/ocular.phar
-      - run: php ocular.phar code-coverage:upload --format=php-clover build/logs/clover.xml
+      - run: ./vendor/bin/ocular code-coverage:upload --format=php-clover build/logs/clover.xml
 
 workflows:
   run-tests:
@@ -56,9 +55,9 @@ workflows:
       - test:
           php_version: "8.0"
           composer_extra_args: ""
-      - test:
-          php_version: "8.1"
-          composer_extra_args: "--prefer-lowest"
-      - test:
-          php_version: "8.1"
-          composer_extra_args: ""
+#      - test:
+#          php_version: "8.1"
+#          composer_extra_args: "--prefer-lowest"
+#      - test:
+#          php_version: "8.1"
+#          composer_extra_args: ""
