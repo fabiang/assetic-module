@@ -10,10 +10,8 @@ use Assetic\Factory\AssetFactory;
 
 class NullStrategy implements WorkerInterface
 {
-
     public function process(AssetInterface $asset, AssetFactory $factory): ?AssetInterface
     {
         return null;
     }
-
 }

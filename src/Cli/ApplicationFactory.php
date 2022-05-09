@@ -5,17 +5,16 @@ declare(strict_types=1);
 namespace Fabiang\AsseticBundle\Cli;
 
 use Interop\Container\ContainerInterface;
-use Symfony\Component\Console\Application;
 use Laminas\ServiceManager\Factory\FactoryInterface;
+use Symfony\Component\Console\Application;
 
 class ApplicationFactory implements FactoryInterface
 {
-
     /**
      * @param string $requestedName
      * @return Application
      */
-    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
+    public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null)
     {
         $cliApplication = new Application('AsseticBundle', '3.x');
 
@@ -24,5 +23,4 @@ class ApplicationFactory implements FactoryInterface
 
         return $cliApplication;
     }
-
 }

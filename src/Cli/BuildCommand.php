@@ -11,16 +11,11 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class BuildCommand extends Command
 {
-
     /**
      * The assetic service
-
      */
     private Service $assetic;
 
-    /**
-     * Constructor.
-     */
     public function __construct(Service $assetic)
     {
         parent::__construct('build');
@@ -39,5 +34,4 @@ class BuildCommand extends Command
         $this->assetic->getAssetWriter()->writeManagerAssets($this->assetic->getAssetManager());
         return 0;
     }
-
 }

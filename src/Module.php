@@ -9,19 +9,18 @@ use Laminas\ModuleManager\Feature\BootstrapListenerInterface;
 use Laminas\ModuleManager\Feature\ConfigProviderInterface;
 use Laminas\Mvc\MvcEvent;
 
+use const PHP_SAPI;
+
 class Module implements ConfigProviderInterface, BootstrapListenerInterface
 {
-
     /**
      * Listen to the bootstrap event
      */
     public function onBootstrap(EventInterface $e): void
     {
-        /** @var MvcEvent $e */
         // Only attach the Listener if the request came in through http(s)
-        if (PHP_SAPI !== 'cli') {
+        if ($e instanceof MvcEvent && PHP_SAPI !== 'cli') {
             $app = $e->getApplication();
-
             $app->getServiceManager()->get(Listener::class)->attach($app->getEventManager());
         }
     }
@@ -33,5 +32,4 @@ class Module implements ConfigProviderInterface, BootstrapListenerInterface
     {
         return require __DIR__ . '/../config/module.config.php';
     }
-
 }

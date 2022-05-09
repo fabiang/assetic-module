@@ -4,14 +4,13 @@ declare(strict_types=1);
 
 namespace AsseticBundleTest\CacheBuster;
 
-use Fabiang\AsseticBundle\CacheBuster\LastModifiedStrategy;
 use Assetic\Asset\FileAsset;
 use Assetic\Factory\AssetFactory;
+use Fabiang\AsseticBundle\CacheBuster\LastModifiedStrategy;
 use PHPUnit\Framework\TestCase;
 
 final class LastModifiedStrategyTest extends TestCase
 {
-
     private LastModifiedStrategy $cacheBuster;
 
     public function setUp(): void
@@ -33,5 +32,4 @@ final class LastModifiedStrategyTest extends TestCase
             $asset->getTargetPath()
         );
     }
-
 }

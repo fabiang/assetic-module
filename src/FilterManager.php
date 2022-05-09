@@ -6,12 +6,15 @@ namespace Fabiang\AsseticBundle;
 
 use Assetic\Contracts\Filter\FilterInterface;
 use Assetic\FilterManager as AsseticFilterManager;
-use Interop\Container\ContainerInterface;
 use Fabiang\AsseticBundle\Exception\InvalidArgumentException;
+use Interop\Container\ContainerInterface;
+
+use function gettype;
+use function is_object;
+use function sprintf;
 
 class FilterManager extends AsseticFilterManager
 {
-
     protected ContainerInterface $container;
 
     public function __construct(ContainerInterface $container)
@@ -39,7 +42,7 @@ class FilterManager extends AsseticFilterManager
         }
 
         $service = $this->container;
-        if (!$service->has($alias)) {
+        if (! $service->has($alias)) {
             throw new InvalidArgumentException(
                 sprintf(
                     'There is no "%s" filter in Laminas service manager.',
@@ -49,9 +52,10 @@ class FilterManager extends AsseticFilterManager
         }
 
         $filter = $service->get($alias);
-        if (!($filter instanceof FilterInterface)) {
-            $givenType = is_object($filter) ? get_class($filter) : gettype($filter);
-            $message   = 'Retrieved filter "%s" is not instanceof "Assetic\Filter\FilterInterface", but type was given %s';
+        if (! $filter instanceof FilterInterface) {
+            $givenType = is_object($filter) ? FilterInterface::class : gettype($filter);
+            $message   = 'Retrieved filter "%s" is not instanceof '
+                . '"Assetic\Filter\FilterInterface", but type was given %s';
             $message   = sprintf($message, $alias, $givenType);
             throw new InvalidArgumentException($message);
         }
@@ -60,5 +64,4 @@ class FilterManager extends AsseticFilterManager
 
         return $filter;
     }
-
 }

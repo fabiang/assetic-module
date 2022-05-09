@@ -1,11 +1,27 @@
-2020-xx-xx
+2022-05-09
 ----------
 
-  * Renamed namespace from `AsseticBundle` to `Fabiang\AsseticBundle`
-  * Drop support for Zend Framework, all classes now use the Laminas namespace
-  * Drop support for PHP <7.4
-  * Added support for Mezzio as a middleware
-  * All classes are using proper type-hints, return-types and are type strict
+  * [Changelog is now on Github](https://github.com/fabiang/assetic-module/releases)
+
+2022-03-03
+----------
+
+  * ADDED: Support for assetic/framework 3.0
+
+
+2021-01-25
+----------
+
+  * FIXED: Accidentally overwritten PhpRenderer
+
+2021-01-25
+----------
+
+  * REMOVED: Renamed namespace from `AsseticBundle` to `Fabiang\AsseticBundle`
+  * REMOVED: Drop support for Zend Framework, all classes now use the Laminas namespace
+  * REMOVED: Drop support for PHP <7.4
+  * ADDED: support for Mezzio as a middleware
+  * ADDED: All classes are using proper type-hints, return-types and are type strict
 
 2020-11-30
 ----------

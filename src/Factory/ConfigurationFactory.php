@@ -10,15 +10,13 @@ use Laminas\ServiceManager\Factory\FactoryInterface;
 
 class ConfigurationFactory implements FactoryInterface
 {
-
     /**
      * @param string $requestedName
      * @return Configuration
      */
-    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
+    public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null)
     {
         $configuration = $container->get('config');
         return new Configuration($configuration['assetic_configuration']);
     }
-
 }

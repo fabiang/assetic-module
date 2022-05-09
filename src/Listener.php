@@ -4,19 +4,23 @@ declare(strict_types=1);
 
 namespace Fabiang\AsseticBundle;
 
-use Laminas\EventManager\EventManagerInterface;
 use Laminas\EventManager\AbstractListenerAggregate;
+use Laminas\EventManager\EventManagerInterface;
 use Laminas\Http\PhpEnvironment\Response;
 use Laminas\Mvc\MvcEvent;
+use Laminas\Stdlib\ResponseInterface;
+
+use function in_array;
 
 class Listener extends AbstractListenerAggregate
 {
-
     /**
      * Attach one or more listeners
      *
      * Implementors may add an optional $priority argument; the EventManager
      * implementation will pass this to the aggregate.
+     *
+     * @param int $priority
      */
     public function attach(EventManagerInterface $events, $priority = 32): void
     {
@@ -40,15 +44,15 @@ class Listener extends AbstractListenerAggregate
         $config = $sm->get('AsseticConfiguration');
         if ($e->getName() === MvcEvent::EVENT_DISPATCH_ERROR) {
             $error = $e->getError();
-            if ($error && !in_array($error, $config->getAcceptableErrors())) {
+            if ($error && ! in_array($error, $config->getAcceptableErrors())) {
                 // break if not an acceptable error
                 return;
             }
         }
 
-        /** @var \Laminas\Stdlib\ResponseInterface|null $response */
+        /** @var ResponseInterface|null $response */
         $response = $e->getResponse();
-        if (!$response) {
+        if (! $response) {
             $response = new Response();
             $e->setResponse($response);
         }
@@ -70,5 +74,4 @@ class Listener extends AbstractListenerAggregate
         // Init assets for modules
         $asseticService->setupRenderer($sm->get('ViewRenderer'));
     }
-
 }

@@ -4,20 +4,21 @@ declare(strict_types=1);
 
 namespace AsseticBundleTest;
 
-use PHPUnit\Framework\TestCase;
 use Fabiang\AsseticBundle\AsseticMiddleware;
 use Fabiang\AsseticBundle\Factory\AsseticMiddlewareFactory;
 use Fabiang\AsseticBundle\Service;
-use Laminas\View\Renderer\PhpRenderer;
-use Prophecy\PhpUnit\ProphecyTrait;
 use Interop\Container\ContainerInterface;
+use Laminas\View\Renderer\PhpRenderer;
+use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
+
+use function is_callable;
 
 /**
  * @coversDefaultClass Fabiang\AsseticBundle\Factory\AsseticMiddlewareFactory
  */
 final class AsseticMiddlewareFactoryTest extends TestCase
 {
-
     use ProphecyTrait;
 
     private AsseticMiddlewareFactory $factory;
@@ -54,5 +55,4 @@ final class AsseticMiddlewareFactoryTest extends TestCase
             $this->factory->__invoke($container->reveal(), AsseticMiddleware::class, [])
         );
     }
-
 }

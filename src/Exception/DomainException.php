@@ -6,5 +6,4 @@ namespace Fabiang\AsseticBundle\Exception;
 
 class DomainException extends \DomainException implements ExceptionInterface
 {
-
 }

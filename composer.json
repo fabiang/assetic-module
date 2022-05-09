@@ -29,8 +29,8 @@
         "bin/assetic"
     ],
     "require": {
-        "php": "^7.4 || 8.0.* || 8.1.*",
-        "assetic/framework": "^2.0 || ^3.0",
+        "php": "^7.4 || ~8.0.0 || ~8.1.0",
+        "assetic/framework": "^3.0",
         "laminas/laminas-view": "^2.12",
         "symfony/console": "^4.0 || ^5.0 || ^6.0"
     },
@@ -41,10 +41,13 @@
         "mezzio/mezzio-helpers": "^5.4",
         "mezzio/mezzio-router": "^3.2",
         "phpspec/prophecy-phpunit": "^2.0",
-        "phpunit/phpunit": "^9.4",
+        "phpunit/phpunit": "^9.5",
         "psr/http-server-middleware": "^1.0",
-        "vimeo/psalm": "^4.2",
-        "scrutinizer/ocular": "dev-master"
+        "vimeo/psalm": "^4.23",
+        "scrutinizer/ocular": "dev-master",
+        "squizlabs/php_codesniffer": "^3.6",
+        "slevomat/coding-standard": "^7.2",
+        "laminas/laminas-coding-standard": "^2.3"
     },
     "suggest": {
         "laminas/laminas-mvc": "When using this module together with Laminas MVC",
@@ -62,5 +65,20 @@
     },
     "replace": {
         "widmogrod/zf2-assetic-module": "self.version"
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
+    },
+    "scripts": {
+        "phpcs": "phpcs",
+        "psalm": "psalm",
+        "phpunit": "phpunit",
+        "test": [
+            "@psalm",
+            "@phpcs",
+            "@phpunit"
+        ]
     }
 }

@@ -8,9 +8,14 @@ use Assetic\Contracts\Asset\AssetInterface;
 use Assetic\Contracts\Factory\Worker\WorkerInterface;
 use Assetic\Factory\AssetFactory;
 
+use function pathinfo;
+use function strlen;
+use function substr_replace;
+
+use const PATHINFO_EXTENSION;
+
 class LastModifiedStrategy implements WorkerInterface
 {
-
     public function process(AssetInterface $asset, AssetFactory $factory): ?AssetInterface
     {
         $path = $asset->getTargetPath();
@@ -31,5 +36,4 @@ class LastModifiedStrategy implements WorkerInterface
         }
         return null;
     }
-
 }

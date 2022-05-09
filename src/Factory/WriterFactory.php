@@ -10,15 +10,13 @@ use Laminas\ServiceManager\Factory\FactoryInterface;
 
 class WriterFactory implements FactoryInterface
 {
-
     /**
      * @param string $requestedName
      * @return AssetWriter
      */
-    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
+    public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null)
     {
         $asseticConfig = $container->get('AsseticConfiguration');
         return new AssetWriter($asseticConfig->getWebPath());
     }
-
 }

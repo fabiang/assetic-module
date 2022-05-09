@@ -5,15 +5,14 @@ declare(strict_types=1);
 namespace Fabiang\AsseticBundle;
 
 use Laminas\View\Renderer\RendererInterface as Renderer;
-use Psr\Http\Server\MiddlewareInterface;
-use Psr\Http\Message\ServerRequestInterface;
-use Psr\Http\Server\RequestHandlerInterface;
-use Psr\Http\Message\ResponseInterface;
 use Mezzio\Router\RouteResult;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Server\MiddlewareInterface;
+use Psr\Http\Server\RequestHandlerInterface;
 
 class AsseticMiddleware implements MiddlewareInterface
 {
-
     private Service $asseticService;
     private Renderer $viewRenderer;
 
@@ -49,5 +48,4 @@ class AsseticMiddleware implements MiddlewareInterface
         // Init assets for modules
         $asseticService->setupRenderer($this->viewRenderer);
     }
-
 }

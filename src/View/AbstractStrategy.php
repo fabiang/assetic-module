@@ -8,12 +8,11 @@ use Laminas\View\Renderer\RendererInterface as Renderer;
 
 abstract class AbstractStrategy implements StrategyInterface
 {
-
     protected ?Renderer $renderer = null;
-    protected ?string $baseUrl  = null;
-    protected ?string $basePath = null;
-    protected bool $debug    = false;
-    protected bool $combine  = true;
+    protected ?string $baseUrl    = null;
+    protected ?string $basePath   = null;
+    protected bool $debug         = false;
+    protected bool $combine       = true;
 
     public function setRenderer(?Renderer $renderer): void
     {
@@ -64,5 +63,4 @@ abstract class AbstractStrategy implements StrategyInterface
     {
         return $this->combine;
     }
-
 }

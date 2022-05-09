@@ -4,36 +4,31 @@ declare(strict_types=1);
 
 namespace AsseticBundleTest;
 
-use PHPUnit\Framework\TestCase;
 use Fabiang\AsseticBundle\AsseticMiddleware;
 use Fabiang\AsseticBundle\Service;
 use Laminas\View\Renderer\PhpRenderer;
-use Prophecy\Prophecy\ObjectProphecy;
-use Psr\Http\Message\ServerRequestInterface;
-use Psr\Http\Server\RequestHandlerInterface;
-use Psr\Http\Message\ResponseInterface;
+use Mezzio\Router\RouteResult;
+use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
-use Mezzio\Router\RouteResult;
+use Prophecy\Prophecy\ObjectProphecy;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Server\RequestHandlerInterface;
 
 /**
  * @coversDefaultClass Fabiang\AsseticBundle\AsseticMiddleware
  */
 final class AsseticMiddlewareTest extends TestCase
 {
-
     use ProphecyTrait;
 
     private AsseticMiddleware $middleware;
 
-    /**
-     * @var Service
-     */
+    /** @var Service */
     private ObjectProphecy $asseticService;
 
-    /**
-     * @var PhpRenderer
-     */
+    /** @var PhpRenderer */
     private ObjectProphecy $viewRenderer;
 
     protected function setUp(): void
@@ -117,5 +112,4 @@ final class AsseticMiddlewareTest extends TestCase
 
         $this->middleware->renderAssets($request->reveal());
     }
-
 }

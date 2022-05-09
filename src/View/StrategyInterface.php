@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace Fabiang\AsseticBundle\View;
 
+use assetic\asset\assetinterface;
 use Laminas\View\Renderer\RendererInterface as Renderer;
-use Assetic\Asset\AssetInterface;
 
 interface StrategyInterface
 {
-
     public function setRenderer(?Renderer $renderer): void;
 
     public function getRenderer(): ?Renderer;
@@ -30,5 +29,5 @@ interface StrategyInterface
 
     public function isCombine(): bool;
 
-    public function setupAsset(AssetInterface $asset): void;
+    public function setupAsset(assetinterface $asset): void;
 }

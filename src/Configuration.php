@@ -5,10 +5,21 @@ declare(strict_types=1);
 namespace Fabiang\AsseticBundle;
 
 use Laminas\Stdlib;
+use Traversable;
+
+use function array_key_exists;
+use function array_map;
+use function explode;
+use function implode;
+use function ltrim;
+use function method_exists;
+use function preg_match;
+use function rtrim;
+use function strtolower;
+use function trim;
 
 class Configuration
 {
-
     /**
      * Debug option that is passed to Assetic.
      */
@@ -111,7 +122,7 @@ class Configuration
     public function __construct(?iterable $config = null)
     {
         if (null !== $config) {
-            if ($config instanceof \Traversable) {
+            if ($config instanceof Traversable) {
                 $this->processArray(Stdlib\ArrayUtils::iteratorToArray($config));
             } else {
                 $this->processArray($config);
@@ -147,7 +158,7 @@ class Configuration
     /**
      * @throws Exception\RuntimeException
      */
-    public function getWebPath(string $file = null): ?string
+    public function getWebPath(?string $file = null): ?string
     {
         if (null === $this->webPath) {
             throw new Exception\RuntimeException('Web path is not set');
@@ -182,11 +193,11 @@ class Configuration
 
     public function setDefault(array $default): void
     {
-        if (!isset($default['assets'])) {
+        if (! isset($default['assets'])) {
             $default['assets'] = [];
         }
 
-        if (!isset($default['options'])) {
+        if (! isset($default['options'])) {
             $default['options'] = [];
         }
 
@@ -208,7 +219,7 @@ class Configuration
         return $this->routes;
     }
 
-    public function getRoute(string $name, array $default = null): ?array
+    public function getRoute(string $name, ?array $default = null): ?array
     {
         $assets       = [];
         $routeMatched = false;
@@ -235,7 +246,7 @@ class Configuration
         return $this->controllers;
     }
 
-    public function getController(string $name, array $default = null): ?array
+    public function getController(string $name, ?array $default = null): ?array
     {
         return array_key_exists($name, $this->controllers) ? $this->controllers[$name] : $default;
     }
@@ -259,7 +270,7 @@ class Configuration
         return $this->modules;
     }
 
-    public function getModule(string $name, array $default = null): ?array
+    public function getModule(string $name, ?array $default = null): ?array
     {
         $lowername = strtolower($name);
         return array_key_exists($lowername, $this->modules) ? $this->modules[$lowername] : $default;
@@ -267,7 +278,7 @@ class Configuration
 
     public function detectBaseUrl(): bool
     {
-        return (null === $this->baseUrl || 'auto' === $this->baseUrl);
+        return null === $this->baseUrl || 'auto' === $this->baseUrl;
     }
 
     public function setBaseUrl(?string $baseUrl): void
@@ -286,8 +297,8 @@ class Configuration
     public function setBasePath(?string $basePath): void
     {
         if (null !== $basePath) {
-            $basePath = trim($basePath, '/');
-            $basePath = $basePath . '/';
+            $basePath  = trim($basePath, '/');
+            $basePath .= '/';
         }
         $this->basePath = $basePath;
     }
@@ -310,9 +321,9 @@ class Configuration
         $parts  = explode('_', $key);
         $parts  = array_map('ucfirst', $parts);
         $setter = 'set' . implode('', $parts);
-        if (!method_exists($this, $setter)) {
+        if (! method_exists($this, $setter)) {
             throw new Exception\BadMethodCallException(
-                    'The configuration key "' . $key . '" does not '
+                'The configuration key "' . $key . '" does not '
                     . 'have a matching ' . $setter . ' setter method '
                     . 'which must be defined'
             );
@@ -331,9 +342,10 @@ class Configuration
         $this->rendererToStrategy[$rendererClass] = $strategyClass;
     }
 
-    public function getStrategyNameForRenderer(string $rendererName, string $default = null): ?string
+    public function getStrategyNameForRenderer(string $rendererName, ?string $default = null): ?string
     {
-        return array_key_exists($rendererName, $this->rendererToStrategy) ? $this->rendererToStrategy[$rendererName] : $default;
+        return array_key_exists($rendererName, $this->rendererToStrategy)
+            ? $this->rendererToStrategy[$rendererName] : $default;
     }
 
     public function setAcceptableErrors(array $acceptableErrors): void
@@ -375,5 +387,4 @@ class Configuration
     {
         return $this->writeIfChanged;
     }
-
 }

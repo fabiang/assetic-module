@@ -4,27 +4,26 @@ declare(strict_types=1);
 
 namespace AsseticBundleTest;
 
-use PHPUnit\Framework\TestCase;
-use Prophecy\PhpUnit\ProphecyTrait;
-use Prophecy\Argument;
-use Fabiang\AsseticBundle\Listener;
-use Laminas\EventManager\EventManagerInterface;
-use Laminas\Mvc\MvcEvent;
-use Laminas\Mvc\ApplicationInterface;
-use Interop\Container\ContainerInterface;
 use Fabiang\AsseticBundle\Configuration;
+use Fabiang\AsseticBundle\Listener;
 use Fabiang\AsseticBundle\Service as AsseticService;
-use Laminas\View\Renderer\RendererInterface;
-use Laminas\Stdlib\ResponseInterface;
-use Laminas\Router\RouteMatch;
+use Interop\Container\ContainerInterface;
+use Laminas\EventManager\EventManagerInterface;
 use Laminas\Mvc\Application as MvcApplication;
+use Laminas\Mvc\ApplicationInterface;
+use Laminas\Mvc\MvcEvent;
+use Laminas\Router\RouteMatch;
+use Laminas\Stdlib\ResponseInterface;
+use Laminas\View\Renderer\RendererInterface;
+use PHPUnit\Framework\TestCase;
+use Prophecy\Argument;
+use Prophecy\PhpUnit\ProphecyTrait;
 
 /**
  * @coversDefaultClass \Fabiang\AsseticBundle\Listener
  */
 final class ListenerTest extends TestCase
 {
-
     use ProphecyTrait;
 
     private Listener $listener;
@@ -41,16 +40,16 @@ final class ListenerTest extends TestCase
     {
         $events = $this->prophesize(EventManagerInterface::class);
         $events->attach(
-                MvcEvent::EVENT_DISPATCH,
-                [$this->listener, 'renderAssets'],
-                2
-            )
+            MvcEvent::EVENT_DISPATCH,
+            [$this->listener, 'renderAssets'],
+            2
+        )
             ->shouldBeCalled();
         $events->attach(
-                MvcEvent::EVENT_DISPATCH_ERROR,
-                [$this->listener, 'renderAssets'],
-                2
-            )
+            MvcEvent::EVENT_DISPATCH_ERROR,
+            [$this->listener, 'renderAssets'],
+            2
+        )
             ->shouldBeCalled();
 
         $this->listener->attach($events->reveal(), 2);
@@ -120,5 +119,4 @@ final class ListenerTest extends TestCase
 
         $this->listener->renderAssets($e);
     }
-
 }

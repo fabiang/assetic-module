@@ -6,5 +6,4 @@ namespace Fabiang\AsseticBundle\Exception;
 
 class RuntimeException extends \RuntimeException implements ExceptionInterface
 {
-
 }

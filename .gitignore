@@ -2,8 +2,9 @@
 configs/.DS_Store
 !.gitignore
 vendor/
+tests/log/
 .idea
 .vagrant
 phpunit.xml
 .phpunit.result.cache
-tests/log/
+.phpcs-cache
