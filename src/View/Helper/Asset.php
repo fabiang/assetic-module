@@ -10,7 +10,7 @@ use Fabiang\AsseticBundle\Exception;
 use Fabiang\AsseticBundle\Exception\InvalidArgumentException;
 use Fabiang\AsseticBundle\Factory\ServiceFactory;
 use Fabiang\AsseticBundle\Service;
-use interop\container\containerinterface;
+use Interop\Container\ContainerInterface;
 use Laminas\View\Helper\Placeholder\Container;
 
 use function pathinfo;
@@ -28,7 +28,7 @@ class Asset extends Container\AbstractStandalone
     protected ?string $baseUrl  = null;
     protected ?string $basePath = null;
 
-    public function __construct(containerinterface $container)
+    public function __construct(ContainerInterface $container)
     {
         $serviceFactory = new ServiceFactory();
         $this->service  = $serviceFactory($container, Service::class, []);

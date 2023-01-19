@@ -7,7 +7,7 @@ namespace AsseticBundleTest;
 use Fabiang\AsseticBundle\Configuration;
 use Fabiang\AsseticBundle\Listener;
 use Fabiang\AsseticBundle\Service as AsseticService;
-use interop\container\containerinterface;
+use Interop\Container\ContainerInterface;
 use Laminas\EventManager\EventManagerInterface;
 use Laminas\Mvc\Application as MvcApplication;
 use Laminas\Mvc\ApplicationInterface;
@@ -83,7 +83,7 @@ final class ListenerTest extends TestCase
         $renderer = $this->prophesize(RendererInterface::class);
 
         $app = $this->prophesize(ApplicationInterface::class);
-        $sm  = $this->prophesize(containerinterface::class);
+        $sm  = $this->prophesize(ContainerInterface::class);
         $sm->get('AsseticConfiguration')->willReturn($conf);
         $sm->get('AsseticService')->willReturn($service->reveal());
         $sm->get('ViewRenderer')->willReturn($renderer->reveal());
@@ -107,7 +107,7 @@ final class ListenerTest extends TestCase
         ]);
 
         $app = $this->prophesize(ApplicationInterface::class);
-        $sm  = $this->prophesize(containerinterface::class);
+        $sm  = $this->prophesize(ContainerInterface::class);
         $sm->get('AsseticConfiguration')->willReturn($conf);
         $sm->get('AsseticService')->shouldNotBeCalled();
         $app->getServiceManager()->willReturn($sm->reveal());
