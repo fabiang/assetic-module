@@ -3,7 +3,7 @@ imports:
 
 build:
     environment:
-        php: 8.0.0
+        php: 8.2.1
     nodes:
         analysis:
             project_setup:
