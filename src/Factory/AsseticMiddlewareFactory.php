@@ -6,7 +6,7 @@ namespace Fabiang\AsseticBundle\Factory;
 
 use Fabiang\AsseticBundle\AsseticMiddleware;
 use Fabiang\AsseticBundle\Service as AsseticService;
-use Interop\Container\ContainerInterface;
+use interop\container\containerinterface;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 use Laminas\View\Renderer\PhpRenderer;
 
@@ -15,7 +15,7 @@ final class AsseticMiddlewareFactory implements FactoryInterface
     /**
      * @param string $requestedName
      */
-    public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null): object
+    public function __invoke(containerinterface $container, $requestedName, ?array $options = null): object
     {
         /** @var AsseticService $asseticService */
         $asseticService = $container->get(AsseticService::class);

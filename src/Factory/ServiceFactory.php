@@ -6,7 +6,7 @@ namespace Fabiang\AsseticBundle\Factory;
 
 use Assetic;
 use Fabiang\AsseticBundle\Service;
-use Interop\Container\ContainerInterface;
+use interop\container\containerinterface;
 use Laminas\Http\Request as HTTPRequest;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 use Mezzio\Application as MezzioApp;
@@ -20,7 +20,7 @@ class ServiceFactory implements FactoryInterface
     /**
      * @param string $requestedName
      */
-    public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null): Service
+    public function __invoke(containerinterface $container, $requestedName, ?array $options = null): Service
     {
         $asseticConfig = $container->get('AsseticConfiguration');
         if ($asseticConfig->detectBaseUrl()) {

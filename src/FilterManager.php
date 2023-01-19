@@ -7,7 +7,7 @@ namespace Fabiang\AsseticBundle;
 use Assetic\Contracts\Filter\FilterInterface;
 use Assetic\FilterManager as AsseticFilterManager;
 use Fabiang\AsseticBundle\Exception\InvalidArgumentException;
-use Interop\Container\ContainerInterface;
+use interop\container\containerinterface;
 
 use function gettype;
 use function is_object;
@@ -15,9 +15,9 @@ use function sprintf;
 
 class FilterManager extends AsseticFilterManager
 {
-    protected ContainerInterface $container;
+    protected containerinterface $container;
 
-    public function __construct(ContainerInterface $container)
+    public function __construct(containerinterface $container)
     {
         $this->container = $container;
     }

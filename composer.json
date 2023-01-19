@@ -29,17 +29,17 @@
         "bin/assetic"
     ],
     "require": {
-        "php": "^7.4 || ~8.0.0 || ~8.1.0",
+        "php": "^7.4 || ~8.0.0 || ~8.1.0 || ~8.2.0",
         "assetic/framework": "^3.0",
         "laminas/laminas-view": "^2.12",
         "symfony/console": "^4.0 || ^5.0 || ^6.0"
     },
     "require-dev": {
-        "laminas/laminas-diactoros": "^2.5",
-        "laminas/laminas-mvc": "^3.1",
-        "mezzio/mezzio": "^3.2",
-        "mezzio/mezzio-helpers": "^5.4",
-        "mezzio/mezzio-router": "^3.2",
+        "laminas/laminas-diactoros": "^2.10",
+        "laminas/laminas-mvc": "^3.3",
+        "mezzio/mezzio": "^3.10",
+        "mezzio/mezzio-helpers": "^5.8",
+        "mezzio/mezzio-router": "^3.8",
         "phpspec/prophecy-phpunit": "^2.0",
         "phpunit/phpunit": "^9.5",
         "psr/http-server-middleware": "^1.0",

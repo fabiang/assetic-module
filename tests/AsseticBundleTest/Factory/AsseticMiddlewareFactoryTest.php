@@ -7,7 +7,7 @@ namespace AsseticBundleTest;
 use Fabiang\AsseticBundle\AsseticMiddleware;
 use Fabiang\AsseticBundle\Factory\AsseticMiddlewareFactory;
 use Fabiang\AsseticBundle\Service;
-use Interop\Container\ContainerInterface;
+use interop\container\containerinterface;
 use Laminas\View\Renderer\PhpRenderer;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
@@ -38,7 +38,7 @@ final class AsseticMiddlewareFactoryTest extends TestCase
         $asseticService = $this->prophesize(Service::class);
         $phpRenderer    = $this->prophesize(PhpRenderer::class);
 
-        $container = $this->prophesize(ContainerInterface::class);
+        $container = $this->prophesize(containerinterface::class);
         $container->get(Service::class)
             ->shouldBeCalled()
             ->willReturn($asseticService->reveal());
