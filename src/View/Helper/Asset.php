@@ -10,8 +10,8 @@ use Fabiang\AsseticBundle\Exception;
 use Fabiang\AsseticBundle\Exception\InvalidArgumentException;
 use Fabiang\AsseticBundle\Factory\ServiceFactory;
 use Fabiang\AsseticBundle\Service;
-use Interop\Container\ContainerInterface;
 use Laminas\View\Helper\Placeholder\Container;
+use Psr\Container\ContainerInterface;
 
 use function pathinfo;
 use function strtolower;

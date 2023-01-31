@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Fabiang\AsseticBundle\Cli;
 
-use Interop\Container\ContainerInterface;
 use Laminas\ServiceManager\Factory\FactoryInterface;
+use Psr\Container\ContainerInterface;
 use Symfony\Component\Console\Application;
 
 class ApplicationFactory implements FactoryInterface

@@ -7,7 +7,6 @@ namespace AsseticBundleTest;
 use Fabiang\AsseticBundle\Configuration;
 use Fabiang\AsseticBundle\Listener;
 use Fabiang\AsseticBundle\Service as AsseticService;
-use Interop\Container\ContainerInterface;
 use Laminas\EventManager\EventManagerInterface;
 use Laminas\Mvc\Application as MvcApplication;
 use Laminas\Mvc\ApplicationInterface;
@@ -18,6 +17,7 @@ use Laminas\View\Renderer\RendererInterface;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
+use Psr\Container\ContainerInterface;
 
 /**
  * @coversDefaultClass \Fabiang\AsseticBundle\Listener

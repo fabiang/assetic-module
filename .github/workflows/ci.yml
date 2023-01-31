@@ -1,0 +1,123 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  unittest:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        php:
+          - version: 7.4
+            coverage: false
+          - version: 8.0
+            coverage: true
+          - version: 8.1
+            coverage: false
+          - version: 8.2
+            coverage: false
+        prefer-lowest: ["", "--prefer-lowest"]
+
+    name: Unit Tests - PHP ${{ matrix.php.version }} ${{ matrix.prefer-lowest }}
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php.version }}
+          extensions: mbstring
+
+      - name: Validate composer.json and composer.lock
+        run: composer validate --strict
+
+      - name: Cache Composer packages
+        id: composer-cache
+        uses: actions/cache@v3
+        with:
+          path: vendor
+          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-php-
+
+      - name: Remove static analyse tools
+        run: |
+          composer remove --dev --with-all-dependencies --ignore-platform-reqs \
+             squizlabs/php_codesniffer \
+             vimeo/psalm \
+             slevomat/coding-standard \
+             laminas/laminas-coding-standard
+
+      - name: Update dependencies
+        run: composer update --prefer-dist --no-progress --with-all-dependencies ${{ matrix.prefer-lowest }}
+
+      - name: Run test suite
+        if: ${{ ! matrix.php.coverage }}
+        run: ./vendor/bin/phpunit --verbose
+
+      - name: Run test suite with code coverage
+        if: ${{ matrix.php.coverage }}
+        run: ./vendor/bin/phpunit --verbose --coverage-clover=build/logs/clover.xml
+        env:
+          XDEBUG_MODE: coverage
+
+      - name: Update code coverage to Scrutinizer
+        if: ${{ matrix.php.coverage }}
+        run: |
+          wget -q https://scrutinizer-ci.com/ocular.phar
+          php ocular.phar code-coverage:upload --format=php-clover build/logs/clover.xml || true
+
+  psalm:
+    name: Psalm
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Psalm
+        uses: docker://vimeo/psalm-github-actions
+        with:
+          security_analysis: true
+          report_file: results.sarif
+          composer_ignore_platform_reqs: true
+
+      - name: Upload Security Analysis results to GitHub
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: results.sarif
+
+  phpcs:
+    name: PHPCS
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.2"
+          coverage: none
+          tools: composer, cs2pr
+
+      - name: Cache Composer packages
+        id: composer-cache
+        uses: actions/cache@v3
+        with:
+          path: vendor
+          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-php-
+
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-suggest --no-progress
+
+      - name: Detect coding standard violations (PR)
+        run: ./vendor/bin/phpcs -q --report=checkstyle | cs2pr --graceful-warnings
+        if: github.event_name == 'pull_request'
+
+      - name: Detect coding standard violations
+        run: ./vendor/bin/phpcs
+        if: github.event_name != 'pull_request'

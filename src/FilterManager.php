@@ -7,7 +7,7 @@ namespace Fabiang\AsseticBundle;
 use Assetic\Contracts\Filter\FilterInterface;
 use Assetic\FilterManager as AsseticFilterManager;
 use Fabiang\AsseticBundle\Exception\InvalidArgumentException;
-use Interop\Container\ContainerInterface;
+use Psr\Container\ContainerInterface;
 
 use function gettype;
 use function is_object;

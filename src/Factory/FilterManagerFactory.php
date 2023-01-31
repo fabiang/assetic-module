@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Fabiang\AsseticBundle\Factory;
 
 use Fabiang\AsseticBundle\FilterManager;
-use Interop\Container\ContainerInterface;
 use Laminas\ServiceManager\Factory\FactoryInterface;
+use Psr\Container\ContainerInterface;
 
 class FilterManagerFactory implements FactoryInterface
 {

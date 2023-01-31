@@ -7,10 +7,10 @@ namespace AsseticBundleTest;
 use Fabiang\AsseticBundle\AsseticMiddleware;
 use Fabiang\AsseticBundle\Factory\AsseticMiddlewareFactory;
 use Fabiang\AsseticBundle\Service;
-use Interop\Container\ContainerInterface;
 use Laminas\View\Renderer\PhpRenderer;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
+use Psr\Container\ContainerInterface;
 
 use function is_callable;
 

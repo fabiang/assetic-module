@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Fabiang\AsseticBundle\Factory;
 
 use Fabiang\AsseticBundle\Configuration;
-use Interop\Container\ContainerInterface;
 use Laminas\ServiceManager\Factory\FactoryInterface;
+use Psr\Container\ContainerInterface;
 
 class ConfigurationFactory implements FactoryInterface
 {

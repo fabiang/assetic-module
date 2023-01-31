@@ -6,11 +6,11 @@ namespace Fabiang\AsseticBundle\Factory;
 
 use Assetic;
 use Fabiang\AsseticBundle\Service;
-use Interop\Container\ContainerInterface;
 use Laminas\Http\Request as HTTPRequest;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 use Mezzio\Application as MezzioApp;
 use Mezzio\Helper\UrlHelper;
+use Psr\Container\ContainerInterface;
 
 use function class_exists;
 use function method_exists;

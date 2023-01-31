@@ -6,9 +6,9 @@ namespace Fabiang\AsseticBundle\Factory;
 
 use Fabiang\AsseticBundle\AsseticMiddleware;
 use Fabiang\AsseticBundle\Service as AsseticService;
-use Interop\Container\ContainerInterface;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 use Laminas\View\Renderer\PhpRenderer;
+use Psr\Container\ContainerInterface;
 
 final class AsseticMiddlewareFactory implements FactoryInterface
 {

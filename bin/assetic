@@ -5,7 +5,7 @@ use Laminas\Mvc\Application as MvcApplication;
 use Laminas\Stdlib\ArrayUtils;
 
 /**
- * @return array|Interop\Container\ContainerInterface
+ * @return array|Psr\Container\ContainerInterface
  * @throws RuntimeException
  */
 function __findAppConfig(string $path)
