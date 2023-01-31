@@ -1,4 +1,4 @@
-# AsseticBundle v3.2
+# AsseticBundle v3.x
 
 [![Latest Stable Version](https://poser.pugx.org/fabiang/assetic-module/version)](https://packagist.org/packages/fabiang/assetic-module)
 [![License](https://poser.pugx.org/fabiang/assetic-module/license)](https://packagist.org/packages/fabiang/assetic-module)
@@ -11,7 +11,7 @@ Currently maintained fork of [widmogrod/zf2-assetic-module](https://github.com/w
 
 ## Features
 
-  * [x] Add support for PHP 8.0
+  * [x] Add support for PHP 8.0+
   * [x] Drop support for PHP <7.4
   * [x] Remove support for Zend Framework
   * [x] Use return-types and type-hints everywhere
