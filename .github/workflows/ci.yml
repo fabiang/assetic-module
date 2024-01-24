@@ -12,10 +12,12 @@ jobs:
           - version: 7.4
             coverage: false
           - version: 8.0
-            coverage: true
+            coverage: false
           - version: 8.1
             coverage: false
           - version: 8.2
+            coverage: true
+          - version: 8.3
             coverage: false
         prefer-lowest: ["", "--prefer-lowest"]
 
@@ -55,11 +57,11 @@ jobs:
 
       - name: Run test suite
         if: ${{ ! matrix.php.coverage }}
-        run: ./vendor/bin/phpunit --verbose
+        run: ./vendor/bin/phpunit
 
       - name: Run test suite with code coverage
         if: ${{ matrix.php.coverage }}
-        run: ./vendor/bin/phpunit --verbose --coverage-clover=build/logs/clover.xml
+        run: ./vendor/bin/phpunit --coverage-clover=build/logs/clover.xml
         env:
           XDEBUG_MODE: coverage
 
