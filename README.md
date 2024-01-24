@@ -47,10 +47,3 @@ or [the quick start guide for Mezzio?](https://github.com/fabiang/assetic-module
   * [Configuration](https://github.com/fabiang/assetic-module/blob/main/docs/config.md)
   * [Tips & Tricks](https://github.com/fabiang/assetic-module/blob/main/docs/tips.md)
   * [Migration guide](https://github.com/fabiang/assetic-module/blob/main/docs/migration.md)
-
-## Developing
-
-We've two main branches here:
-
-- main: current version with dropped Zend Framework and added Mezzio support
-- 2.x: version compatible with Zend Framework 2/3 and Laminas
