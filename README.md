@@ -3,10 +3,12 @@
 [![Latest Stable Version](https://poser.pugx.org/fabiang/assetic-module/version)](https://packagist.org/packages/fabiang/assetic-module)
 [![License](https://poser.pugx.org/fabiang/assetic-module/license)](https://packagist.org/packages/fabiang/assetic-module)
 [![CI](https://github.com/fabiang/assetic-module/actions/workflows/ci.yml/badge.svg)](https://github.com/fabiang/assetic-module/actions/workflows/ci.yml)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/fabiang/assetic-module/badges/quality-score.png?b=main)](https://scrutinizer-ci.com/g/fabiang/assetic-module/?branch=main)
-[![Code Coverage](https://scrutinizer-ci.com/g/fabiang/assetic-module/badges/coverage.png?b=main)](https://scrutinizer-ci.com/g/fabiang/assetic-module/?branch=main)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/fabiang/assetic-module/badges/quality-score.png?b=develop)](https://scrutinizer-ci.com/g/fabiang/assetic-module/?branch=develop)
+[![Code Coverage](https://scrutinizer-ci.com/g/fabiang/assetic-module/badges/coverage.png?b=develop)](https://scrutinizer-ci.com/g/fabiang/assetic-module/?branch=develop)
 
 Currently maintained fork of [widmogrod/zf2-assetic-module](https://github.com/widmogrod/zf2-assetic-module).
+**Note:** Please consider using a different framework for managing your assets, e.g., Webpack.
+While this is still maintained, this module is considered feature-complete and, therefore, only bug fixes will be accepted.
 
 ## Features
 
