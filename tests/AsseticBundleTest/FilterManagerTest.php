@@ -42,14 +42,14 @@ final class FilterManagerTest extends TestCase
         $this->assertFalse($this->object->has($alias));
     }
 
-    public function getAliasHasFalseProvider(): array
+    public static function getAliasHasFalseProvider(): array
     {
         return [
             'simple'       => [
-                '$alias' => 'simpleName',
+                'alias' => 'simpleName',
             ],
             'invalid name' => [
-                '$alias' => '@_simpleName',
+                'alias' => '@_simpleName',
             ],
         ];
     }
@@ -64,14 +64,14 @@ final class FilterManagerTest extends TestCase
         $this->object->get($alias);
     }
 
-    public function getAliasGetExceptionProvider(): array
+    public static function getAliasGetExceptionProvider(): array
     {
         return [
             'no existing'  => [
-                '$alias' => 'simpleName',
+                'alias' => 'simpleName',
             ],
             'invalid name' => [
-                '$alias' => '@_simpleName',
+                'alias' => '@_simpleName',
             ],
         ];
     }
@@ -87,12 +87,12 @@ final class FilterManagerTest extends TestCase
         $this->object->get($alias);
     }
 
-    public function getAliasGetExceptionInstanceProvider(): array
+    public static function getAliasGetExceptionInstanceProvider(): array
     {
         return [
             'simple' => [
-                '$alias'  => 'simpleName',
-                '$object' => new stdClass(),
+                'alias'  => 'simpleName',
+                'object' => new stdClass(),
             ],
         ];
     }
@@ -102,21 +102,23 @@ final class FilterManagerTest extends TestCase
      * @covers ::get
      * @covers ::__construct
      */
-    public function testGetValid(string $alias, object $object): void
+    public function testGetValid(string $alias, string $object): void
     {
-        $this->assertInstanceOf(FilterInterface::class, $object);
-        $this->service->setService($alias, $object);
+        $instance = $this->prophesize($object)->reveal();
+
+        $this->assertInstanceOf(FilterInterface::class, $instance);
+        $this->service->setService($alias, $instance);
         $result = $this->object->get($alias);
         $this->assertInstanceOf(\assetic\filter\filterinterface::class, $result);
-        $this->assertSame($result, $object);
+        $this->assertSame($result, $instance);
     }
 
-    public function getAliasGetValidProvider(): array
+    public static function getAliasGetValidProvider(): array
     {
         return [
             'simple' => [
-                '$alias'  => 'simpleName',
-                '$object' => $this->prophesize(FilterInterface::class)->reveal(),
+                'alias'  => 'simpleName',
+                'object' => FilterInterface::class,
             ],
         ];
     }

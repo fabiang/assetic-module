@@ -1,30 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd"
-    colors="true"
-    verbose="true"
-    backupGlobals="false"
-    backupStaticAttributes="false"
-    stopOnFailure="false">
-
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.5/phpunit.xsd" colors="true" backupGlobals="false" stopOnFailure="false" cacheDirectory=".phpunit.cache" backupStaticProperties="false">
     <testsuites>
         <testsuite name="src">
             <directory suffix=".php">./tests/AsseticBundleTest/</directory>
         </testsuite>
     </testsuites>
-
-    <coverage>
+    <php>
+        <ini name="error_reporting" value="-1"/>
+        <ini name="display_errors" value="on"/>
+        <ini name="log_errors" value="off"/>
+        <const name="TEST_ASSETS_DIR" value="tests/assets"/>
+        <const name="TEST_CACHE_DIR" value="tests/cache"/>
+        <const name="TEST_PUBLIC_DIR" value="tests/public"/>
+    </php>
+    <source>
         <include>
             <directory suffix=".php">./src/</directory>
         </include>
-    </coverage>
-
-    <php>
-        <ini name="error_reporting" value="-1" />
-        <ini name="display_errors" value="on" />
-        <ini name="log_errors" value="off" />
-        <const name="TEST_ASSETS_DIR" value="tests/assets" />
-        <const name="TEST_CACHE_DIR" value="tests/cache" />
-        <const name="TEST_PUBLIC_DIR" value="tests/public" />
-    </php>
+    </source>
 </phpunit>

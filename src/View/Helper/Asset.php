@@ -21,6 +21,7 @@ use const PHP_EOL;
 
 /**
  * @psalm-suppress PropertyNotSetInConstructor Upstream issue with contructor
+ * @psalm-suppress MissingTemplateParam
  */
 class Asset extends Container\AbstractStandalone
 {

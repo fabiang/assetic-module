@@ -29,27 +29,27 @@
         "bin/assetic"
     ],
     "require": {
-        "php": "^7.4 || ~8.0.0 || ~8.1.0 || ~8.2.0 || ~8.3.0",
+        "php": "^7.4 || ~8.0.0 || ~8.1.0 || ~8.2.0 || ~8.3.0 || ~8.4.0",
         "assetic/framework": "^3.0",
         "laminas/laminas-view": "^2.12",
         "symfony/console": "^4.0 || ^5.0 || ^6.0 || ^7.0"
     },
     "require-dev": {
-        "laminas/laminas-diactoros": "^2.10",
-        "laminas/laminas-mvc": "^3.3",
-        "mezzio/mezzio": "^3.10",
-        "mezzio/mezzio-helpers": "^5.8",
-        "mezzio/mezzio-router": "^3.8",
-        "phpspec/prophecy-phpunit": "^2.0",
-        "phpunit/phpunit": "^9.5.28 || ^10.0",
+        "laminas/laminas-diactoros": ">=2.10",
+        "laminas/laminas-mvc": ">=3.3",
+        "mezzio/mezzio": ">=3.10",
+        "mezzio/mezzio-helpers": ">=5.8",
+        "mezzio/mezzio-router": ">=3.8",
+        "phpspec/prophecy-phpunit": ">=2.3",
+        "phpunit/phpunit": ">=9.5.28",
         "psr/http-server-middleware": "^1.0",
-        "vimeo/psalm": "^4.23",
+        "vimeo/psalm": "*",
         "scrutinizer/ocular": "dev-master",
-        "squizlabs/php_codesniffer": "^3.6",
-        "slevomat/coding-standard": "^7.2",
-        "laminas/laminas-coding-standard": "^2.3",
-        "phpspec/prophecy": "^1.16",
-        "webmozart/assert": "^1.11"
+        "squizlabs/php_codesniffer": "*",
+        "slevomat/coding-standard": "*",
+        "laminas/laminas-coding-standard": "*",
+        "phpspec/prophecy": ">=1.20",
+        "webmozart/assert": "*"
     },
     "suggest": {
         "laminas/laminas-mvc": "When using this module together with Laminas MVC",

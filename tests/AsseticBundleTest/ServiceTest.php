@@ -108,7 +108,7 @@ final class ServiceTest extends TestCase
         $this->assertEquals($routeName, $this->object->getRouteName());
     }
 
-    public function getRoutesNamesProvider(): array
+    public static function getRoutesNamesProvider(): array
     {
         return [
             'simple'  => ['some'],
